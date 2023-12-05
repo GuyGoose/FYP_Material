@@ -6,21 +6,30 @@ using UnityEngine;
 
 public class Card : ScriptableObject
 {
+    // Identity Info
     public int id;
     public string cardName;
-    public int cost;
-    public int value;
+    // Description
+    public bool customDescription;
     public string cardDescription;
+    // Card Attributes
+    public int cost;
+    public bool hasTarget;
+    public bool voidOnUse;
+    // Card Actions
+    // actionType 0 = none, 1 = damage, 2 = heal, 3 = shield, 4 = draw, 5 = discard, 6 = buff, 7 = debuff
+    public enum ActionTypes { None, Damage, Heal, Shield, Draw, Discard, Buff, Debuff };
+    public ActionTypes actionType1;
+    
 
     public Card() {
 
     }
 
-    public Card(int Id, string CardName, int Cost, int Value, string CardDescription) {
+    public Card(int Id, string CardName, int Cost, string CardDescription) {
         id = Id;
         cardName = CardName;
         cost = Cost;
-        value = Value;
         cardDescription = CardDescription;
     }
 
