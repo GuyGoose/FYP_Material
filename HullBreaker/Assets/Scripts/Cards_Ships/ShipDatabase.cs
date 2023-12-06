@@ -7,8 +7,12 @@ public class ShipDatabase : MonoBehaviour
     public GameObject cardDatabaseObject;
 
     public List<Ship> shipList = new List<Ship>();
+    
     public List<Ship> playerShips = new List<Ship>();
     public List<Ship> playerShipsDestroyed = new List<Ship>();
+
+    public List<Ship> enemyShips = new List<Ship>();
+    public List<Ship> enemyShipsDestroyed = new List<Ship>();
 
     private void Awake() {
         // Add all ship scriptable objects contained in the Ships folder to the shipList

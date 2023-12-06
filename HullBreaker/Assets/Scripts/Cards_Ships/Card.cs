@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
+[CreateAssetMenu(fileName = "New Card", menuName = "HullBreaker/Card")]
 
 public class Card : ScriptableObject
 {
@@ -14,13 +14,9 @@ public class Card : ScriptableObject
     public string cardDescription;
     // Card Attributes
     public int cost;
-    public bool hasTarget;
-    public bool voidOnUse;
-    // Card Actions
-    // actionType 0 = none, 1 = damage, 2 = heal, 3 = shield, 4 = draw, 5 = discard, 6 = buff, 7 = debuff
-    public enum ActionTypes { None, Damage, Heal, Shield, Draw, Discard, Buff, Debuff };
-    public ActionTypes actionType1;
-    
+    // Card Actions (Scriptable Objects)
+    public GameObject[] cardActions;
+
 
     public Card() {
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "New Ship", menuName = "Ship")]
+[CreateAssetMenu(fileName = "New Ship", menuName = "HullBreaker/Ship")]
 public class Ship : ScriptableObject
 {
     [SerializeField]

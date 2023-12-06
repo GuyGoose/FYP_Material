@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   cardName: Attack
-  cost: 1
-  value: 0
+  customDescription: 1
   cardDescription: Deal 1 DMG
+  cost: 1
+  cardActions: []
