@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   cardName: Draw
-  cost: 0
-  value: 0
+  customDescription: 1
   cardDescription: DRAW 1
+  cost: 0
+  cardActions: []

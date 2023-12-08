@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   cardName: Shield
-  cost: 1
-  value: 0
+  customDescription: 1
   cardDescription: Gain 10 SHIELD
+  cost: 1
+  cardActions: []

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   cardName: Heal
-  cost: 2
-  value: 0
+  customDescription: 1
   cardDescription: Gain 5 HP
+  cost: 2
+  cardActions: []
