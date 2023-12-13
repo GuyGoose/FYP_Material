@@ -14,6 +14,10 @@ public class DisplayCard : MonoBehaviour
 
     public GameObject cardBack;
 
+    // Properties
+    public bool selected = false;
+    public bool notSelected = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,21 @@ public class DisplayCard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Card Hover
+        // If the mouse is over the card, increase the card's size, otherwise, return it to normal size
+        if (RectTransformUtility.RectangleContainsScreenPoint(GetComponent<RectTransform>(), Input.mousePosition)) {
+            GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            // Bring the card to the front of the canvas
+            GetComponent<RectTransform>().SetAsLastSibling();
+        } else {
+            GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            // Return the card to its original position in the canvas
+            GetComponent<RectTransform>().SetAsFirstSibling();
+        }
+
+        // Card Selection
+        // If THIS card is clicked, select it, otherwise, deselect it
+    
         
     }
 
@@ -45,6 +64,35 @@ public class DisplayCard : MonoBehaviour
         } else {
             cardBack.SetActive(true);
         }
+    }
+
+    public void SelectCard() {
+        // Select the card, or deselect it if it's already selected
+        // If selected, move the card up, increase its size and bring it to the front of the canvas (set all other cards to not selected and move them down and decrease their size)
+        if (selected) {
+            DeselectCard();
+        } else {
+            selected = true;
+            notSelected = false;
+            GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            // Bring the card to the front of the canvas
+            GetComponent<RectTransform>().SetAsLastSibling();
+        }
+    }
+
+    public void DeselectCard() {
+        // Deselect the card, or select it if it's already deselected
+        // If deselected, move the card down, decrease its size and return it to its original position in the canvas (set all other cards to selected and move them up and increase their size)
+        if (notSelected) {
+            SelectCard();
+        } else {
+            selected = false;
+            notSelected = true;
+            GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            // Return the card to its original position in the canvas
+            GetComponent<RectTransform>().SetAsFirstSibling();
+        }
+        
     }
 
 }
