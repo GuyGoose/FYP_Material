@@ -24,13 +24,13 @@ public class CardDatabase : MonoBehaviour
     public List<Card> playerVoid = new List<Card>();
 
     private void Awake() {
-        // Add all card scriptable objects contained in the Cards folder to the cardList
-        Card[] cards = Resources.LoadAll<Card>("Cards");
-        // Print the number of cards in the cardList
-        Debug.Log("Number of cards in cardList: " + cards.Length);
-        foreach (Card card in cards) {
-            cardList.Add(card);
-        }
+        // // Add all card scriptable objects contained in the Cards folder to the cardList
+        // Card[] cards = Resources.LoadAll<Card>("Cards");
+        // // Print the number of cards in the cardList
+        // Debug.Log("Number of cards in cardList: " + cards.Length);
+        // foreach (Card card in cards) {
+        //     cardList.Add(card);
+        // }
     }
 
     // Start is called before the first frame update

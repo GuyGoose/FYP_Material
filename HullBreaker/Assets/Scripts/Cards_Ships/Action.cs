@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New CardAction", menuName = "HullBreaker/CardAction", order = 0)]
-public class CardAction : ScriptableObject {
+[CreateAssetMenu(fileName = "New Action", menuName = "HullBreaker/Action", order = 0)]
+public class Action : ScriptableObject {
 
     // Action Type (Attack, Defense, Utility)
     public ActionType actionType;

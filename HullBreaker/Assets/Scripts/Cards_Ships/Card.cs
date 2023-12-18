@@ -15,7 +15,7 @@ public class Card : ScriptableObject
     // Card Attributes
     public int cost;
     // Card Actions (Scriptable Objects)
-    public GameObject[] cardActions;
+    public Action[] cardActions;
 
 
     public Card() {
