@@ -7,72 +7,20 @@ using UnityEngine;
 public class Ship : ScriptableObject
 {
     [SerializeField]
-    private int id;
+    public int id;
 
     [SerializeField]
-    private string shipName;
+    public Sprite shipSprite;
 
     [SerializeField]
-    private int health;
-
-    [SerializeField]
-    private ShipSize size;
-
-    [SerializeField]
-    private Rarity shipRarity;
-
-    // The ships associated card(s)
-    [SerializeField]
-    private List<Card> shipCards;
-
-    [SerializeField]
-    private Sprite shipSprite;
-
-    [SerializeField]
-    private ShipType shipType;
+    public List<Action> shipActions = new List<Action>();
 
     // Getters and setters for the serialized fields
-    
+
     public int Id
     {
         get { return id; }
         private set { id = value; }
-    }
-
-    public string ShipName
-    {
-        get { return shipName; }
-        set { shipName = value; }
-    }
-    
-    public ShipType Type
-    {
-        get { return shipType; }
-        set { shipType = value; }
-    }
-
-    public int Health
-    {
-        get { return health; }
-        set { health = value; }
-    }
-
-    public ShipSize Size
-    {
-        get { return size; }
-        set { size = value; }
-    }
-
-    public Rarity ShipRarity
-    {
-        get { return shipRarity; }
-        set { shipRarity = value; }
-    }
-
-    public List<Card> ShipCards
-    {
-        get { return shipCards; }
-        set { shipCards = value; }
     }
 
     public Sprite ShipSprite
@@ -80,34 +28,16 @@ public class Ship : ScriptableObject
         get { return shipSprite; }
         set { shipSprite = value; }
     }
-}
 
-// Enum for ship rarity
-public enum Rarity
-{
-    Common,
-    Rare,
-    Epic,
-    Legendary
-}
+    public List<Action> ShipActions
+    {
+        get { return shipActions; }
+        set { shipActions = value; }
+    }
 
-// Enum for ship types
-public enum ShipType
-{
-    Drone,
-    Battleship,
-    Surveyor,
-    Tanker,
-    Carrier,
-    Destroyer,
-    Specialist
-}
-
-// Enum for ship sizes
-public enum ShipSize
-{
-    Tiny,
-    Small,
-    Medium,
-    Large
+    public void PrintShipInfo() {
+        Debug.Log("Ship ID: " + id);
+        Debug.Log("Ship Sprite: " + shipSprite);
+        Debug.Log("Ship Actions: " + shipActions);
+    }
 }

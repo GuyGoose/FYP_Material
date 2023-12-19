@@ -5,45 +5,44 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Action", menuName = "HullBreaker/Action", order = 0)]
 public class Action : ScriptableObject {
 
-    // Action Type (Attack, Defense, Utility)
-    public ActionType actionType;
+    // Action Name
+    [SerializeField]
+    public string actionName;
 
-    // Action Functionality
-    public ActionFunction actionFunction;
+    // Action Description
+    [SerializeField]
+    public string actionDescription;
 
-    // Action Target (Self, Enemy, All Enemies, All Allies, All Ships)
-    public ActionTarget actionTarget;
+    // Action Type
+    [SerializeField]
+    public actionType actionType;
 
     // Action Value
+    [SerializeField]
     public int actionValue;
+
+    // Action Energy Cost
+    [SerializeField]
+    public int actionEnergyCost;
+
+    // Action Targets
+    [SerializeField]
+    public actionTarget actionTarget;
     
 }
 
-public enum ActionType {
-    Attack,
-    Defense,
-    Utility
-}
-
-public enum ActionFunction {
+public enum actionType {
     Damage,
-    Vamp_Damage,
-    Cost_Damage,
-    Heal,
-    Draw,
-    Discard,
-    Destroy,
+    Shield,
     Repair,
-    Buff,
-    Debuff,
-    Stun
+    Recharge
 }
 
-public enum ActionTarget {
+public enum actionTarget {
     Self,
     Enemy,
     AllEnemies,
     AllAllies,
-    AllShips
+    All
 }
 

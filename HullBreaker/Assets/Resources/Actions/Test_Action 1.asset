@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bb09da04b17dd7408f0e78f7bfbf7b4, type: 3}
-  m_Name: Attack 3
+  m_Name: Test_Action 1
   m_EditorClassIdentifier: 
+  actionName: Wide Attack
+  actionDescription: 3 DMG ALL
   actionType: 0
-  actionFunction: 0
-  actionTarget: 0
-  actionValue: 0
+  actionValue: 3
+  actionEnergyCost: 2
+  actionTarget: 2
