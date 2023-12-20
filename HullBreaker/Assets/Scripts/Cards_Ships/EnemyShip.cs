@@ -19,7 +19,7 @@ public class EnemyShip : ScriptableObject
     private Sprite shipSprite;
 
     [SerializeField]
-    private Action[] shipActions;
+    private List<Action> shipActions = new List<Action>();
 
     // Getters and setters for the serialized fields
     
@@ -46,4 +46,11 @@ public class EnemyShip : ScriptableObject
         get { return shipSprite; }
         set { shipSprite = value; }
     }
+
+    public List<Action> ShipActions
+    {
+        get { return shipActions; }
+        set { shipActions = value; }
+    }
+
 }

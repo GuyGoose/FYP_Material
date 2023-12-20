@@ -4,41 +4,80 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// Gets the players ships and displays there actions on the action buttons
-// Each ship has 4 actions. Max 4 ships
-// Each action has a name, description, type, value, and target
-// Takes in the number of ships and enables the correct number of action button menus
-// Each action button menu has 4 buttons
-// Each button has a description text
+// Contains the buttons action and add it to the playerActionQueue in CombatManager on click and remove it on click again
 // The button will display the description
-// When the button is clicked, the action will be added to the playerActionQueue in CombatManager
 
 public class ActionButton : MonoBehaviour {
-    // This menus ship
-    public Ship ship;
+    // The CombatManager Instance
+    public CombatManager combatManager = CombatManager.Instance;
+    // This button
+    public UnityEngine.UI.Button button;
+    // Description text
+    public TextMeshProUGUI descriptionText;
 
-    // The ship's actions
-    public List<Action> shipActions = new List<Action>();
+    // The action
+    public Action action;
 
-    // The action buttons
-    public List<UnityEngine.UI.Button> actionButtons = new List<UnityEngine.UI.Button>();
+    private int costToClick;
+    public bool clicked = false;
 
     // Start is called before the first frame update
     void Start() {
-        // Get the ship's actions
-        shipActions = ship.shipActions;
+        // Get the button
+        button = GetComponent<UnityEngine.UI.Button>();
 
-        // For each child of this object get the button
-        foreach (Transform child in transform) {
-            actionButtons.Add(child.GetComponent<UnityEngine.UI.Button>());
-        }
-
-        // Set the action buttons to the ship's actions
-        for (int i = 0; i < actionButtons.Count; i++) {
-            actionButtons[i].GetComponent<Button>().action = shipActions[i];
-        }
-        
+        // Set the combatManager to Object tagged "CombatManager"
+        combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
     }
 
+    void Update() {
+        // Set the description text
+        descriptionText.text = action.actionDescription;
+        // Set the cost to click
+        costToClick = action.actionEnergyCost;
 
+        // If the player has enough energy to click the button, make it interactable
+        if (combatManager.playerEnergy >= costToClick) {
+            button.interactable = true;
+        } else if (combatManager.playerEnergy < costToClick && clicked == false) {
+            button.interactable = false;
+        }
+
+        // If Clicked is true, change the button's color
+        if (clicked == true) {
+            button.image.color = Color.green;
+        } else if (clicked == false) {
+            button.image.color = Color.white;
+        }
+    }
+
+    // When the button is clicked, the action will be added to the playerActionQueue in CombatManager
+    public void OnClick() {
+        if (action != null)
+            {
+                if (clicked == false && combatManager.playerEnergy >= costToClick)
+                {
+                    // Remove the cost to click from the player's energy
+                    combatManager.playerEnergy -= costToClick;
+
+                    Debug.Log("Adding action");
+                    combatManager.playerActionQueue.Add(action);
+                    Debug.Log("Action added");
+                    clicked = true;
+                }
+                else if (clicked == true)
+                {
+                    // Add the cost to click to the player's energy
+                    combatManager.playerEnergy += costToClick;
+
+                    Debug.Log("Removing action");
+                    combatManager.playerActionQueue.Remove(action);
+                    Debug.Log("Action removed");
+                    clicked = false;
+                }
+            }
+        else {
+                Debug.LogError("Action is null. Make sure to assign a valid Action to the button.");
+            }
+    }
 }
