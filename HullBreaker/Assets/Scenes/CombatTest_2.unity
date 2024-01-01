@@ -2970,6 +2970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyShip: {fileID: 11400000, guid: d9b7f4d0c830dae44974d8c3ee24c2ac, type: 2}
+  combatManager: {fileID: 2006599108}
   enemyHealth: 0
   enemyHealthMax: 0
   enemyHealthDisplay: {fileID: 475276467}
@@ -2977,6 +2978,7 @@ MonoBehaviour:
   enemyName: 
   enemyId: 0
   availableActions: []
+  currentActionIndex: 0
 --- !u!114 &657286471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4509,6 +4511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyShip: {fileID: 11400000, guid: d9b7f4d0c830dae44974d8c3ee24c2ac, type: 2}
+  combatManager: {fileID: 2006599108}
   enemyHealth: 0
   enemyHealthMax: 0
   enemyHealthDisplay: {fileID: 213260549}
@@ -4516,6 +4519,7 @@ MonoBehaviour:
   enemyName: 
   enemyId: 0
   availableActions: []
+  currentActionIndex: 0
 --- !u!114 &932081958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5771,6 +5775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyShip: {fileID: 11400000, guid: d9b7f4d0c830dae44974d8c3ee24c2ac, type: 2}
+  combatManager: {fileID: 2006599108}
   enemyHealth: 0
   enemyHealthMax: 0
   enemyHealthDisplay: {fileID: 1415732698}
@@ -5778,6 +5783,7 @@ MonoBehaviour:
   enemyName: 
   enemyId: 0
   availableActions: []
+  currentActionIndex: 0
 --- !u!114 &1200053162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7984,6 +7990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyShip: {fileID: 11400000, guid: d9b7f4d0c830dae44974d8c3ee24c2ac, type: 2}
+  combatManager: {fileID: 2006599108}
   enemyHealth: 0
   enemyHealthMax: 0
   enemyHealthDisplay: {fileID: 831482244}
@@ -7991,6 +7998,7 @@ MonoBehaviour:
   enemyName: 
   enemyId: 0
   availableActions: []
+  currentActionIndex: 0
 --- !u!114 &1684840000
 MonoBehaviour:
   m_ObjectHideFlags: 0

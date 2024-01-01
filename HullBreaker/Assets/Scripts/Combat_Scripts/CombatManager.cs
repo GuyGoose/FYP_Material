@@ -111,6 +111,19 @@ public class CombatManager : MonoBehaviour
             actionButton.clicked = false;
         }
 
+        // Request the enemys' action for this turn
+        foreach (Enemy enemy in enemyShips) {
+            enemy.SupplyAction();
+        }
+
+        // Run through the enemyActionQueue and Perform each action
+        foreach (Action action in enemyActionQueue) {
+            PerformAction(action);
+        }
+
+        // Clear the enemyActionQueue
+        enemyActionQueue.Clear();
+
         // Run StartPlayerTurn
         StartPlayerTurn();
     }
@@ -229,27 +242,27 @@ public class CombatManager : MonoBehaviour
                 // If the target is self, repair the player
                 playerHealth += value;
                 break;
-            // case actionTarget.Enemy:
-            //     // If the target is enemy, repair a random enemy
-            //     enemyShips[Random.Range(0, enemyShips.Count)].enemyHealth += value;
-            //     break;
-            // case actionTarget.AllEnemies:
-            //     // If the target is all enemies, repair all enemies
-            //     foreach (Enemy enemy in enemyShips) {
-            //         enemy.enemyHealth += value;
-            //     }
-            //     break;
-            // case actionTarget.AllAllies:
-            //     // If the target is all allies, repair all allies
-            //     playerHealth += value;
-            //     break;
-            // case actionTarget.All:
-            //     // If the target is all, repair all
-            //     playerHealth += value;
-            //     foreach (Enemy enemy in enemyShips) {
-            //         enemy.enemyHealth += value;
-            //     }
-            //     break;
+            case actionTarget.Enemy:
+                // If the target is enemy, repair a random enemy
+                enemyShips[Random.Range(0, enemyShips.Count)].enemyHealth += value;
+                break;
+            case actionTarget.AllEnemies:
+                // If the target is all enemies, repair all enemies
+                foreach (Enemy enemy in enemyShips) {
+                    enemy.enemyHealth += value;
+                }
+                break;
+            case actionTarget.AllAllies:
+                // If the target is all allies, repair all allies
+                playerHealth += value;
+                break;
+            case actionTarget.All:
+                // If the target is all, repair all
+                playerHealth += value;
+                foreach (Enemy enemy in enemyShips) {
+                    enemy.enemyHealth += value;
+                }
+                break;
         }
     }
 

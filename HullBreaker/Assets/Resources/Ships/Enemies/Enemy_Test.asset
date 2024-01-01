@@ -16,4 +16,6 @@ MonoBehaviour:
   shipName: Test Enemy
   health: 10
   shipSprite: {fileID: 21300000, guid: dc881195bd1e20247b5af210c59c8133, type: 3}
-  shipActions: []
+  shipActions:
+  - {fileID: 11400000, guid: a096d554b45c4c14f9a670c7c62e2b50, type: 2}
+  - {fileID: 11400000, guid: a8d547dfaf870b94ab35fa0c4bd13649, type: 2}

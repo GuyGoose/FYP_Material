@@ -31,8 +31,8 @@ public class ActionButton : MonoBehaviour {
     }
 
     void Update() {
-        // Set the description text
-        descriptionText.text = action.actionDescription;
+        // Set the description text to the actions cost and description
+        descriptionText.text = "(" + action.actionEnergyCost + ") " + action.actionDescription;
         // Set the cost to click
         costToClick = action.actionEnergyCost;
 

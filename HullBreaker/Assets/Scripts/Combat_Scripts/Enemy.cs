@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     // The enemy Ship
     public EnemyShip enemyShip;
 
+    // Get the combat manager
+    public CombatManager combatManager = CombatManager.Instance;
+
     // Stats
     public int enemyHealth;
     public int enemyHealthMax;
@@ -20,6 +23,8 @@ public class Enemy : MonoBehaviour
 
     // Actions
     public List<Action> availableActions = new List<Action>();
+
+    public int currentActionIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +43,9 @@ public class Enemy : MonoBehaviour
 
         // Set the enemy's image to the enemySprite
         GetComponent<Image>().sprite = enemySprite;
+
+        // Get the size of the actions list and set the currentActionIndex to a random number between 0 and the size of the list
+        int actionListSize = availableActions.Count;
     }
 
     // Update is called once per frame
@@ -48,5 +56,27 @@ public class Enemy : MonoBehaviour
             enemyHealthDisplay.fillAmount -= (enemyHealthDisplay.fillAmount - ((float)enemyHealth / (float)enemyHealthMax)) / 100;
         }
 
+        // If the enemy's health is 0, destroy it
+        if (enemyHealth <= 0) {
+            Destroy(gameObject);
+        }
+
+        // If the enemy health goes above the max, set it to the max
+        if (enemyHealth > enemyHealthMax) {
+            enemyHealth = enemyHealthMax;
+        }
+    }
+
+    public void SupplyAction() {
+        // Add the action to the enemy's enemyActionQueue
+        print("Enemy " + enemyName + " added " + availableActions[currentActionIndex].actionName + " to the enemyActionQueue");
+        combatManager.enemyActionQueue.Add(availableActions[currentActionIndex]);
+
+        // Increment the currentActionIndex
+        currentActionIndex++;
+        // If the currentActionIndex is greater than the size of the availableActions list, set it to 0
+        if (currentActionIndex > availableActions.Count-1) {
+            currentActionIndex = 0;
+        }
     }
 }

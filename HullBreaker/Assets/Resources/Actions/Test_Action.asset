@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Test_Action
   m_EditorClassIdentifier: 
   actionName: Weak Attack
-  actionDescription: 1 DMG
+  actionDescription: 5 DMG
   actionType: 0
-  actionValue: 1
+  actionValue: 5
   actionEnergyCost: 1
   actionTarget: 1

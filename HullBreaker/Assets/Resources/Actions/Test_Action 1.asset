@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Test_Action 1
   m_EditorClassIdentifier: 
   actionName: Wide Attack
-  actionDescription: 3 DMG ALL
+  actionDescription: 7 DMG ALL
   actionType: 0
-  actionValue: 3
+  actionValue: 7
   actionEnergyCost: 2
   actionTarget: 2
