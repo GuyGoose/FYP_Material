@@ -23,7 +23,7 @@ public static class PoissonDiscSampling {
 				float angle = Random.value * Mathf.PI * 2;
 				Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
 				Vector2 candidate = spawnCentre + dir * Random.Range(radius, 2*radius);
-				if (IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid)) {
+				if (IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid, isCircle)) {
 					points.Add(candidate);
 					spawnPoints.Add(candidate);
 					grid[(int)(candidate.x/cellSize),(int)(candidate.y/cellSize)] = points.Count;
@@ -40,7 +40,11 @@ public static class PoissonDiscSampling {
 		return points;
 	}
 
-	static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius, List<Vector2> points, int[,] grid) {
+	static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius, List<Vector2> points, int[,] grid, bool isCircle) {
+		// Cicle check
+		if (isCircle && !isValidCircle(sampleRegionSize, sampleRegionSize.x/2, candidate))
+			return false;
+
 		if (candidate.x >=0 && candidate.x < sampleRegionSize.x && candidate.y >= 0 && candidate.y < sampleRegionSize.y) {
 			int cellX = (int)(candidate.x/cellSize);
 			int cellY = (int)(candidate.y/cellSize);
@@ -64,4 +68,15 @@ public static class PoissonDiscSampling {
 		}
 		return false;
 	}
+
+	static bool isValidCircle(Vector2 sampleRegion, float sampleRadius, Vector2 point) {
+		float circle_x = sampleRegion.x / 2;
+		float circle_y = sampleRegion.y / 2;
+
+		if (Mathf.Pow(point.x - circle_x, 2) + Mathf.Pow(point.y - circle_y, 2) > Mathf.Pow(sampleRadius, 2))
+			return false;
+		else
+			return true;
+	}
+	
 }

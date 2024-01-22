@@ -123,57 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &824496063
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 824496064}
-  - component: {fileID: 824496065}
-  m_Layer: 0
-  m_Name: SystemGen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &824496064
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824496063}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &824496065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824496063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8389aabf083311c48b9eb43d19916c35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetPrefab: {fileID: 1037521163222184841, guid: f98b0b875ccc17d46bbb0d2dda0795f1, type: 3}
-  numberOfPlanets: 50
-  planetSizes:
-  - 1
-  - 3
-  - 5
-  maxLinkDistance: 40
 --- !u!1 &1561032241
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,30 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1561032243}
-  - component: {fileID: 1561032242}
+  - component: {fileID: 1561032244}
   m_Layer: 0
   m_Name: PoissonGen
-  m_TagString: Untagged
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1561032242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561032241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7693da39b1acc49a4d7e961e88c710, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 2
-  regionSize: {x: 100, y: 100}
-  rejectionSamples: 20
-  displayRadius: -0.35
 --- !u!4 &1561032243
 Transform:
   m_ObjectHideFlags: 0
@@ -220,8 +153,29 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561032244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561032241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ba028de48fbdf48a23198b31d32fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointRadius: 5
+  regionSize: 100
+  pointPrefab: {fileID: 3126773106752124806, guid: b53a460f61ae7a841aaebaae2a6692a4, type: 3}
+  emptyChance: 0.4
+  encounterChance: 0.3
+  eventChance: 0.2
+  shopChance: 0.1
+  minShops: 3
+  maxShops: 5
 --- !u!1 &1712079000
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712079000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 50, y: 50, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
