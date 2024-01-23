@@ -38,6 +38,7 @@ public class MapGenerationController : MonoBehaviour
         // 2. Boss point is always the last point
         // 3. The number of shops is random should be between minShops and maxShops
 
+        DestinationType lastType = DestinationType.Empty;
         foreach (Vector2 point in points) {
             GameObject pointObject = Instantiate(pointPrefab, point, Quaternion.identity);
             pointObject.transform.parent = this.transform;
@@ -49,22 +50,63 @@ public class MapGenerationController : MonoBehaviour
                 float random = Random.value;
                 if (random < emptyChance) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
+                    lastType = DestinationType.Empty;
                 } else if (random < emptyChance + encounterChance) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Encounter.ToString();
+                    lastType = DestinationType.Encounter;
                 } else if (random < emptyChance + encounterChance + eventChance) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Event.ToString();
-                } else if (random < emptyChance + encounterChance + eventChance + shopChance) {
+                    lastType = DestinationType.Event;
+                    // Max of maxShops can be generated + cannot genrate two shops in a row
+                } else if (random < emptyChance + encounterChance + eventChance + shopChance && maxShops > 0 && lastType != DestinationType.Shop) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Shop.ToString();
+                    maxShops--;
+                    lastType = DestinationType.Shop;
                 } else {
                     pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
+                    lastType = DestinationType.Empty;
                 }
             }
         }
+
+        // Connect points
+        foreach (Transform point in this.transform) {
+            point.GetComponent<PointController>().ConnectToPoints();
+        }
+        // Check for unconnected points
+        foreach (Transform point in this.transform) {
+            point.GetComponent<PointController>().CheckForCoLinks();
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // If a point is clicked, set it as the current point and un-current the previous point
+        if (Input.GetMouseButtonDown(0)) {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            if (hit.collider != null) {
+                if (hit.collider.gameObject.tag == "Point" && hit.collider.gameObject.GetComponent<PointController>().visited) {
+                    foreach (Transform point in this.transform) {
+                        if (point.GetComponent<PointController>().current) {
+                            point.GetComponent<PointController>().current = false;
+                        }
+                    }
+                    hit.collider.gameObject.GetComponent<PointController>().current = true;
+                    hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
+                }
+            }
+        }
+
+        // Debug Buttons
+        // Press P to make all points current
+        if (Input.GetKeyDown(KeyCode.P)) {
+            foreach (Transform point in this.transform) {
+                point.GetComponent<PointController>().current = true;
+            }
+        }
+
     }
 }
