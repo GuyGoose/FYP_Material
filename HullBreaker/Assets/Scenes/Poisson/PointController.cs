@@ -140,15 +140,19 @@ public class PointController : MonoBehaviour
             line.transform.parent = this.transform;
             line.AddComponent<LineRenderer>();
             LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+            lineRenderer.textureMode = LineTextureMode.Tile;
+            lineRenderer.alignment = LineAlignment.View;
             lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.black;
-            lineRenderer.endColor = Color.black;
+            // Line color is (141A1D)
+            lineRenderer.startColor = new Color(0.078f, 0.102f, 0.114f);
+            lineRenderer.endColor = new Color(0.078f, 0.102f, 0.114f);
             lineRenderer.startWidth = 0.2f;
             lineRenderer.endWidth = 0.2f;
             lineRenderer.SetPosition(0, this.transform.position);
             lineRenderer.SetPosition(1, connectedPoint.transform.position);
-            // Push back the line so it is behind the points
-            line.transform.position = new Vector3(line.transform.position.x, line.transform.position.y, -2);
+            lineRenderer.material.mainTextureScale = new Vector2(1f / lineRenderer.endWidth, 1.0f);
+            // Make line dotted //TODO
+            
         }
     }
 
