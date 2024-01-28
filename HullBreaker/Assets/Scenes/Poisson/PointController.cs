@@ -6,17 +6,21 @@ using UnityEngine.UI;
 public class PointController : MonoBehaviour
 {
     public string type;
+    public string planetName;
     public bool visited = false;
     public bool landed = false;
     public bool current = false;
+    public bool isSelected = false;
     public List<GameObject> connectedPoints = new List<GameObject>();
+
     // Animation variables
     [SerializeField]
     private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        animator = this.GetComponent<Animator>();
+
+        planetName = "Planet " + Random.Range(0, 1000).ToString(); // TODO: Generate planet names - Temporary placeholder
 
         switch (type) {
             case "Start":

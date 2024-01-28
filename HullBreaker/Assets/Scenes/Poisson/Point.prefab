@@ -101,11 +101,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 
+  planetName: 
   visited: 0
   landed: 0
   current: 0
+  isSelected: 0
   connectedPoints: []
-  animator: {fileID: 0}
+  animator: {fileID: 2387601701093822049}
 --- !u!58 &5173305070430807274
 CircleCollider2D:
   m_ObjectHideFlags: 0

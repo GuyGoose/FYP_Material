@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MapGenerationController : MonoBehaviour
 {
@@ -22,6 +24,13 @@ public class MapGenerationController : MonoBehaviour
     public float eventChance = 0.2f;
     public float shopChance = 0.1f;
 
+    public GameObject destinationMenu;
+    private Animator destinationMenuAnimator;
+    public TextMeshProUGUI destinationName;
+    public TextMeshProUGUI planetName;
+    
+    private PointController currentlySelectedPoint;
+
     public int minShops = 3;
     public int maxShops = 5;	
 
@@ -31,6 +40,7 @@ public class MapGenerationController : MonoBehaviour
     void Start()
     {
         points = PoissonDiscSampling.GeneratePoints(pointRadius, new Vector2(regionSize, regionSize), 30);
+        destinationMenuAnimator = destinationMenu.GetComponent<Animator>();
 
         // Generate points 
         // Rules for generation:
@@ -93,10 +103,23 @@ public class MapGenerationController : MonoBehaviour
                         if (point.GetComponent<PointController>().current) {
                             point.GetComponent<PointController>().current = false;
                         }
+                        if(point.GetComponent<PointController>().isSelected) {
+                            point.GetComponent<PointController>().isSelected = false;
+                        }
                     }
                     hit.collider.gameObject.GetComponent<PointController>().current = true;
+                    hit.collider.gameObject.GetComponent<PointController>().isSelected = true;
+                    currentlySelectedPoint = hit.collider.gameObject.GetComponent<PointController>();
+                    OpenDestinationMenu();
                     hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
                 }
+            } else {
+                foreach (Transform point in this.transform) {
+                    if(point.GetComponent<PointController>().isSelected) {
+                        point.GetComponent<PointController>().isSelected = false;
+                    }
+                }
+                CloseDestinationMenu();
             }
         }
 
@@ -108,5 +131,15 @@ public class MapGenerationController : MonoBehaviour
             }
         }
 
+    }
+
+    public void OpenDestinationMenu() {
+        destinationMenuAnimator.SetBool("isOn", true);
+        destinationName.text = currentlySelectedPoint.type;
+        planetName.text = currentlySelectedPoint.planetName;
+    }
+
+    public void CloseDestinationMenu() {
+        destinationMenuAnimator.SetBool("isOn", false);
     }
 }
