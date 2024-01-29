@@ -94,4 +94,22 @@ public class MapCamMovement : MonoBehaviour
 
         return new Vector3(clampedX, clampedY, targetPosition.z);
     }
+
+    public void TweenToPosition(Vector3 targetPosition) {
+        StartCoroutine(TweenToPositionCoroutine(targetPosition));
+    }
+
+    private IEnumerator TweenToPositionCoroutine(Vector3 targetPosition) {
+        float time = 0f;
+        float duration = 0.5f;
+        Vector3 startPosition = camera.transform.position;
+
+        while(time < duration) {
+            time += Time.deltaTime;
+            camera.transform.position = Vector3.Lerp(startPosition, targetPosition, time/duration);
+            // Also lerp the camera size towards 15 from its current size
+            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, 15f, time/duration);
+            yield return null;
+        }
+    }
 }

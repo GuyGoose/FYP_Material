@@ -31,6 +31,8 @@ public class MapGenerationController : MonoBehaviour
     
     private PointController currentlySelectedPoint;
 
+    public GameObject cameraController;
+
     public int minShops = 3;
     public int maxShops = 5;	
 
@@ -111,6 +113,8 @@ public class MapGenerationController : MonoBehaviour
                     hit.collider.gameObject.GetComponent<PointController>().isSelected = true;
                     currentlySelectedPoint = hit.collider.gameObject.GetComponent<PointController>();
                     OpenDestinationMenu();
+                    // Calls the tween to position function in the camera controller with the points x and y position but keeps the z position the same
+                    cameraController.GetComponent<MapCamMovement>().TweenToPosition(new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, cameraController.transform.position.z));
                     hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
                 }
             } else {
