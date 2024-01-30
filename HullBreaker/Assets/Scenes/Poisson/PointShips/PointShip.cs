@@ -5,16 +5,23 @@ using UnityEngine;
 public class PointShip : MonoBehaviour
 {
     public GameObject currentPoint;
+    public int relations = 0;
     private Animator animator;
+    private SpriteRenderer spriteColor;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
+        spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         // Place ship at current point
         this.transform.position = currentPoint.transform.position;
         // Put ship into points ship list
         currentPoint.GetComponent<PointController>().ships.Add(this);
+
+        // TEMP - Randomize relations
+        int rand = Random.Range(-100, 101);
+        AdjustRelations(rand);
     }
 
     // Update is called once per frame
@@ -24,21 +31,47 @@ public class PointShip : MonoBehaviour
         if (!currentPoint.GetComponent<PointController>().visited) {
             animator.enabled = false;
             // Disable sprite renderer in child object
-            this.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            spriteColor.enabled = false;
         } else {
             animator.enabled = true;
-            this.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            spriteColor.enabled = true;
         }
     }
 
-    void MoveToConnectedPointRandom() {
+    public void MoveToConnectedPointRandom() {
         currentPoint.GetComponent<PointController>().ships.Remove(this);
         // Get a random connected point
         GameObject nextPoint = currentPoint.GetComponent<PointController>().connectedPoints[Random.Range(0, currentPoint.GetComponent<PointController>().connectedPoints.Count)];
         // Move to that point
-        this.transform.position = nextPoint.transform.position;
+        //SlideToPoint(nextPoint);
         // Update current point
         currentPoint = nextPoint;
         currentPoint.GetComponent<PointController>().ships.Add(this);
     }
+
+    public void AdjustRelations(int x) {
+        relations = relations + x;
+
+        if (relations >= 50) {
+            spriteColor.color = Color.green;
+        } else if (relations <= -50) {
+            spriteColor.color = Color.red;
+        } else spriteColor.color = Color.white;
+
+    }
+
+    // TODO: Causes Error - Make a coroutine later
+    // public void SlideToPoint(GameObject point) {
+    //     StartCoroutine(SlideToPointCoroutine(point));
+    // }
+
+    // IEnumerator SlideToPointCoroutine(GameObject point) {
+    //     float t = 0;
+    //     Vector3 startPos = this.transform.position;
+    //     while (t < 1) {
+    //         t += Time.deltaTime * 2;
+    //         this.transform.position = Vector3.Lerp(startPos, point.transform.position, t);
+    //         yield return null;
+    //     }
+    // }
 }

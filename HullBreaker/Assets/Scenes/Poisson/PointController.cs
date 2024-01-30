@@ -56,14 +56,17 @@ public class PointController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (current) landed = true;
-        // if (landed) visited = true;
-        // If this point is the current point, mark its connections as visited
+        // If Completed Set all bools to true, and make connected points as visited
         if (isCompleted) {
-            animator.SetBool("isCurrent", true);
+            visited = true;
+            landed = true;
             foreach (GameObject connectedPoint in connectedPoints) {
                 connectedPoint.GetComponent<PointController>().visited = true;
             }
+        }
+        // If this point is the current point, mark its connections as visited
+        if (current) {
+            animator.SetBool("isCurrent", true);
         } else animator.SetBool("isCurrent", false);
 
         if (!visited) {
@@ -160,8 +163,6 @@ public class PointController : MonoBehaviour
             lineRenderer.SetPosition(0, this.transform.position);
             lineRenderer.SetPosition(1, connectedPoint.transform.position);
             lineRenderer.material.mainTextureScale = new Vector2(1f / lineRenderer.endWidth, 1.0f);
-            // Make line dotted //TODO
-            
         }
     }
 
@@ -189,5 +190,12 @@ public class PointController : MonoBehaviour
             color.a = 0.2f;
             this.GetComponent<SpriteRenderer>().color = color;
         }
+    }
+
+    public void PointCompleted() {
+        isCompleted = true;
+        isSelected = true;
+        SetVisuals();
+        DrawLinks();
     }
 }

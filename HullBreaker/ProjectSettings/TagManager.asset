@@ -8,6 +8,7 @@ TagManager:
   - Enemies
   - CombatManager
   - Point
+  - PointShip
   layers:
   - Default
   - TransparentFX

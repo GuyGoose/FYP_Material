@@ -25,6 +25,7 @@ public class MapGenerationController : MonoBehaviour
     public float shopChance = 0.1f;
 
     public GameObject destinationMenu;
+    public GameObject landButton;
     private Animator destinationMenuAnimator;
     public TextMeshProUGUI destinationName;
     public TextMeshProUGUI planetName;
@@ -44,6 +45,7 @@ public class MapGenerationController : MonoBehaviour
     {
         points = PoissonDiscSampling.GeneratePoints(pointRadius, new Vector2(regionSize, regionSize), 30);
         destinationMenuAnimator = destinationMenu.GetComponent<Animator>();
+        CloseDestinationMenu();
 
         // Generate points 
         // Rules for generation:
@@ -103,8 +105,14 @@ public class MapGenerationController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-            if (hit.collider != null) {
+            if (hit.collider != null ) {
+                // If a ui element is clicked, ignore
+                if (hit.collider.gameObject.GetComponent<Button>() != null) {
+                    Debug.Log("Clicked UI Element");
+                    return;
+                }
                 if (hit.collider.gameObject.tag == "Point" && hit.collider.gameObject.GetComponent<PointController>().visited) {
+                    Debug.Log("Clicked Point");
                     foreach (Transform point in this.transform) {
                         if (point.GetComponent<PointController>().current) {
                             point.GetComponent<PointController>().current = false;
@@ -122,20 +130,24 @@ public class MapGenerationController : MonoBehaviour
                     //hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
                 }
             } else {
+                Debug.Log("Clicked Nothing");
                 foreach (Transform point in this.transform) {
                     if(point.GetComponent<PointController>().isSelected) {
                         point.GetComponent<PointController>().isSelected = false;
                     }
                 }
-                CloseDestinationMenu();
             }
+        }
+        // If right click is pressed, close the destination menu
+        if (Input.GetMouseButtonDown(1)) {
+            CloseDestinationMenu();
         }
 
         // Debug Buttons
         // Press P to make all points current
         if (Input.GetKeyDown(KeyCode.P)) {
             foreach (Transform point in this.transform) {
-                point.GetComponent<PointController>().current = true;
+                point.GetComponent<PointController>().PointCompleted();
             }
         }
 
@@ -143,20 +155,33 @@ public class MapGenerationController : MonoBehaviour
 
     public void OpenDestinationMenu() {
         destinationMenuAnimator.SetBool("isOn", true);
+        landButton.SetActive(true);
         destinationName.text = currentlySelectedPoint.type;
         planetName.text = currentlySelectedPoint.planetName;
     }
 
     public void CloseDestinationMenu() {
         destinationMenuAnimator.SetBool("isOn", false);
+        landButton.SetActive(false);
     }
 
     public void MarkAsCompleted() {
-        currentlySelectedPoint.visited = true;
-        currentlySelectedPoint.landed = true;
-        currentlySelectedPoint.isSelected = true;
-        currentlySelectedPoint.DrawLinks();
-        currentlySelectedPoint.SetVisuals();
+        currentlySelectedPoint.PointCompleted();
+        // Mark point as current and unmark all other current points
+        foreach (Transform point in this.transform) {
+            if (point.GetComponent<PointController>().current) {
+                point.GetComponent<PointController>().current = false;
+            }
+            if(point.GetComponent<PointController>().isSelected) {
+                point.GetComponent<PointController>().isSelected = false;
+            }
+        }
+        currentlySelectedPoint.current = true;
+        // TODO - See PointShip.cs
+        // All point ships move to a random connected point
+        // foreach (PointShip ship in currentlySelectedPoint.ships) {
+        //     ship.MoveToConnectedPointRandom();
+        // }
         CloseDestinationMenu();
     }
 }
