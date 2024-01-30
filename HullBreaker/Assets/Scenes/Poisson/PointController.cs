@@ -11,7 +11,9 @@ public class PointController : MonoBehaviour
     public bool landed = false;
     public bool current = false;
     public bool isSelected = false;
+    public bool isCompleted = false;
     public List<GameObject> connectedPoints = new List<GameObject>();
+    public List<PointShip> ships = new List<PointShip>();
 
     // Animation variables
     [SerializeField]
@@ -26,6 +28,9 @@ public class PointController : MonoBehaviour
             case "Start":
                 this.GetComponent<SpriteRenderer>().color = Color.green;
                 current = true;
+                landed = true;
+                visited = true;
+                isCompleted = true;
                 DrawLinks();
                 break;
             case "Empty":
@@ -51,10 +56,10 @@ public class PointController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (current) landed = true;
-        if (landed) visited = true;
+        // if (current) landed = true;
+        // if (landed) visited = true;
         // If this point is the current point, mark its connections as visited
-        if (current) {
+        if (isCompleted) {
             animator.SetBool("isCurrent", true);
             foreach (GameObject connectedPoint in connectedPoints) {
                 connectedPoint.GetComponent<PointController>().visited = true;

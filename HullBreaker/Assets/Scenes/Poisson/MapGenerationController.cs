@@ -30,6 +30,7 @@ public class MapGenerationController : MonoBehaviour
     public TextMeshProUGUI planetName;
     
     private PointController currentlySelectedPoint;
+    public GameObject pointShipPrefab;
 
     public GameObject cameraController;
 
@@ -64,8 +65,11 @@ public class MapGenerationController : MonoBehaviour
                     pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
                     lastType = DestinationType.Empty;
                 } else if (random < emptyChance + encounterChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Encounter.ToString();
-                    lastType = DestinationType.Encounter;
+                    pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
+                    // Create a ship at this point
+                    GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
+                    ship.GetComponent<PointShip>().currentPoint = pointObject;
+                    lastType = DestinationType.Empty;
                 } else if (random < emptyChance + encounterChance + eventChance) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Event.ToString();
                     lastType = DestinationType.Event;
@@ -115,7 +119,7 @@ public class MapGenerationController : MonoBehaviour
                     OpenDestinationMenu();
                     // Calls the tween to position function in the camera controller with the points x and y position but keeps the z position the same
                     cameraController.GetComponent<MapCamMovement>().TweenToPosition(new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, cameraController.transform.position.z));
-                    hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
+                    //hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
                 }
             } else {
                 foreach (Transform point in this.transform) {
@@ -145,5 +149,14 @@ public class MapGenerationController : MonoBehaviour
 
     public void CloseDestinationMenu() {
         destinationMenuAnimator.SetBool("isOn", false);
+    }
+
+    public void MarkAsCompleted() {
+        currentlySelectedPoint.visited = true;
+        currentlySelectedPoint.landed = true;
+        currentlySelectedPoint.isSelected = true;
+        currentlySelectedPoint.DrawLinks();
+        currentlySelectedPoint.SetVisuals();
+        CloseDestinationMenu();
     }
 }
