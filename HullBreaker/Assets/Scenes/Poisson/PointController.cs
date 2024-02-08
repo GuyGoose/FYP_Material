@@ -56,6 +56,8 @@ public class PointController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If a connected point is visited, this enable sprite renderer, else disable
+
         // If Completed Set all bools to true, and make connected points as visited
         if (isCompleted) {
             visited = true;

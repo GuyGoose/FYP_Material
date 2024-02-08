@@ -35,10 +35,13 @@ public class MapGenerationController : MonoBehaviour
 
     public GameObject cameraController;
 
+    public GameObject pointContainer;
+    public GameObject pointShipContainer;
+
     public int minShops = 3;
     public int maxShops = 5;	
 
-    List<Vector2> points;
+    private List<Vector2> points;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +59,7 @@ public class MapGenerationController : MonoBehaviour
         DestinationType lastType = DestinationType.Empty;
         foreach (Vector2 point in points) {
             GameObject pointObject = Instantiate(pointPrefab, point, Quaternion.identity);
-            pointObject.transform.parent = this.transform;
+            pointObject.transform.parent = pointContainer.transform;
             if (point == points[0]) {
                 pointObject.GetComponent<PointController>().type = DestinationType.Start.ToString();
             } else if (point == points[points.Count - 1]) {
@@ -71,6 +74,7 @@ public class MapGenerationController : MonoBehaviour
                     // Create a ship at this point
                     GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
                     ship.GetComponent<PointShip>().currentPoint = pointObject;
+                    ship.transform.parent = pointShipContainer.transform;
                     lastType = DestinationType.Empty;
                 } else if (random < emptyChance + encounterChance + eventChance) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Event.ToString();
@@ -88,11 +92,11 @@ public class MapGenerationController : MonoBehaviour
         }
 
         // Connect points
-        foreach (Transform point in this.transform) {
+        foreach (Transform point in pointContainer.transform) {
             point.GetComponent<PointController>().ConnectToPoints();
         }
         // Check for unconnected points
-        foreach (Transform point in this.transform) {
+        foreach (Transform point in pointContainer.transform) {
             point.GetComponent<PointController>().CheckForCoLinks();
         }
 
@@ -113,7 +117,7 @@ public class MapGenerationController : MonoBehaviour
                 }
                 if (hit.collider.gameObject.tag == "Point" && hit.collider.gameObject.GetComponent<PointController>().visited) {
                     Debug.Log("Clicked Point");
-                    foreach (Transform point in this.transform) {
+                    foreach (Transform point in pointContainer.transform) {
                         if (point.GetComponent<PointController>().current) {
                             point.GetComponent<PointController>().current = false;
                         }
@@ -131,7 +135,7 @@ public class MapGenerationController : MonoBehaviour
                 }
             } else {
                 Debug.Log("Clicked Nothing");
-                foreach (Transform point in this.transform) {
+                foreach (Transform point in pointContainer.transform) {
                     if(point.GetComponent<PointController>().isSelected) {
                         point.GetComponent<PointController>().isSelected = false;
                     }
@@ -146,7 +150,7 @@ public class MapGenerationController : MonoBehaviour
         // Debug Buttons
         // Press P to make all points current
         if (Input.GetKeyDown(KeyCode.P)) {
-            foreach (Transform point in this.transform) {
+            foreach (Transform point in pointContainer.transform) {
                 point.GetComponent<PointController>().PointCompleted();
             }
         }
@@ -168,7 +172,7 @@ public class MapGenerationController : MonoBehaviour
     public void MarkAsCompleted() {
         currentlySelectedPoint.PointCompleted();
         // Mark point as current and unmark all other current points
-        foreach (Transform point in this.transform) {
+        foreach (Transform point in pointContainer.transform) {
             if (point.GetComponent<PointController>().current) {
                 point.GetComponent<PointController>().current = false;
             }
