@@ -12,7 +12,7 @@ public class PointController : MonoBehaviour
     public bool current = false;
     public bool isSelected = false;
     public bool isCompleted = false;
-    public List<GameObject> connectedPoints = new List<GameObject>();
+    public List<string> connectedPoints = new List<string>();
     public List<PointShip> ships = new List<PointShip>();
 
     // Animation variables
@@ -22,7 +22,7 @@ public class PointController : MonoBehaviour
     void Start()
     {
 
-        planetName = "Planet " + Random.Range(0, 1000).ToString(); // TODO: Generate planet names - Temporary placeholder
+        planetName = "Planet " + Random.Range(0, 1000000).ToString(); // TODO: Generate planet names - Temporary placeholder
 
         switch (type) {
             case "Start":
@@ -62,8 +62,11 @@ public class PointController : MonoBehaviour
         if (isCompleted) {
             visited = true;
             landed = true;
-            foreach (GameObject connectedPoint in connectedPoints) {
-                connectedPoint.GetComponent<PointController>().visited = true;
+            foreach (string connectedPoint in connectedPoints) {
+                GameObject point = GameObject.Find(connectedPoint);
+                if (point != null) {
+                    point.GetComponent<PointController>().visited = true;
+                }
             }
         }
         // If this point is the current point, mark its connections as visited
@@ -120,59 +123,63 @@ public class PointController : MonoBehaviour
             if (collider.gameObject.tag == "Point" && collider.gameObject != this.gameObject) {
                 // Get the 3 points with the shortest distance to this point
                 if (count < 3) {
-                    connectedPoints.Add(collider.gameObject);
+                    connectedPoints.Add(collider.gameObject.GetComponent<PointController>().planetName);
                     count++;
                 } else {
                     float maxDistance = 0;
                     int maxIndex = 0;
                     for (int i = 0; i < connectedPoints.Count; i++) {
-                        if (Vector2.Distance(this.transform.position, connectedPoints[i].transform.position) > maxDistance) {
-                            maxDistance = Vector2.Distance(this.transform.position, connectedPoints[i].transform.position);
-                            maxIndex = i;
+                        GameObject connectedPoint = GameObject.Find(connectedPoints[i]);
+                        if (connectedPoint != null) {
+                            if (Vector2.Distance(this.transform.position, connectedPoint.transform.position) > maxDistance) {
+                                maxDistance = Vector2.Distance(this.transform.position, connectedPoint.transform.position);
+                                maxIndex = i;
+                            }
                         }
                     }
                     if (Vector2.Distance(this.transform.position, collider.gameObject.transform.position) < maxDistance) {
-                        connectedPoints[maxIndex] = collider.gameObject;
+                        connectedPoints[maxIndex] = collider.gameObject.GetComponent<PointController>().planetName;
                     }
                 }
             }
         }
     }
 
-    public bool CheckIfconnected(GameObject point) {
-        foreach (GameObject connectedPoint in connectedPoints) {
-            if (connectedPoint == point) {
-                return true;
-            }
-        }
-        return false;
+    public bool CheckIfconnected(string planetName) {
+        return connectedPoints.Contains(planetName);
     }
 
     public void DrawLinks() {
-        foreach (GameObject connectedPoint in connectedPoints) {
-            GameObject line = new GameObject();
-            line.transform.parent = this.transform;
-            line.AddComponent<LineRenderer>();
-            LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
-            lineRenderer.textureMode = LineTextureMode.Tile;
-            lineRenderer.alignment = LineAlignment.View;
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            // Line color is (141A1D)
-            lineRenderer.startColor = new Color(0.078f, 0.102f, 0.114f);
-            lineRenderer.endColor = new Color(0.078f, 0.102f, 0.114f);
-            lineRenderer.startWidth = 0.2f;
-            lineRenderer.endWidth = 0.2f;
-            lineRenderer.SetPosition(0, this.transform.position);
-            lineRenderer.SetPosition(1, connectedPoint.transform.position);
-            lineRenderer.material.mainTextureScale = new Vector2(1f / lineRenderer.endWidth, 1.0f);
+        foreach (string connectedPoint in connectedPoints) {
+            GameObject point = GameObject.Find(connectedPoint);
+            if (point != null) {
+                GameObject line = new GameObject();
+                line.transform.parent = this.transform;
+                line.AddComponent<LineRenderer>();
+                LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
+                lineRenderer.textureMode = LineTextureMode.Tile;
+                lineRenderer.alignment = LineAlignment.View;
+                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                // Line color is (141A1D)
+                lineRenderer.startColor = new Color(0.078f, 0.102f, 0.114f);
+                lineRenderer.endColor = new Color(0.078f, 0.102f, 0.114f);
+                lineRenderer.startWidth = 0.2f;
+                lineRenderer.endWidth = 0.2f;
+                lineRenderer.SetPosition(0, this.transform.position);
+                lineRenderer.SetPosition(1, point.transform.position);
+                lineRenderer.material.mainTextureScale = new Vector2(1f / lineRenderer.endWidth, 1.0f);
+            }
         }
     }
 
     public void CheckForCoLinks() {
         // Checks connected points. If that connected point does not contain this point in its connected points, add it
-        foreach (GameObject connectedPoint in connectedPoints) {
-            if (!connectedPoint.GetComponent<PointController>().CheckIfconnected(this.gameObject)) {
-                connectedPoint.GetComponent<PointController>().connectedPoints.Add(this.gameObject);
+        foreach (string connectedPoint in connectedPoints) {
+            GameObject point = GameObject.Find(connectedPoint);
+            if (point != null) {
+                if (!point.GetComponent<PointController>().CheckIfconnected(this.planetName)) {
+                    point.GetComponent<PointController>().connectedPoints.Add(this.planetName);
+                }
             }
         }
     }
