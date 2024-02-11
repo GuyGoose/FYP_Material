@@ -91,14 +91,15 @@ public class MapGenerationController : MonoBehaviour
             }
         }
 
-        // Connect points
-        foreach (Transform point in pointContainer.transform) {
-            point.GetComponent<PointController>().ConnectToPoints();
-        }
-        // Check for unconnected points
-        foreach (Transform point in pointContainer.transform) {
-            point.GetComponent<PointController>().CheckForCoLinks();
-        }
+        // // Connect points
+        // foreach (Transform point in pointContainer.transform) {
+        //     Debug.Log("Connecting Points For: " + point.gameObject.name);
+        //     point.GetComponent<PointController>().ConnectToPoints();
+        // }
+        // // Check for unconnected points
+        // foreach (Transform point in pointContainer.transform) {
+        //     point.GetComponent<PointController>().CheckForCoLinks();
+        // }
 
     }
 

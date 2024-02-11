@@ -38,16 +38,16 @@ public class PointShip : MonoBehaviour
         }
     }
 
-    public void MoveToConnectedPointRandom() {
-        currentPoint.GetComponent<PointController>().ships.Remove(this);
-        // Get a random connected point
-        GameObject nextPoint = currentPoint.GetComponent<PointController>().connectedPoints[Random.Range(0, currentPoint.GetComponent<PointController>().connectedPoints.Count)];
-        // Move to that point
-        //SlideToPoint(nextPoint);
-        // Update current point
-        currentPoint = nextPoint;
-        currentPoint.GetComponent<PointController>().ships.Add(this);
-    }
+    // public void MoveToConnectedPointRandom() {
+    //     currentPoint.GetComponent<PointController>().ships.Remove(this);
+    //     // Get a random connected point
+    //     GameObject nextPoint = currentPoint.GetComponent<PointController>().connectedPoints[Random.Range(0, currentPoint.GetComponent<PointController>().connectedPoints.Count)];
+    //     // Move to that point
+    //     //SlideToPoint(nextPoint);
+    //     // Update current point
+    //     currentPoint = nextPoint;
+    //     currentPoint.GetComponent<PointController>().ships.Add(this);
+    // }
 
     public void AdjustRelations(int x) {
         relations = relations + x;

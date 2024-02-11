@@ -43,6 +43,7 @@ public class DataManager : MonoBehaviour
             pointSaveData.isSelected = pointController.isSelected;
             pointSaveData.isCompleted = pointController.isCompleted;
             pointSaveData.position = point.position;
+            pointSaveData.connectedPoints = pointController.connectedPoints;
             mapSaveData.pointSaveDataList.Add(pointSaveData);
         }
 
@@ -103,6 +104,7 @@ public class DataManager : MonoBehaviour
                 pointController.current = pointSaveData.current;
                 pointController.isSelected = pointSaveData.isSelected;
                 pointController.isCompleted = pointSaveData.isCompleted;
+                pointController.connectedPoints = pointSaveData.connectedPoints;
             }
 
             // Instantiate ships from saved data
@@ -145,6 +147,7 @@ public class DataManager : MonoBehaviour
         public bool isSelected;
         public bool isCompleted;
         public Vector3 position;
+        public List<string> connectedPoints = new List<string>();
     }
 
     // Data structure to hold PointShip save data
