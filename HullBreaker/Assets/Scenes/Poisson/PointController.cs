@@ -18,12 +18,14 @@ public class PointController : MonoBehaviour
     // Animation variables
     [SerializeField]
     private Animator animator;
-    // Start is called before the first frame update
+    
+    private void Awake() {
+        planetName = PlanetNames.GeneratePlanetName();
+        // Set GameObject name to planetName
+        this.gameObject.name = planetName;
+    }
     void Start()
     {
-
-        planetName = "Planet " + Random.Range(0, 1000000).ToString(); // TODO: Generate planet names - Temporary placeholder
-
         switch (type) {
             case "Start":
                 this.GetComponent<SpriteRenderer>().color = Color.green;
@@ -31,7 +33,6 @@ public class PointController : MonoBehaviour
                 landed = true;
                 visited = true;
                 isCompleted = true;
-                DrawLinks();
                 break;
             case "Empty":
                 this.GetComponent<SpriteRenderer>().color = Color.white;
@@ -50,7 +51,14 @@ public class PointController : MonoBehaviour
                 this.GetComponent<SpriteRenderer>().transform.localScale = new Vector3(4, 4, 4);
                 break;
         }
+
+        ConnectToPoints();
+        CheckForCoLinks();
         
+        // If start DrawLinks
+        if (current) {
+            DrawLinks();
+        }
     }
 
     // Update is called once per frame
@@ -124,11 +132,13 @@ public class PointController : MonoBehaviour
                 // Get the 3 points with the shortest distance to this point
                 if (count < 3) {
                     connectedPoints.Add(collider.gameObject.GetComponent<PointController>().planetName);
+                    Debug.Log("Connected: " + collider.gameObject.GetComponent<PointController>().planetName);
                     count++;
                 } else {
                     float maxDistance = 0;
                     int maxIndex = 0;
                     for (int i = 0; i < connectedPoints.Count; i++) {
+                        // Find the point with the PlanetName in connectedPoints
                         GameObject connectedPoint = GameObject.Find(connectedPoints[i]);
                         if (connectedPoint != null) {
                             if (Vector2.Distance(this.transform.position, connectedPoint.transform.position) > maxDistance) {
@@ -143,6 +153,12 @@ public class PointController : MonoBehaviour
                 }
             }
         }
+
+        // Debug.Log("Finished Connecting Points");
+        // Debug.Log("Connected Points: " + connectedPoints.Count);
+        // foreach (string connectedPoint in connectedPoints) {
+        //     Debug.Log("Connected: " + connectedPoint);
+        // }
     }
 
     public bool CheckIfconnected(string planetName) {
