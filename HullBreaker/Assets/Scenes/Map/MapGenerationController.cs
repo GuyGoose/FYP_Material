@@ -73,7 +73,7 @@ public class MapGenerationController : MonoBehaviour
                     pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
                     // Create a ship at this point
                     GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
-                    ship.GetComponent<PointShip>().currentPoint = pointObject;
+                    ship.GetComponent<PointShip>().currentPointName = pointObject.GetComponent<PointController>().planetName;
                     ship.transform.parent = pointShipContainer.transform;
                     lastType = DestinationType.Empty;
                 } else if (random < emptyChance + encounterChance + eventChance) {

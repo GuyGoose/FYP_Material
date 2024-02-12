@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class PointShip : MonoBehaviour
 {
-    public GameObject currentPoint;
+    public string currentPointName;
     public int relations = 0;
     private Animator animator;
     private SpriteRenderer spriteColor;
+
+    public GameObject currentPoint;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
         spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        // Place ship at current point
-        this.transform.position = currentPoint.transform.position;
+        // Find the current point by name and set this ship to that point
+        currentPoint = GameObject.Find(currentPointName);
         // Put ship into points ship list
         currentPoint.GetComponent<PointController>().ships.Add(this);
 

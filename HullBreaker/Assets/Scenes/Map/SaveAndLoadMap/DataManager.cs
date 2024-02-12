@@ -110,11 +110,10 @@ public class DataManager : MonoBehaviour
             // Instantiate ships from saved data
             foreach (PointShipSaveData pointShipSaveData in mapSaveData.pointShipSaveDataList)
             {
-                GameObject currentPoint = GameObject.Find(pointShipSaveData.currentPointName);
-                GameObject newShip = Instantiate(pointShipPrefab, currentPoint.transform.position, Quaternion.identity);
+                GameObject newShip = Instantiate(pointShipPrefab, transform.position, Quaternion.identity);
                 newShip.transform.parent = mapController.pointShipContainer.transform;
                 PointShip pointShip = newShip.GetComponent<PointShip>();
-                pointShip.currentPoint = currentPoint;
+                pointShip.currentPointName = pointShipSaveData.currentPointName;
                 pointShip.relations = pointShipSaveData.relations;
             }
 
