@@ -9,6 +9,7 @@ TagManager:
   - CombatManager
   - Point
   - PointShip
+  - ShipButton
   layers:
   - Default
   - TransparentFX
