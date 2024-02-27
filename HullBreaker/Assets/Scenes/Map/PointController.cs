@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 
 public class PointController : MonoBehaviour
@@ -13,23 +14,20 @@ public class PointController : MonoBehaviour
     public bool isSelected = false;
     public bool isCompleted = false;
     public List<string> connectedPoints = new List<string>();
-    public List<PointShip> ships = new List<PointShip>();
+    public List<GameObject> ships = new List<GameObject>();
 
     // Animation variables
     [SerializeField]
     private Animator animator;
-    
-    private void Awake() {
-        planetName = PlanetNames.GeneratePlanetName();
-        // Set GameObject name to planetName
-        this.gameObject.name = planetName;
-    }
+
     void Start()
     {
+        this.gameObject.name = planetName;
+
         switch (type) {
             case "Start":
                 this.GetComponent<SpriteRenderer>().color = Color.green;
-                current = true;
+                //current = true;
                 landed = true;
                 visited = true;
                 isCompleted = true;
@@ -56,7 +54,7 @@ public class PointController : MonoBehaviour
         CheckForCoLinks();
         
         // If start DrawLinks
-        if (current) {
+        if (isCompleted) {
             DrawLinks();
         }
     }
@@ -85,12 +83,14 @@ public class PointController : MonoBehaviour
         if (!visited) {
             // Disable the animator
             animator.enabled = false;
+            this.GetComponent<SpriteRenderer>().enabled = false;
 
             this.GetComponent<SpriteRenderer>().color = Color.gray;
             this.GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1, 1, 1);
         } else {
             // Enable the animator
             animator.enabled = true;
+            this.GetComponent<SpriteRenderer>().enabled = true;
 
             switch (type) {
                 case "Start":
@@ -118,6 +118,17 @@ public class PointController : MonoBehaviour
                     SetVisuals();
                     break;
             }
+        }
+    }
+
+    public IEnumerator OnReload() {
+        yield return new WaitForNextFrameUnit();
+        ConnectToPoints();
+        CheckForCoLinks();
+        SetVisuals();
+
+        if (isCompleted) {
+            DrawLinks();
         }
     }
 
@@ -186,6 +197,7 @@ public class PointController : MonoBehaviour
                 lineRenderer.material.mainTextureScale = new Vector2(1f / lineRenderer.endWidth, 1.0f);
             }
         }
+        Debug.Log("Links Drawn for: " + this.planetName);
     }
 
     public void CheckForCoLinks() {
@@ -222,5 +234,15 @@ public class PointController : MonoBehaviour
         isSelected = true;
         SetVisuals();
         DrawLinks();
+    }
+
+    public void AssignName() {
+        planetName = PlanetNames.GeneratePlanetName();
+        // Set GameObject name to planetName
+        this.gameObject.name = planetName;
+    }
+
+    public void AddShip(GameObject ship) {
+        ships.Add(ship);
     }
 }

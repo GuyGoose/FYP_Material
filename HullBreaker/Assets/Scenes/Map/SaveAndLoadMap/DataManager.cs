@@ -47,12 +47,22 @@ public class DataManager : MonoBehaviour
             mapSaveData.pointSaveDataList.Add(pointSaveData);
         }
 
+        // For each PointController, if it isCompleted, DrawLinks
+        foreach (Transform point in mapController.pointContainer.transform)
+        {
+            PointController pointController = point.GetComponent<PointController>();
+            if (pointController.isCompleted)
+            {
+                pointController.DrawLinks();
+            }
+        }
+
         // Serialize PointShip data
         foreach (Transform ship in mapController.pointShipContainer.transform)
         {
             PointShip pointShip = ship.GetComponent<PointShip>();
             PointShipSaveData pointShipSaveData = new PointShipSaveData();
-            pointShipSaveData.currentPointName = pointShip.currentPoint.name;
+            //pointShipSaveData.currentPointName = pointShip.currentPoint.name;
             pointShipSaveData.relations = pointShip.relations;
             mapSaveData.pointShipSaveDataList.Add(pointShipSaveData);
         }
@@ -104,7 +114,7 @@ public class DataManager : MonoBehaviour
                 pointController.current = pointSaveData.current;
                 pointController.isSelected = pointSaveData.isSelected;
                 pointController.isCompleted = pointSaveData.isCompleted;
-                pointController.connectedPoints = pointSaveData.connectedPoints;
+                StartCoroutine(pointController.OnReload());
             }
 
             // Instantiate ships from saved data
@@ -115,6 +125,7 @@ public class DataManager : MonoBehaviour
                 PointShip pointShip = newShip.GetComponent<PointShip>();
                 pointShip.currentPointName = pointShipSaveData.currentPointName;
                 pointShip.relations = pointShipSaveData.relations;
+                StartCoroutine(pointShip.OnReload());
             }
 
             Debug.Log("Map loaded from: " + filePath);
@@ -123,6 +134,9 @@ public class DataManager : MonoBehaviour
         {
             Debug.LogWarning("No saved map found.");
         }
+
+        
+
     }
 
     // Data structure to hold map save data

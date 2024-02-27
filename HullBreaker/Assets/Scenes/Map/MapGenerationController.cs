@@ -60,8 +60,11 @@ public class MapGenerationController : MonoBehaviour
         foreach (Vector2 point in points) {
             GameObject pointObject = Instantiate(pointPrefab, point, Quaternion.identity);
             pointObject.transform.parent = pointContainer.transform;
+            pointObject.GetComponent<PointController>().AssignName();
             if (point == points[0]) {
                 pointObject.GetComponent<PointController>().type = DestinationType.Start.ToString();
+                // set start point as current
+                pointObject.GetComponent<PointController>().current = true;
             } else if (point == points[points.Count - 1]) {
                 pointObject.GetComponent<PointController>().type = DestinationType.Boss.ToString();
             } else {
@@ -75,6 +78,7 @@ public class MapGenerationController : MonoBehaviour
                     GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
                     ship.GetComponent<PointShip>().currentPointName = pointObject.GetComponent<PointController>().planetName;
                     ship.transform.parent = pointShipContainer.transform;
+                    ship.GetComponent<PointShip>().OnFirstLoad();
                     lastType = DestinationType.Empty;
                 } else if (random < emptyChance + encounterChance + eventChance) {
                     pointObject.GetComponent<PointController>().type = DestinationType.Event.ToString();

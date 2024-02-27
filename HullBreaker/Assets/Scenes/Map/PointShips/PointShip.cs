@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PointShip : MonoBehaviour
@@ -9,47 +10,51 @@ public class PointShip : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteColor;
 
-    public GameObject currentPoint;
+    // public GameObject currentPoint;
 
+    
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
         spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        // Find the current point by name and set this ship to that point
-        currentPoint = GameObject.Find(currentPointName);
-        // Put ship into points ship list
-        currentPoint.GetComponent<PointController>().ships.Add(this);
+    }
 
+    void Awake() {
+        //SetPositionToCurrentPoint();
+    }
+
+    public void OnFirstLoad() {
         // TEMP - Randomize relations
         int rand = Random.Range(-100, 101);
-        AdjustRelations(rand);
+        //AdjustRelations(rand); // Causes error
+        SetPositionToCurrentPoint();
+    }
+
+    public IEnumerator OnReload() {
+        yield return new WaitForNextFrameUnit();
+        SetPositionToCurrentPoint();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Check if current point is visited (if not hide ship + stop animating)
-        if (!currentPoint.GetComponent<PointController>().visited) {
-            animator.enabled = false;
-            // Disable sprite renderer in child object
-            spriteColor.enabled = false;
-        } else {
-            animator.enabled = true;
-            spriteColor.enabled = true;
-        }
+        // if (currentPoint != null) {
+        //     if (!currentPoint.GetComponent<PointController>().visited) {
+        //         animator.enabled = false;
+        //         // Disable sprite renderer in child object
+        //         spriteColor.enabled = false;
+        //     } else {
+        //         animator.enabled = true;
+        //         spriteColor.enabled = true;
+        //     }
+        // }
     }
 
-    // public void MoveToConnectedPointRandom() {
-    //     currentPoint.GetComponent<PointController>().ships.Remove(this);
-    //     // Get a random connected point
-    //     GameObject nextPoint = currentPoint.GetComponent<PointController>().connectedPoints[Random.Range(0, currentPoint.GetComponent<PointController>().connectedPoints.Count)];
-    //     // Move to that point
-    //     //SlideToPoint(nextPoint);
-    //     // Update current point
-    //     currentPoint = nextPoint;
-    //     currentPoint.GetComponent<PointController>().ships.Add(this);
-    // }
+    public void SetRelations(int x) {
+        relations = x;
+    }
 
     public void AdjustRelations(int x) {
         relations = relations + x;
@@ -62,18 +67,15 @@ public class PointShip : MonoBehaviour
 
     }
 
-    // TODO: Causes Error - Make a coroutine later
-    // public void SlideToPoint(GameObject point) {
-    //     StartCoroutine(SlideToPointCoroutine(point));
-    // }
+    public void SetPositionToCurrentPoint() {
+        // Find the current point by name and set the ship's position to it
+        GameObject currentPoint = GameObject.Find(currentPointName);
+        if (currentPoint != null) {
+            this.transform.position = currentPoint.transform.position;
+            currentPoint.GetComponent<PointController>().AddShip(this.gameObject);
+        }
+        // Add this ship to the current point's list of ships
+        // Debug.Log("Current Point: " + currentPoint.GetComponent<PointController>().ships);
+    }
 
-    // IEnumerator SlideToPointCoroutine(GameObject point) {
-    //     float t = 0;
-    //     Vector3 startPos = this.transform.position;
-    //     while (t < 1) {
-    //         t += Time.deltaTime * 2;
-    //         this.transform.position = Vector3.Lerp(startPos, point.transform.position, t);
-    //         yield return null;
-    //     }
-    // }
 }
