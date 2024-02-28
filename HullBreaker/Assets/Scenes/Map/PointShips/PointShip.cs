@@ -27,6 +27,7 @@ public class PointShip : MonoBehaviour
     public void OnFirstLoad() {
         // TEMP - Randomize relations
         int rand = Random.Range(-100, 101);
+        relations = rand;
         //AdjustRelations(rand); // Causes error
         SetPositionToCurrentPoint();
     }

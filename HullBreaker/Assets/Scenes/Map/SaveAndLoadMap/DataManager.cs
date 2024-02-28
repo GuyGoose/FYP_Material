@@ -62,7 +62,7 @@ public class DataManager : MonoBehaviour
         {
             PointShip pointShip = ship.GetComponent<PointShip>();
             PointShipSaveData pointShipSaveData = new PointShipSaveData();
-            //pointShipSaveData.currentPointName = pointShip.currentPoint.name;
+            pointShipSaveData.currentPointName = pointShip.currentPointName;
             pointShipSaveData.relations = pointShip.relations;
             mapSaveData.pointShipSaveDataList.Add(pointShipSaveData);
         }

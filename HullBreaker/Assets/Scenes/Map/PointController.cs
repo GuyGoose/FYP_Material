@@ -49,14 +49,6 @@ public class PointController : MonoBehaviour
                 this.GetComponent<SpriteRenderer>().transform.localScale = new Vector3(4, 4, 4);
                 break;
         }
-
-        ConnectToPoints();
-        CheckForCoLinks();
-        
-        // If start DrawLinks
-        if (isCompleted) {
-            DrawLinks();
-        }
     }
 
     // Update is called once per frame
@@ -118,6 +110,17 @@ public class PointController : MonoBehaviour
                     SetVisuals();
                     break;
             }
+        }
+    }
+
+    public IEnumerator OnFirstLoad() {
+        yield return new WaitForNextFrameUnit();
+        ConnectToPoints();
+        CheckForCoLinks();
+        
+        // If start DrawLinks
+        if (isCompleted) {
+            DrawLinks();
         }
     }
 

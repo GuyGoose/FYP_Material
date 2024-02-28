@@ -93,6 +93,7 @@ public class MapGenerationController : MonoBehaviour
                     lastType = DestinationType.Empty;
                 }
             }
+            StartCoroutine(pointObject.GetComponent<PointController>().OnReload());
         }
 
         // // Connect points
