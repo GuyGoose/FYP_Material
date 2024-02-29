@@ -10,14 +10,15 @@ public class PointShip : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteColor;
 
-    // public GameObject currentPoint;
-
+    private GameObject currentPoint;
+    private GameObject shipIcon;
     
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
         spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        shipIcon = this.transform.GetChild(0).gameObject;
     }
 
     void Awake() {
@@ -40,17 +41,16 @@ public class PointShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if current point is visited (if not hide ship + stop animating)
-        // if (currentPoint != null) {
-        //     if (!currentPoint.GetComponent<PointController>().visited) {
-        //         animator.enabled = false;
-        //         // Disable sprite renderer in child object
-        //         spriteColor.enabled = false;
-        //     } else {
-        //         animator.enabled = true;
-        //         spriteColor.enabled = true;
-        //     }
-        // }
+        //Check if current point is visited (if not hide ship + stop animating)
+        if (currentPoint != null) {
+            if (!currentPoint.GetComponent<PointController>().visited) {
+                // Disable the shipIcon
+                shipIcon.SetActive(false);
+            } else {
+                // Enable the shipIcon
+                shipIcon.SetActive(true);
+            }
+        }
     }
 
     public void SetRelations(int x) {
@@ -70,7 +70,7 @@ public class PointShip : MonoBehaviour
 
     public void SetPositionToCurrentPoint() {
         // Find the current point by name and set the ship's position to it
-        GameObject currentPoint = GameObject.Find(currentPointName);
+        currentPoint = GameObject.Find(currentPointName);
         if (currentPoint != null) {
             this.transform.position = currentPoint.transform.position;
             currentPoint.GetComponent<PointController>().AddShip(this.gameObject);

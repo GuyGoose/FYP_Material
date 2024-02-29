@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.PlasticSCM.Editor.WebApi;
 
 public class MapGenerationController : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class MapGenerationController : MonoBehaviour
     public int maxShops = 5;	
 
     private List<Vector2> points;
+    private GameObject currentPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -134,7 +136,14 @@ public class MapGenerationController : MonoBehaviour
                     hit.collider.gameObject.GetComponent<PointController>().current = true;
                     hit.collider.gameObject.GetComponent<PointController>().isSelected = true;
                     currentlySelectedPoint = hit.collider.gameObject.GetComponent<PointController>();
+                    currentPoint = hit.collider.gameObject;
                     OpenDestinationMenu();
+                    // If the current is start or completed, disable the land button
+                    if (currentlySelectedPoint.type == DestinationType.Start.ToString() || currentlySelectedPoint.isCompleted){
+                        DisableLandButton();
+                    } else {
+                        EnableLandButton();
+                    }
                     // Calls the tween to position function in the camera controller with the points x and y position but keeps the z position the same
                     cameraController.GetComponent<MapCamMovement>().TweenToPosition(new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, cameraController.transform.position.z));
                     //hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
@@ -173,6 +182,18 @@ public class MapGenerationController : MonoBehaviour
     public void CloseDestinationMenu() {
         destinationMenuAnimator.SetBool("isOn", false);
         landButton.SetActive(false);
+    }
+
+    void DisableLandButton() {
+        landButton.SetActive(false);
+        // landButton.GetComponent<Button>().interactable = false;
+        // landButton.GetComponent<Animator>().enabled = false;
+    }
+
+    void EnableLandButton() {
+        landButton.SetActive(true);
+        // landButton.GetComponent<Button>().interactable = true;
+        // landButton.GetComponent<Animator>().enabled = true;
     }
 
     public void MarkAsCompleted() {

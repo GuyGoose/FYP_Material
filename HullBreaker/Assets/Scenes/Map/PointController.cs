@@ -116,7 +116,6 @@ public class PointController : MonoBehaviour
     public IEnumerator OnFirstLoad() {
         yield return new WaitForNextFrameUnit();
         ConnectToPoints();
-        CheckForCoLinks();
         
         // If start DrawLinks
         if (isCompleted) {
@@ -127,7 +126,6 @@ public class PointController : MonoBehaviour
     public IEnumerator OnReload() {
         yield return new WaitForNextFrameUnit();
         ConnectToPoints();
-        CheckForCoLinks();
         SetVisuals();
 
         if (isCompleted) {
@@ -173,6 +171,8 @@ public class PointController : MonoBehaviour
         // foreach (string connectedPoint in connectedPoints) {
         //     Debug.Log("Connected: " + connectedPoint);
         // }
+        CheckForCoLinks();
+        RemoveDuplicateLinks();
     }
 
     public bool CheckIfconnected(string planetName) {
@@ -182,7 +182,7 @@ public class PointController : MonoBehaviour
     public void DrawLinks() {
         foreach (string connectedPoint in connectedPoints) {
             GameObject point = GameObject.Find(connectedPoint);
-            if (point != null) {
+            if (point != null && point.GetComponent<PointController>().connectedPoints.Contains(this.planetName)) {
                 GameObject line = new GameObject();
                 line.transform.parent = this.transform;
                 line.AddComponent<LineRenderer>();
@@ -204,15 +204,32 @@ public class PointController : MonoBehaviour
     }
 
     public void CheckForCoLinks() {
-        // Checks connected points. If that connected point does not contain this point in its connected points, add it
+        // Checks connected points. If that connected point does not contain this point in its connected points, add it. Also check for vice versa
         foreach (string connectedPoint in connectedPoints) {
             GameObject point = GameObject.Find(connectedPoint);
             if (point != null) {
+                // If other point does not contain this point in its connected points, add it
                 if (!point.GetComponent<PointController>().CheckIfconnected(this.planetName)) {
                     point.GetComponent<PointController>().connectedPoints.Add(this.planetName);
                 }
+
+                // If this point does not contain the other point in its connected points, add it
+                if (!this.CheckIfconnected(point.GetComponent<PointController>().planetName)) {
+                    this.connectedPoints.Add(point.GetComponent<PointController>().planetName);
+                }
             }
         }
+    }
+
+    public void RemoveDuplicateLinks() {
+        // Remove duplicate links
+        List<string> uniqueConnectedPoints = new List<string>();
+        foreach (string connectedPoint in connectedPoints) {
+            if (!uniqueConnectedPoints.Contains(connectedPoint)) {
+                uniqueConnectedPoints.Add(connectedPoint);
+            }
+        }
+        connectedPoints = uniqueConnectedPoints;
     }
 
     public void SetVisuals() {
