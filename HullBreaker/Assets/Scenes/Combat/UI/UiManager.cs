@@ -12,20 +12,7 @@ public class UiManager : MonoBehaviour
     void Start()
     {
         // Get ship buttons (tagged as "ShipButton")
-        shipButtons = GameObject.FindGameObjectsWithTag("ShipButton");
-
-
-        // DEBUG: set anim bool "IsAvailable" to true for all ship buttons
-        foreach (GameObject shipButton in shipButtons) {
-            shipButton.GetComponent<Animator>().SetBool("IsAvailable", true);
-        }
-
-        // Set the first ship button to "Selected" = true and the others to "Selected" = false
-        shipButtons[0].GetComponent<Animator>().SetBool("Selected", true);
-        for (int i = 1; i < shipButtons.Length; i++) {
-            shipButtons[i].GetComponent<Animator>().SetBool("Selected", false);
-        }
-
+        shipButtons = GameObject.FindGameObjectsWithTag("ShipTab");
     }
 
     // Update is called once per frame
@@ -34,13 +21,22 @@ public class UiManager : MonoBehaviour
         
     }
 
-    public void ShipButtonSelected(GameObject button) {
-        // Set the animation for the selected button to "Selected" = true and the others to "Selected" = false
-        foreach (GameObject shipButton in shipButtons) {
-            if (shipButton == button) {
-                shipButton.GetComponent<Animator>().SetBool("Selected", true);
+    public void SetupShipButtons(List<Ship> ships) {
+        // Set the ship buttons to the ships in the player's inventory
+        for (int i = 0; i < ships.Count; i++) {
+            shipButtons[i].GetComponent<ShipTab>().AssignShip(ships[i]);
+        }
+        // Set the first ship in the list as the current ship
+        shipButtons[0].GetComponent<ShipTab>().OnSelect();
+    }
+
+    public void ChangeSelectedShips(GameObject shipTab) {
+        // Set the animation for the selected button to "Pressed" = true and the others to "Pressed" = false
+        foreach (GameObject button in shipButtons) {
+            if (button == shipTab) {
+                button.GetComponent<Animator>().SetBool("Pressed", true);
             } else {
-                shipButton.GetComponent<Animator>().SetBool("Selected", false);
+                button.GetComponent<Animator>().SetBool("Pressed", false);
             }
         }
         

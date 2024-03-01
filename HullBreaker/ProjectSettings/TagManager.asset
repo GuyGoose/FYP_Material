@@ -10,6 +10,8 @@ TagManager:
   - Point
   - PointShip
   - ShipButton
+  - ShipTab
+  - ActionManager
   layers:
   - Default
   - TransparentFX
