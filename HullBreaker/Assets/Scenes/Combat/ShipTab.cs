@@ -8,9 +8,9 @@ public class ShipTab : MonoBehaviour
 {
     public Ship ship;
     public Animator animator;
-    public ActionManager actionManager;
     public UiManager uiManager;
     public Image shipImage;
+    public GameObject shipCharacter;
 
     public void AssignShip(Ship newShip)
     {
@@ -18,16 +18,18 @@ public class ShipTab : MonoBehaviour
         shipImage.sprite = ship.shipImage;
         // Set the IsActive bool in the animator to true
         animator.SetBool("IsActive", true);
+
+        // Set shipCharacter to active and set its sprite to the ship's character
+        shipCharacter.SetActive(true);
+        shipCharacter.GetComponent<SpriteRenderer>().sprite = ship.shipImage;
     }
 
-    public void OnSelect() {
-        actionManager.UpdateCurrentShip(ship);
+    public void OnClick()
+    {
         uiManager.ChangeSelectedShips(gameObject);
-        Debug.Log("Selected " + ship.shipName);
     }
 
     void Start() {
-        actionManager = FindObjectOfType<ActionManager>();
         uiManager = FindObjectOfType<UiManager>();
     }
 

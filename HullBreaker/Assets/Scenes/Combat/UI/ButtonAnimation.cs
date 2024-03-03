@@ -26,6 +26,7 @@ public class ButtonAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerDown(PointerEventData eventData)
     {
         animator.SetTrigger("Pressed");
+        animator.SetBool("Pressed", true);
     }
 
     // public void OnPointerUp(PointerEventData eventData)

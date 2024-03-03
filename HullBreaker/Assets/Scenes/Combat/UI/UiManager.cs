@@ -8,11 +8,14 @@ public class UiManager : MonoBehaviour
 {
     public GameObject[] shipButtons;
 
+    public ActionManager actionManager;
+
     // Start is called before the first frame update
     void Start()
     {
         // Get ship buttons (tagged as "ShipButton")
         shipButtons = GameObject.FindGameObjectsWithTag("ShipTab");
+        actionManager = FindObjectOfType<ActionManager>();
     }
 
     // Update is called once per frame
@@ -27,18 +30,18 @@ public class UiManager : MonoBehaviour
             shipButtons[i].GetComponent<ShipTab>().AssignShip(ships[i]);
         }
         // Set the first ship in the list as the current ship
-        shipButtons[0].GetComponent<ShipTab>().OnSelect();
+        actionManager.UpdateCurrentShip(ships[0]);
+        ChangeSelectedShips(shipButtons[0]);
     }
 
     public void ChangeSelectedShips(GameObject shipTab) {
-        // Set the animation for the selected button to "Pressed" = true and the others to "Pressed" = false
+        // Set all ship buttons to not selected
         foreach (GameObject button in shipButtons) {
-            if (button == shipTab) {
-                button.GetComponent<Animator>().SetBool("Pressed", true);
-            } else {
-                button.GetComponent<Animator>().SetBool("Pressed", false);
-            }
+            button.GetComponent<ShipTab>().animator.SetBool("Pressed", false);
         }
-        
+        // Set the selected ship button to selected
+        shipTab.GetComponent<ShipTab>().animator.SetBool("Pressed", true);
+        // Set the current ship to the selected ship
+        actionManager.UpdateCurrentShip(shipTab.GetComponent<ShipTab>().ship);
     }
 }

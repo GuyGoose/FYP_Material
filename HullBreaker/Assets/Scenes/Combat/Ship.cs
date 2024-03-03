@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// A is a scriptable object that contains the information for a ship and the actions it can perform
+// This is a scriptable object that contains the information for a ship and the actions it can perform
 
 [CreateAssetMenu(fileName = "New Ship", menuName = "HullBreaker/Ship")]
 
