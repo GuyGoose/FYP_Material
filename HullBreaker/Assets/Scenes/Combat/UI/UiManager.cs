@@ -9,6 +9,9 @@ public class UiManager : MonoBehaviour
     public GameObject[] shipButtons;
 
     public ActionManager actionManager;
+    public GameObject pointer;
+
+    public GameObject[] enemyShips;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,9 @@ public class UiManager : MonoBehaviour
         // Set the first ship in the list as the current ship
         actionManager.UpdateCurrentShip(ships[0]);
         ChangeSelectedShips(shipButtons[0]);
+
+        // Set the pointer to the first shipbuttons shipCharacter
+        pointer.transform.position = shipButtons[0].GetComponent<ShipTab>().shipCharacter.transform.position;
     }
 
     public void ChangeSelectedShips(GameObject shipTab) {
@@ -43,5 +49,10 @@ public class UiManager : MonoBehaviour
         shipTab.GetComponent<ShipTab>().animator.SetBool("Pressed", true);
         // Set the current ship to the selected ship
         actionManager.UpdateCurrentShip(shipTab.GetComponent<ShipTab>().ship);
+
+        // Set the pointer to the selected ship's shipCharacter
+        pointer.transform.position = shipTab.GetComponent<ShipTab>().shipCharacter.transform.position;
+        // On the shipCharacter, set the anim trigger to "Flare"
+        shipTab.GetComponent<ShipTab>().shipCharacter.GetComponent<Animator>().SetTrigger("Flare");
     }
 }

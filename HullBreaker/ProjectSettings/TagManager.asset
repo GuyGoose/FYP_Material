@@ -12,6 +12,7 @@ TagManager:
   - ShipButton
   - ShipTab
   - ActionManager
+  - PlayerDisplayShips
   layers:
   - Default
   - TransparentFX

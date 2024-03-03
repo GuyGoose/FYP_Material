@@ -21,5 +21,28 @@ using UnityEngine;
 
 public class Encounter : ScriptableObject
 {
-    
+    public Faction encounterFaction;
+    public int difficulty;
+    public List<Ship> enemyShips = new List<Ship>();
+    public List<Action> enemyActions = new List<Action>();
+    public AI ai;
+}
+
+// Enums for the faction of the encounter
+public enum Faction
+{
+    Enforcers,
+    Merchants,
+    Outlaws,
+    Cultists,
+    ExEmployees,
+    HullBreakers
+}
+
+public enum AI
+{
+    Random,
+    Aggressive,
+    Defensive,
+    Balanced
 }

@@ -38,8 +38,11 @@ public class ActionManager : MonoBehaviour
     - Enemy actions are recieved from the AI and are executed upon the AI's turn in order
     */
 
+    public Encounter encounter;
+    public GameObject enemyHPInfo;
+    public GameObject playerHPInfo;
     public List<Ship> playerShips = new List<Ship>();
-    public GameObject enemyShip;
+    public List<Ship> enemyShips = new List<Ship>();
     public GameObject playerInfo;
     public int playerEnergy;
     private Ship currentlySelectedShip;
@@ -113,9 +116,9 @@ public class ActionManager : MonoBehaviour
         // Determine the target of the action
         switch (actionTarget.ToString()) {
             case "Self":
-                return playerInfo;
+                return playerHPInfo;
             case "Enemy":
-                return enemyShip;
+                return enemyHPInfo;
             default:
                 Debug.Log("Invalid action target");
                 return null;
