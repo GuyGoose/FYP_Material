@@ -34,9 +34,6 @@ public class ShipTab : MonoBehaviour
     }
 
     void Update() {
-        if (ship != null)
-        {
-            Debug.Log(ship.shipName);
-        }
+
     }
 }

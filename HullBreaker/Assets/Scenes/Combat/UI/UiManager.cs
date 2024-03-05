@@ -7,10 +7,8 @@ using TMPro;
 public class UiManager : MonoBehaviour
 {
     public GameObject[] shipButtons;
-
     public ActionManager actionManager;
     public GameObject pointer;
-
     public GameObject[] enemyShips;
 
     // Start is called before the first frame update
@@ -50,9 +48,16 @@ public class UiManager : MonoBehaviour
         // Set the current ship to the selected ship
         actionManager.UpdateCurrentShip(shipTab.GetComponent<ShipTab>().ship);
 
-        // Set the pointer to the selected ship's shipCharacter
+        // Move the pointer to the selected ship's shipCharacter
         pointer.transform.position = shipTab.GetComponent<ShipTab>().shipCharacter.transform.position;
         // On the shipCharacter, set the anim trigger to "Flare"
         shipTab.GetComponent<ShipTab>().shipCharacter.GetComponent<Animator>().SetTrigger("Flare");
+    }
+
+    public void SetupEnemyShipsImages(List<Sprite> enemySprites) {
+        for (int i = 0; i < enemySprites.Count; i++) {
+            enemyShips[i].SetActive(true);
+            enemyShips[i].GetComponent<SpriteRenderer>().sprite = enemySprites[i];
+        }
     }
 }

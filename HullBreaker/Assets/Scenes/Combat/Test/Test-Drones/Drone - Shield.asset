@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bb09da04b17dd7408f0e78f7bfbf7b4, type: 3}
-  m_Name: Test_Action 2
+  m_Name: Drone - Shield
   m_EditorClassIdentifier: 
-  actionName: Shields Up
-  actionDescription: +10 SLD
-  actionType: 1
-  actionValue: 10
-  actionEnergyCost: 3
-  actionTarget: 0
+  actionName: 
+  actionType: 2
+  actionEnergyCost: 1
+  actionTargets: 0
+  actionImage: {fileID: 21300000, guid: b6a96c7c65795c94abf54a62adbf5c38, type: 3}
+  numberOfDice: 2
+  numberOfSides: 4
+  valueToAdd: 

@@ -9,11 +9,13 @@ using UnityEngine;
     -- Contents --
 
     - Encounter Faction
+    - Encounter Name
     - Difficulty
     - Enemy Ships - Up to 4 sprites of enemy ships that will be used in the encounter
     - Enemy Actions - The actions the enemy can perform
     - AI - The AI that will control the enemy ships
-    
+    - Base Health - The base health of the enemy ships
+    - Actions Per Turn - The number of actions the enemy can perform per turn
 
 */
 
@@ -22,10 +24,13 @@ using UnityEngine;
 public class Encounter : ScriptableObject
 {
     public Faction encounterFaction;
+    public string encounterName;
     public int difficulty;
     public List<Ship> enemyShips = new List<Ship>();
-    public List<Action> enemyActions = new List<Action>();
     public AI ai;
+    public int baseHealth;
+    [Range(1, 8)]
+    public int actionsPerTurn;
 }
 
 // Enums for the faction of the encounter
@@ -44,5 +49,6 @@ public enum AI
     Random,
     Aggressive,
     Defensive,
-    Balanced
+    Balanced,
+    Progressive
 }

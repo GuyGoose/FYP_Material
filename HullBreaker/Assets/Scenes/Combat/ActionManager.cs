@@ -38,9 +38,10 @@ public class ActionManager : MonoBehaviour
     - Enemy actions are recieved from the AI and are executed upon the AI's turn in order
     */
 
+    public GameState currentGameState;
+
     public Encounter encounter;
-    public GameObject enemyHPInfo;
-    public GameObject playerHPInfo;
+    public GameObject enemyInfo;
     public List<Ship> playerShips = new List<Ship>();
     public List<Ship> enemyShips = new List<Ship>();
     public GameObject playerInfo;
@@ -49,17 +50,38 @@ public class ActionManager : MonoBehaviour
     public UiManager uiManager;
 
     public GameObject Action1, Action2, Action3, Action4;
-    //public GameObject ShipTab1, ShipTab2, ShipTab3, ShipTab4;
+    
+    // Game States (PlayerTurn, EnemyTurn)
+    public enum GameState {
+        PlayerTurn,
+        EnemyTurn
+    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Awake() {
+        // Setting up encounter
+        encounter = playerInfo.GetComponent<PlayerInfo>().currentEncounter;
+        
+        // Player and Enemy HP Info
+        playerInfo.GetComponent<Health>().SetupHealth(playerInfo.GetComponent<PlayerInfo>().currentHealth, playerInfo.GetComponent<PlayerInfo>().currentHealth);
+        enemyInfo.GetComponent<Health>().SetupHealth(encounter.baseHealth, encounter.baseHealth);
+    
         // Get player info 
         // -- This also contains the player's energy and the player's ships
         playerEnergy = playerInfo.GetComponent<PlayerInfo>().energy;
         playerShips = playerInfo.GetComponent<PlayerInfo>().ships;
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         uiManager.SetupShipButtons(playerShips);
+        enemyShips = encounter.enemyShips;
+        // Setup enemy ships sprites
+        List<Sprite> enemySprites = new List<Sprite>();
+        for (int i = 0; i < enemyShips.Count; i++) {
+            enemySprites.Add(enemyShips[i].shipImage);
+        }
+        uiManager.SetupEnemyShipsImages(enemySprites);
     }
 
     // IsValidAction checks if the action is valid
@@ -114,15 +136,23 @@ public class ActionManager : MonoBehaviour
 
     public GameObject DetermineTarget(ActionTargets actionTarget) {
         // Determine the target of the action
-        switch (actionTarget.ToString()) {
-            case "Self":
-                return playerHPInfo;
-            case "Enemy":
-                return enemyHPInfo;
-            default:
-                Debug.Log("Invalid action target");
-                return null;
+        // PlayerTurn: actionTarget - Enemy = enemyShips, actionTarget - Self = playerShips
+        // EnemyTurn: actionTarget - Enemy = playerShips, actionTarget - Self = enemyShips
+        switch (currentGameState) {
+            case GameState.PlayerTurn:
+                if (actionTarget == ActionTargets.Enemy) {
+                    return enemyInfo;
+                } else {
+                    return playerInfo;
+                }
+            case GameState.EnemyTurn:
+                if (actionTarget == ActionTargets.Enemy) {
+                    return playerInfo;
+                } else {
+                    return enemyInfo;
+                }
         }
+        return null;
     }
 
     public void UpdateCurrentShip(Ship ship) {
@@ -133,6 +163,15 @@ public class ActionManager : MonoBehaviour
         Action2.GetComponent<ActionButton>().UpdateActionButton(ship.actions[1]);
         Action3.GetComponent<ActionButton>().UpdateActionButton(ship.actions[2]);
         Action4.GetComponent<ActionButton>().UpdateActionButton(ship.actions[3]);
+    }
+
+    public void StartPlayerTurn() {
+        currentGameState = GameState.PlayerTurn;
+    }
+
+    public void StartEnemyTurn() {
+        currentGameState = GameState.EnemyTurn;
+        //StartCoroutine(EnemyTurn());
     }
 
 }

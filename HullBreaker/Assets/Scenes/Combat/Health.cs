@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class Health : MonoBehaviour
     - currentHealth
     - currentShield
 
+    -- UI --
+    - Health Bar
+    - Health Text
+
     --- TO BE ADDED ---
     -- Buffs and Debuffs --
     
@@ -22,6 +28,9 @@ public class Health : MonoBehaviour
     public int currentHealth;
     public int currentShield;
 
+    public Image healthBar;
+    public TextMeshProUGUI healthText;
+
     public bool isPlayer;
 
     // Start is called before the first frame update
@@ -29,6 +38,16 @@ public class Health : MonoBehaviour
     {
         
     }
+
+    public void SetupHealth(int maxHealth, int health) {
+        this.maxHealth = maxHealth;
+        currentHealth = health;
+        currentShield = 0;
+
+        healthBar.fillAmount = (float)currentHealth / maxHealth;
+        healthText.text = currentHealth + "/" + maxHealth;
+    }
+
 
     public void TakeDamage(int damage) {
         // If the ship has shields, take damage from the shields first
@@ -69,6 +88,13 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // If health bar or text differ from current health, update them gradually
+        if (healthBar.fillAmount != (float)currentHealth / maxHealth) {
+            healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, (float)currentHealth / maxHealth, Time.deltaTime * 5);
+        }
+        if (healthText.text != currentHealth + "/" + maxHealth) {
+            healthText.text = currentHealth + "/" + maxHealth;
+        }
     }
+    
 }
