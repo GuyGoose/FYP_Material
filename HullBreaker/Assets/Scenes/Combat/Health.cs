@@ -29,6 +29,7 @@ public class Health : MonoBehaviour
     public int currentShield;
 
     public Image healthBar;
+    public Image shieldBar;
     public TextMeshProUGUI healthText;
 
     public bool isPlayer;
@@ -43,9 +44,6 @@ public class Health : MonoBehaviour
         this.maxHealth = maxHealth;
         currentHealth = health;
         currentShield = 0;
-
-        healthBar.fillAmount = (int)currentHealth / maxHealth;
-        healthText.text = currentHealth + "/" + maxHealth;
     }
 
 
@@ -83,17 +81,25 @@ public class Health : MonoBehaviour
 
     public void Shield(int shieldAmount) {
         currentShield += shieldAmount;
+        if (currentShield > maxHealth) {
+            currentShield = maxHealth;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // If health bar or text differ from current health, update them gradually
-        if (healthBar.fillAmount != (int)currentHealth / maxHealth) {
-            healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, (int)currentHealth / maxHealth, Time.deltaTime * 5);
-        }
-        if (healthText.text != currentHealth + "/" + maxHealth) {
-            healthText.text = currentHealth + "/" + maxHealth;
+        // Update the health bar and health text on the UI
+        // converting the (currentHealth / maxHealth) to a float of 0 to 1
+        float currentHealthFill = (float)currentHealth / (float)maxHealth;
+        float currentShieldFill = (float)currentShield / (float)maxHealth;
+        // Gradually change the fill amount of the health bar
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, currentHealthFill, Time.deltaTime * 5f);
+        shieldBar.fillAmount = Mathf.Lerp(shieldBar.fillAmount, currentShieldFill, Time.deltaTime * 5f);
+        healthText.text = currentHealth + "/" + maxHealth;
+
+        if (currentShield > 0) {
+            healthText.text += " ( + " + currentShield + " )";
         }
 
         // Debug.ClearDeveloperConsole();

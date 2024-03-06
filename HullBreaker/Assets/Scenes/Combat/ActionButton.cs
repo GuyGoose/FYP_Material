@@ -29,6 +29,9 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // -- UI Elements --
     public Image actionImage;
     public TextMeshProUGUI actionEnergyCostText;
+    private Animator animator;
+    public Button thisButton;
+    public GameObject inActiveSymbol;
     
     // -- ToolTip --
     private ToolTipMessenger toolTipMessenger;
@@ -38,6 +41,7 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     ActionManager actionManager;
 
     private void Start() {
+        animator = GetComponent<Animator>();
         actionManager = GameObject.Find("ActionManager").GetComponent<ActionManager>();
         toolTipMessenger = GameObject.Find("ToolTip").GetComponent<ToolTipMessenger>();
 
@@ -52,6 +56,8 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         actionImage.sprite = action.actionImage;
         actionEnergyCostText.text = actionEnergyCost.ToString();
         CreateDesriptionText(action.numberOfDice, action.numberOfSides, action.valueToAdd, action.actionType);
+
+        currentAction = action;
     }
 
     private void CreateDesriptionText(int numberOfDice, int numberOfSides, string valueToAdd, ActionType actionType) {
@@ -92,6 +98,15 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 toolTipMessenger.Show(actionName, actionDescription);
             }
         }
+
+        // If the action energy cost is greater than the player's energy, disable the button
+        if (actionEnergyCost > actionManager.playerEnergy) {
+            thisButton.interactable = false;
+            inActiveSymbol.SetActive(true);
+        } else {
+            thisButton.interactable = true;
+            inActiveSymbol.SetActive(false);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -105,12 +120,12 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     public void OnClick() {
-        // Check if the action energy cost is greater than the player's energy
-        if (actionEnergyCost > actionManager.playerEnergy) {
-            return;
-        }
+        // // Check if the action energy cost is greater than the player's energy
+        // if (actionEnergyCost > actionManager.playerEnergy) {
+        //     return;
+        // }
         // Execute the action
-        actionManager.ExecuteAction(currentAction);
+        actionManager.IsValidAction(currentAction);
     }
     
 }

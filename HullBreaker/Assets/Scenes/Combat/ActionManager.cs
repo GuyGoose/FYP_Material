@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class ActionManager : MonoBehaviour
 {
@@ -45,7 +48,9 @@ public class ActionManager : MonoBehaviour
     public List<Ship> playerShips = new List<Ship>();
     public List<Ship> enemyShips = new List<Ship>();
     public GameObject playerInfo;
+    public int playerMaxEnergy;
     public int playerEnergy;
+    public TextMeshProUGUI playerEnergyText;
     private Ship currentlySelectedShip;
     public UiManager uiManager;
 
@@ -67,7 +72,7 @@ public class ActionManager : MonoBehaviour
     
         // Get player info 
         // -- This also contains the player's energy and the player's ships
-        playerEnergy = playerInfo.GetComponent<PlayerInfo>().energy;
+        playerMaxEnergy = playerInfo.GetComponent<PlayerInfo>().energy;
         playerShips = playerInfo.GetComponent<PlayerInfo>().ships;
     }
 
@@ -93,6 +98,7 @@ public class ActionManager : MonoBehaviour
         if (action.actionEnergyCost > playerEnergy) {
             return false;
         }
+        playerEnergy -= action.actionEnergyCost;
         ExecuteAction(action);
         return true;
     }
@@ -100,22 +106,23 @@ public class ActionManager : MonoBehaviour
     // ExecuteAction performs the action on the target
     public void ExecuteAction(Action action) {
         // Get the action type
-        //GameObject target = DetermineTarget(action.actionTargets);
-        GameObject target = enemyInfo;
-        switch (action.actionType.ToString()) {
-            case "Damage":
+        GameObject target = DetermineTarget(action.actionTargets);
+        Debug.Log("Target: " + target);
+        switch (action.actionType) {
+            case ActionType.Damage:
                 // Get the value of the action
                 int value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
+                Debug.Log("Value: " + value);
                 // Deal damage to the target
                 target.GetComponent<Health>().TakeDamage(value);
                 break;
-            case "Heal":
+            case ActionType.Heal:
                 // Get the value of the action
                 value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
                 // Heal the target
                 target.GetComponent<Health>().Heal(value);
                 break;
-            case "Shield":
+            case ActionType.Shield:
                 // Get the value of the action
                 value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
                 // Shield the target
@@ -170,12 +177,20 @@ public class ActionManager : MonoBehaviour
     }
 
     public void StartPlayerTurn() {
+        playerEnergy = playerMaxEnergy;
         currentGameState = GameState.PlayerTurn;
     }
 
     public void StartEnemyTurn() {
         currentGameState = GameState.EnemyTurn;
         //StartCoroutine(EnemyTurn());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Player Energy Text (currentEnergy / maxEnergy)
+        playerEnergyText.text = playerEnergy + " / " + playerMaxEnergy;
     }
 
 }

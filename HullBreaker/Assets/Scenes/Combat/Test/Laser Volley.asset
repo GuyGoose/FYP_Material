@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Laser Volley
   actionType: 0
-  actionEnergyCost: 4
+  actionEnergyCost: 3
   actionTargets: 1
   actionImage: {fileID: 21300000, guid: 61ac40b257b3a994f841856ad38b2b6b, type: 3}
   numberOfDice: 6
