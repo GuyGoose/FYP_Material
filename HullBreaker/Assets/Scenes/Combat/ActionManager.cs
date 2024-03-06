@@ -166,6 +166,12 @@ public class ActionManager : MonoBehaviour
             // End the game
             StartCoroutine(EndGameForDemo());
         }
+
+        // Check if the player is defeated
+        if (target == playerInfo && playerInfo.GetComponent<Health>().currentHealth <= 0) {
+            // End the game
+            StartCoroutine(EndGameForDemo());
+        }
     }
 
     // RollDice rolls the dice and returns the value
@@ -219,12 +225,14 @@ public class ActionManager : MonoBehaviour
     }
 
     public void StartPlayerTurn() {
+        playerInfo.GetComponent<Health>().currentShield = 0;
         playerTurnMenu.GetComponent<Animator>().SetBool("isActive", true);
         playerEnergy = playerMaxEnergy;
         currentGameState = GameState.PlayerTurn;
     }
 
     public void StartEnemyTurn() {
+        enemyInfo.GetComponent<Health>().currentShield = 0;
         playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
         currentGameState = GameState.EnemyTurn;
         StartCoroutine(EnemyTurn());
