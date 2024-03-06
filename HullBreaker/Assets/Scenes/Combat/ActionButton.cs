@@ -125,7 +125,12 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         //     return;
         // }
         // Execute the action
-        actionManager.IsValidAction(currentAction);
+        if (actionManager.IsValidAction(currentAction)) {
+            actionManager.AnimatePlayerShips(currentAction.actionType);
+
+        }
     }
+
+    
     
 }

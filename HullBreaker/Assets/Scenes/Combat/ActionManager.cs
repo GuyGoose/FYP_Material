@@ -98,7 +98,7 @@ public class ActionManager : MonoBehaviour
         if (action.actionEnergyCost > playerEnergy) {
             return false;
         }
-        playerEnergy -= action.actionEnergyCost;
+        AdjustPlayerEnergy(-action.actionEnergyCost);
         ExecuteAction(action);
         return true;
     }
@@ -193,4 +193,36 @@ public class ActionManager : MonoBehaviour
         playerEnergyText.text = playerEnergy + " / " + playerMaxEnergy;
     }
 
+    void AdjustPlayerEnergy(int energy) {
+        playerEnergy += energy;
+    }
+
+    public void AnimatePlayerShips(ActionType actionType) {
+        // Animate the player ships
+        for (int i = 0; i < playerShips.Count; i++) {
+            AnimateShip(playerShips[i], actionType);
+        }
+    }
+
+    public void AnimateEnemyShips(ActionType actionType) {
+        // Animate the enemy ships
+        for (int i = 0; i < enemyShips.Count; i++) {
+            AnimateShip(enemyShips[i], actionType);
+        }
+    }
+
+    public void AnimateShip(Ship ship, ActionType actionType) {
+        // Animate the ship
+        switch (actionType) {
+            case ActionType.Damage:
+                // Animate the ship taking damage
+                break;
+            case ActionType.Heal:
+                // Animate the ship being healed
+                break;
+            case ActionType.Shield:
+                // Animate the ship being shielded
+                break;
+        }
+    }
 }
