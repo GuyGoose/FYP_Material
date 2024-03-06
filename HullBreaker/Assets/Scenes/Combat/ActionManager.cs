@@ -82,6 +82,9 @@ public class ActionManager : MonoBehaviour
             enemySprites.Add(enemyShips[i].shipImage);
         }
         uiManager.SetupEnemyShipsImages(enemySprites);
+
+        // Start the player's turn
+        StartPlayerTurn();
     }
 
     // IsValidAction checks if the action is valid
@@ -97,7 +100,8 @@ public class ActionManager : MonoBehaviour
     // ExecuteAction performs the action on the target
     public void ExecuteAction(Action action) {
         // Get the action type
-        GameObject target = DetermineTarget(action.actionTargets);
+        //GameObject target = DetermineTarget(action.actionTargets);
+        GameObject target = enemyInfo;
         switch (action.actionType.ToString()) {
             case "Damage":
                 // Get the value of the action

@@ -24,6 +24,8 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // The action energy cost
     public int actionEnergyCost;
 
+    private Action currentAction;
+
     // -- UI Elements --
     public Image actionImage;
     public TextMeshProUGUI actionEnergyCostText;
@@ -33,8 +35,10 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public float toolTipDelay = 0.5f;
     float timer;
     bool hasMouse;
+    ActionManager actionManager;
 
     private void Start() {
+        actionManager = GameObject.Find("ActionManager").GetComponent<ActionManager>();
         toolTipMessenger = GameObject.Find("ToolTip").GetComponent<ToolTipMessenger>();
 
         hasMouse = false;
@@ -98,6 +102,15 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerExit(PointerEventData eventData) {
         hasMouse = false;
         toolTipMessenger.Hide();
+    }
+
+    public void OnClick() {
+        // Check if the action energy cost is greater than the player's energy
+        if (actionEnergyCost > actionManager.playerEnergy) {
+            return;
+        }
+        // Execute the action
+        actionManager.ExecuteAction(currentAction);
     }
     
 }

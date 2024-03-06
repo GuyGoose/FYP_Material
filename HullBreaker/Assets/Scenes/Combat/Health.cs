@@ -44,7 +44,7 @@ public class Health : MonoBehaviour
         currentHealth = health;
         currentShield = 0;
 
-        healthBar.fillAmount = (float)currentHealth / maxHealth;
+        healthBar.fillAmount = (int)currentHealth / maxHealth;
         healthText.text = currentHealth + "/" + maxHealth;
     }
 
@@ -89,12 +89,15 @@ public class Health : MonoBehaviour
     void Update()
     {
         // If health bar or text differ from current health, update them gradually
-        if (healthBar.fillAmount != (float)currentHealth / maxHealth) {
-            healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, (float)currentHealth / maxHealth, Time.deltaTime * 5);
+        if (healthBar.fillAmount != (int)currentHealth / maxHealth) {
+            healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, (int)currentHealth / maxHealth, Time.deltaTime * 5);
         }
         if (healthText.text != currentHealth + "/" + maxHealth) {
             healthText.text = currentHealth + "/" + maxHealth;
         }
+
+        // Debug.ClearDeveloperConsole();
+        // Debug.Log("Health: " + currentHealth + "/" + maxHealth);
     }
     
 }
