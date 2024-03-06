@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bb09da04b17dd7408f0e78f7bfbf7b4, type: 3}
-  m_Name: Drone - Lasers
+  m_Name: Dice Cannon
   m_EditorClassIdentifier: 
-  actionName: Drone - Lasers
+  actionName: Dice Cannon
   actionType: 0
-  actionEnergyCost: 1
+  actionEnergyCost: 2
   actionTargets: 1
-  actionImage: {fileID: 21300000, guid: 8008767850e870a4e8baaf5a6fc8b35c, type: 3}
-  numberOfDice: 3
-  numberOfSides: 4
+  actionImage: {fileID: 21300000, guid: 246d7c7c8e9e6cf43893ae13c5a81bdf, type: 3}
+  numberOfDice: 1
+  numberOfSides: 20
   valueToAdd: 

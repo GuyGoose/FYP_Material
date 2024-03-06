@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipName: Basic Ship
   actions:
-  - {fileID: 11400000, guid: 988b360738d04b343bcec7e5dc52612a, type: 2}
-  - {fileID: 11400000, guid: 988b360738d04b343bcec7e5dc52612a, type: 2}
-  - {fileID: 11400000, guid: 988b360738d04b343bcec7e5dc52612a, type: 2}
-  - {fileID: 11400000, guid: 988b360738d04b343bcec7e5dc52612a, type: 2}
+  - {fileID: 11400000, guid: 8b0f2f7ce246e0041b401ea0a2f83f57, type: 2}
+  - {fileID: 11400000, guid: cc278ffbe0ce70f48a833ee467f23399, type: 2}
+  - {fileID: 11400000, guid: 4106cd7444fb3ad43b4b67341be787c9, type: 2}
+  - {fileID: 11400000, guid: dac748b507136a24d84930a9d183f363, type: 2}
   shipImage: {fileID: 21300000, guid: dc881195bd1e20247b5af210c59c8133, type: 3}

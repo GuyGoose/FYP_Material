@@ -53,8 +53,11 @@ public class ActionManager : MonoBehaviour
     public TextMeshProUGUI playerEnergyText;
     private Ship currentlySelectedShip;
     public UiManager uiManager;
+    public GameObject playerTurnMenu;
 
     public GameObject Action1, Action2, Action3, Action4;
+    public List<GameObject> PlayerShipAnimation, EnemyShipAnimation;
+    public GameObject PlayerValueText, EnemyValueText;
     
     // Game States (PlayerTurn, EnemyTurn)
     public enum GameState {
@@ -106,6 +109,7 @@ public class ActionManager : MonoBehaviour
     // ExecuteAction performs the action on the target
     public void ExecuteAction(Action action) {
         // Get the action type
+        Debug.Log("Executing action: " + action.actionName);
         GameObject target = DetermineTarget(action.actionTargets);
         Debug.Log("Target: " + target);
         switch (action.actionType) {
@@ -115,22 +119,52 @@ public class ActionManager : MonoBehaviour
                 Debug.Log("Value: " + value);
                 // Deal damage to the target
                 target.GetComponent<Health>().TakeDamage(value);
+
+                if (target == playerInfo) { 
+                    // Display the value of the action
+                    DisplayActionValue(ActionTargets.Self, "-" + value.ToString());
+                } else {
+                    // Display the value of the action
+                    DisplayActionValue(ActionTargets.Enemy, "-" + value.ToString());
+                }
                 break;
             case ActionType.Heal:
                 // Get the value of the action
                 value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
                 // Heal the target
                 target.GetComponent<Health>().Heal(value);
+
+                if (target == playerInfo) { 
+                    // Display the value of the action
+                    DisplayActionValue(ActionTargets.Self, "+" + value.ToString());
+                } else {
+                    // Display the value of the action
+                    DisplayActionValue(ActionTargets.Enemy, "+" + value.ToString());
+                }
                 break;
             case ActionType.Shield:
                 // Get the value of the action
                 value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
                 // Shield the target
                 target.GetComponent<Health>().currentShield += value;
+
+                if (target == playerInfo) { 
+                    // Display the value of the action
+                    DisplayActionValue(ActionTargets.Self, "+" + value.ToString());
+                } else {
+                    // Display the value of the action
+                    DisplayActionValue(ActionTargets.Enemy, "+" + value.ToString());
+                }
                 break;
             default:
                 Debug.Log("Invalid action type");
                 break;
+        }
+
+        // Check if the enemy is defeated
+        if (target == enemyInfo && enemyInfo.GetComponent<Health>().currentHealth <= 0) {
+            // End the game
+            StartCoroutine(EndGameForDemo());
         }
     }
 
@@ -152,14 +186,22 @@ public class ActionManager : MonoBehaviour
         switch (currentGameState) {
             case GameState.PlayerTurn:
                 if (actionTarget == ActionTargets.Enemy) {
+                    // Animate the enemy ships taking damage
+                    StartCoroutine(AnimateEnemyShips(ActionType.Damage));
                     return enemyInfo;
                 } else {
+                    // Animate the player ships performing an action
+                    StartCoroutine(AnimatePlayerShips(ActionType.Heal));
                     return playerInfo;
                 }
             case GameState.EnemyTurn:
                 if (actionTarget == ActionTargets.Enemy) {
+                    // Animate the player ships taking damage
+                    StartCoroutine(AnimatePlayerShips(ActionType.Damage));
                     return playerInfo;
                 } else {
+                    // Animate the enemy ships performing an action
+                    StartCoroutine(AnimateEnemyShips(ActionType.Heal));
                     return enemyInfo;
                 }
         }
@@ -177,13 +219,15 @@ public class ActionManager : MonoBehaviour
     }
 
     public void StartPlayerTurn() {
+        playerTurnMenu.GetComponent<Animator>().SetBool("isActive", true);
         playerEnergy = playerMaxEnergy;
         currentGameState = GameState.PlayerTurn;
     }
 
     public void StartEnemyTurn() {
+        playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
         currentGameState = GameState.EnemyTurn;
-        //StartCoroutine(EnemyTurn());
+        StartCoroutine(EnemyTurn());
     }
 
     // Update is called once per frame
@@ -197,32 +241,85 @@ public class ActionManager : MonoBehaviour
         playerEnergy += energy;
     }
 
-    public void AnimatePlayerShips(ActionType actionType) {
+    IEnumerator AnimatePlayerShips(ActionType actionType) {
         // Animate the player ships
         for (int i = 0; i < playerShips.Count; i++) {
-            AnimateShip(playerShips[i], actionType);
+            AnimateShip(PlayerShipAnimation[i], actionType);
+            //wait for a for 0.2 seconds
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
-    public void AnimateEnemyShips(ActionType actionType) {
+    IEnumerator AnimateEnemyShips(ActionType actionType) {
         // Animate the enemy ships
         for (int i = 0; i < enemyShips.Count; i++) {
-            AnimateShip(enemyShips[i], actionType);
+            AnimateShip(EnemyShipAnimation[i], actionType);
+            //wait for a for 0.2 seconds
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
-    public void AnimateShip(Ship ship, ActionType actionType) {
+    public void AnimateShip(GameObject ship, ActionType actionType) {
         // Animate the ship
         switch (actionType) {
             case ActionType.Damage:
                 // Animate the ship taking damage
+                ship.GetComponent<Animator>().SetTrigger("Damaged");
                 break;
             case ActionType.Heal:
                 // Animate the ship being healed
+                ship.GetComponent<Animator>().SetTrigger("Healed");
                 break;
             case ActionType.Shield:
                 // Animate the ship being shielded
+                ship.GetComponent<Animator>().SetTrigger("Healed");
                 break;
         }
+    }
+
+    public void DisplayActionValue(ActionTargets actionTargets, string value) {
+        // If actionTargets is Enemy, display the value on the enemy value text
+        // If actionTargets is Self, display the value on the player value text
+        switch (actionTargets) {
+            case ActionTargets.Enemy:
+                // Text is in child of EnemyValueText.
+                EnemyValueText.GetComponentInChildren<TextMeshProUGUI>().text = value;
+                // Animate the enemy value text
+                EnemyValueText.GetComponent<Animator>().SetTrigger("Value");
+                break;
+            case ActionTargets.Self:
+                PlayerValueText.GetComponentInChildren<TextMeshProUGUI>().text = value;
+                // Animate the player value text
+                PlayerValueText.GetComponent<Animator>().SetTrigger("Value");
+                break;
+        }
+    }
+
+    IEnumerator EnemyTurn() {
+        // For each enemy ship, perform an action
+        for (int i = 0; i < enemyShips.Count; i++) {
+            // Get the enemy ship's actions
+            List<Action> actions = enemyShips[i].actions;
+            // Perform the random action
+            int randomAction = Random.Range(0, actions.Count);
+            ExecuteAction(actions[randomAction]);
+            //wait for a for 1 seconds
+            yield return new WaitForSeconds(1f);
+        }
+        // Start the player's turn
+        StartPlayerTurn();
+    }
+
+    IEnumerator EndGameForDemo() {
+        playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
+        // Destroy Enemy Ships
+        for (int i = 0; i < enemyShips.Count; i++) {
+            EnemyShipAnimation[i].SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+        }
+        //wait for a for 1 seconds
+        yield return new WaitForSeconds(1f);
+        // Display Game Over
+        uiManager.DisplayGameOver();
     }
 }

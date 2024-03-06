@@ -17,6 +17,6 @@ MonoBehaviour:
   actionEnergyCost: 1
   actionTargets: 0
   actionImage: {fileID: 21300000, guid: b6a96c7c65795c94abf54a62adbf5c38, type: 3}
-  numberOfDice: 2
-  numberOfSides: 4
+  numberOfDice: 3
+  numberOfSides: 6
   valueToAdd: 

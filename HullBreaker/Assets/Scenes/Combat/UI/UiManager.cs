@@ -10,6 +10,7 @@ public class UiManager : MonoBehaviour
     public ActionManager actionManager;
     public GameObject pointer;
     public GameObject[] enemyShips;
+    public GameObject DemoGameOverPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +59,13 @@ public class UiManager : MonoBehaviour
         for (int i = 0; i < enemySprites.Count; i++) {
             enemyShips[i].SetActive(true);
             enemyShips[i].GetComponent<SpriteRenderer>().sprite = enemySprites[i];
+        }
+    }
+
+    public void DisplayGameOver() {
+        // Fade in canvas group
+        while (DemoGameOverPanel.GetComponent<CanvasGroup>().alpha < 1) {
+            DemoGameOverPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
         }
     }
 }

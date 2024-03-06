@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bb09da04b17dd7408f0e78f7bfbf7b4, type: 3}
-  m_Name: Laser Strike
+  m_Name: Repair
   m_EditorClassIdentifier: 
-  actionName: Laser Strike
-  actionType: 0
-  actionEnergyCost: 1
-  actionTargets: 1
-  actionImage: {fileID: 21300000, guid: 246d7c7c8e9e6cf43893ae13c5a81bdf, type: 3}
-  numberOfDice: 2
+  actionName: Repair
+  actionType: 1
+  actionEnergyCost: 2
+  actionTargets: 0
+  actionImage: {fileID: 21300000, guid: 61ac40b257b3a994f841856ad38b2b6b, type: 3}
+  numberOfDice: 1
   numberOfSides: 6
   valueToAdd: 
