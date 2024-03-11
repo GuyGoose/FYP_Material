@@ -11,19 +11,19 @@ public class MapGenerationController : MonoBehaviour
     public int regionSize = 100;
     public enum DestinationType {
         Start,
-        Empty,
+        Planet,
         Encounter,
-        Event,
-        Shop,
+        Oddity,
+        Merchant,
         Boss
     }
     public GameObject pointPrefab;
 
     // Statistics for point generation
-    public float emptyChance = 0.4f;
+    public float PlanetChance = 0.4f;
     public float encounterChance = 0.3f;
-    public float eventChance = 0.2f;
-    public float shopChance = 0.1f;
+    public float OddityChance = 0.2f;
+    public float MerchantChance = 0.1f;
 
     public GameObject destinationMenu;
     public GameObject landButton;
@@ -39,16 +39,19 @@ public class MapGenerationController : MonoBehaviour
     public GameObject pointContainer;
     public GameObject pointShipContainer;
 
-    public int minShops = 3;
-    public int maxShops = 5;	
+    public int minMerchants = 3;
+    public int maxMerchants = 5;	
 
     private List<Vector2> points;
     private GameObject currentPoint;
+
+    private GameObject DialogueBox;
 
     // Start is called before the first frame update
     void Start()
     {
         points = PoissonDiscSampling.GeneratePoints(pointRadius, new Vector2(regionSize, regionSize), 30);
+        DialogueBox = GameObject.Find("DialogueBox");
         destinationMenuAnimator = destinationMenu.GetComponent<Animator>();
         CloseDestinationMenu();
 
@@ -56,9 +59,9 @@ public class MapGenerationController : MonoBehaviour
         // Rules for generation:
         // 1. Start point is always the first point
         // 2. Boss point is always the last point
-        // 3. The number of shops is random should be between minShops and maxShops
+        // 3. The number of Merchants is random should be between minMerchants and maxMerchants
 
-        DestinationType lastType = DestinationType.Empty;
+        DestinationType lastType = DestinationType.Planet;
         foreach (Vector2 point in points) {
             GameObject pointObject = Instantiate(pointPrefab, point, Quaternion.identity);
             pointObject.transform.parent = pointContainer.transform;
@@ -71,28 +74,28 @@ public class MapGenerationController : MonoBehaviour
                 pointObject.GetComponent<PointController>().type = DestinationType.Boss.ToString();
             } else {
                 float random = Random.value;
-                if (random < emptyChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
-                    lastType = DestinationType.Empty;
-                } else if (random < emptyChance + encounterChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
+                if (random < PlanetChance) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
+                    lastType = DestinationType.Planet;
+                } else if (random < PlanetChance + encounterChance) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
                     // Create a ship at this point
                     GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
                     ship.GetComponent<PointShip>().currentPointName = pointObject.GetComponent<PointController>().planetName;
                     ship.transform.parent = pointShipContainer.transform;
                     ship.GetComponent<PointShip>().OnFirstLoad();
-                    lastType = DestinationType.Empty;
-                } else if (random < emptyChance + encounterChance + eventChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Event.ToString();
-                    lastType = DestinationType.Event;
-                    // Max of maxShops can be generated + cannot genrate two shops in a row
-                } else if (random < emptyChance + encounterChance + eventChance + shopChance && maxShops > 0 && lastType != DestinationType.Shop) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Shop.ToString();
-                    maxShops--;
-                    lastType = DestinationType.Shop;
+                    lastType = DestinationType.Planet;
+                } else if (random < PlanetChance + encounterChance + OddityChance) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Oddity.ToString();
+                    lastType = DestinationType.Oddity;
+                    // Max of maxMerchants can be generated + cannot genrate two Merchants in a row
+                } else if (random < PlanetChance + encounterChance + OddityChance + MerchantChance && maxMerchants > 0 && lastType != DestinationType.Merchant) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Merchant.ToString();
+                    maxMerchants--;
+                    lastType = DestinationType.Merchant;
                 } else {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Empty.ToString();
-                    lastType = DestinationType.Empty;
+                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
+                    lastType = DestinationType.Planet;
                 }
             }
             StartCoroutine(pointObject.GetComponent<PointController>().OnReload());
@@ -138,6 +141,8 @@ public class MapGenerationController : MonoBehaviour
                     currentlySelectedPoint = hit.collider.gameObject.GetComponent<PointController>();
                     currentPoint = hit.collider.gameObject;
                     OpenDestinationMenu();
+                    // Set the dialogue box to show Information about the point
+                    DisplayInformation();
                     // If the current is start or completed, disable the land button
                     if (currentlySelectedPoint.type == DestinationType.Start.ToString() || currentlySelectedPoint.isCompleted){
                         DisableLandButton();
@@ -196,6 +201,15 @@ public class MapGenerationController : MonoBehaviour
         // landButton.GetComponent<Animator>().enabled = true;
     }
 
+    public void Land() {
+        //
+
+    }
+
+    public void GoToEncounter() {
+        
+    }
+
     public void MarkAsCompleted() {
         currentlySelectedPoint.PointCompleted();
         // Mark point as current and unmark all other current points
@@ -214,5 +228,28 @@ public class MapGenerationController : MonoBehaviour
         //     ship.MoveToConnectedPointRandom();
         // }
         CloseDestinationMenu();
+    }
+
+    public void DisplayInformation() {
+        /*
+        - Display the planet name
+        - The planet status
+        - Whether the planet is occupied by a faction or not
+
+        Structure:
+        - Alpha Centauri
+        - Status: Hostile/Neutral/Friendly
+        - Occupied by: Faction Name
+
+        */
+        //
+
+        // If the point has a point ship, display the faction name of the ship
+        if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
+            string factionName = currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().faction.ToString();
+            DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Hostile\n\nOccupied by: " + factionName);
+        } else {
+            DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Neutral\n\nOccupied by: None");
+        }
     }
 }

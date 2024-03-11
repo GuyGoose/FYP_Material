@@ -32,16 +32,16 @@ public class PointController : MonoBehaviour
                 visited = true;
                 isCompleted = true;
                 break;
-            case "Empty":
+            case "Planet":
                 this.GetComponent<SpriteRenderer>().color = Color.white;
                 break;
             case "Encounter":
                 this.GetComponent<SpriteRenderer>().color = Color.red;
                 break;
-            case "Event":
+            case "Oddity":
                 this.GetComponent<SpriteRenderer>().color = Color.yellow;
                 break;
-            case "Shop":
+            case "Merchant":
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
                 break;
             case "Boss":
@@ -89,7 +89,7 @@ public class PointController : MonoBehaviour
                     this.GetComponent<SpriteRenderer>().color = Color.green;
                     SetVisuals();
                     break;
-                case "Empty":
+                case "Planet":
                     this.GetComponent<SpriteRenderer>().color = Color.white;
                     SetVisuals();
                     break;
@@ -97,11 +97,11 @@ public class PointController : MonoBehaviour
                     this.GetComponent<SpriteRenderer>().color = Color.red;
                     SetVisuals();
                     break;
-                case "Event":
+                case "Oddity":
                     this.GetComponent<SpriteRenderer>().color = Color.yellow;
                     SetVisuals();
                     break;
-                case "Shop":
+                case "Merchant":
                     this.GetComponent<SpriteRenderer>().color = Color.blue;
                     SetVisuals();
                     break;

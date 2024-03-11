@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -106,6 +107,12 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         } else {
             thisButton.interactable = true;
             inActiveSymbol.SetActive(false);
+        }
+
+        // If "R" is pressed, Reset scene
+        if (Input.GetKeyDown(KeyCode.R)) {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
         }
     }
 

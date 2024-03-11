@@ -164,13 +164,13 @@ public class ActionManager : MonoBehaviour
         // Check if the enemy is defeated
         if (target == enemyInfo && enemyInfo.GetComponent<Health>().currentHealth <= 0) {
             // End the game
-            StartCoroutine(EndGameForDemo());
+            //StartCoroutine(EndGameForDemo());
         }
 
         // Check if the player is defeated
         if (target == playerInfo && playerInfo.GetComponent<Health>().currentHealth <= 0) {
             // End the game
-            StartCoroutine(EndGameForDemo());
+            //StartCoroutine(EndGameForDemo());
         }
     }
 

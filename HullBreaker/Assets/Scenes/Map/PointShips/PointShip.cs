@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,25 +14,46 @@ public class PointShip : MonoBehaviour
 
     private GameObject currentPoint;
     private GameObject shipIcon;
+    public Encounter encounter;
+    public int encounterIndex;
+    public EnumHolder.Faction faction;
     
     // Start is called before the first frame update
     void Start()
     {
-        animator = this.GetComponent<Animator>();
-        spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        shipIcon = this.transform.GetChild(0).gameObject;
+        
     }
 
     void Awake() {
-        //SetPositionToCurrentPoint();
+        animator = this.GetComponent<Animator>();
+        spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        shipIcon = this.transform.GetChild(0).gameObject;
+
+        // Set relations to be the relations between the player and the faction
+        relations = FactionInfo.factionRelations[faction];
     }
 
     public void OnFirstLoad() {
-        // TEMP - Randomize relations
-        int rand = Random.Range(-100, 101);
-        relations = rand;
         //AdjustRelations(rand); // Causes error
         SetPositionToCurrentPoint();
+
+        // For current difficulty, get a random encounter from the resource folder (resource/encounters)
+        // Get the current difficulty from the player info and then search for all encounters with that difficulty and get a random one
+        int currentDifficulty = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().currentDifficulty;
+        Encounter[] encounters = Resources.LoadAll<Encounter>("Encounters");
+        List<Encounter> possibleEncounters = new List<Encounter>();
+        foreach (Encounter e in encounters) {
+            if (e.difficulty == currentDifficulty) {
+                possibleEncounters.Add(e);
+            }
+        }
+        int randEncounter = UnityEngine.Random.Range(0, possibleEncounters.Count);
+        encounter = possibleEncounters[randEncounter];
+        encounterIndex = randEncounter;
+        faction = encounter.encounterFaction;
+
+        // Set the ship's color to the faction's color
+        SetupColor();
     }
 
     public IEnumerator OnReload() {
@@ -53,21 +76,6 @@ public class PointShip : MonoBehaviour
         }
     }
 
-    public void SetRelations(int x) {
-        relations = x;
-    }
-
-    public void AdjustRelations(int x) {
-        relations = relations + x;
-
-        if (relations >= 50) {
-            spriteColor.color = Color.green;
-        } else if (relations <= -50) {
-            spriteColor.color = Color.red;
-        } else spriteColor.color = Color.white;
-
-    }
-
     public void SetPositionToCurrentPoint() {
         // Find the current point by name and set the ship's position to it
         currentPoint = GameObject.Find(currentPointName);
@@ -77,6 +85,30 @@ public class PointShip : MonoBehaviour
         }
         // Add this ship to the current point's list of ships
         // Debug.Log("Current Point: " + currentPoint.GetComponent<PointController>().ships);
+    }
+
+    public void SetupColor() {
+        // Set the ship's color to the faction's color
+        switch (faction) {
+            case EnumHolder.Faction.Enforcers:
+                spriteColor.color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+                break;
+            case EnumHolder.Faction.Merchants:
+                spriteColor.color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                break;
+            case EnumHolder.Faction.Outlaws:
+                spriteColor.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                break;
+            case EnumHolder.Faction.Cultists:
+                spriteColor.color = new Color(1.0f, 0.0f, 1.0f, 1.0f);
+                break;
+            case EnumHolder.Faction.ExEmployees:
+                spriteColor.color = new Color(1.0f, 1.0f, 0.0f, 1.0f);
+                break;
+            case EnumHolder.Faction.HullBreakers:
+                spriteColor.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                break;
+        }
     }
 
 }

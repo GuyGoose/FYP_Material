@@ -22,6 +22,8 @@ public class PlayerInfo : MonoBehaviour
     public int currentHealth;
     public int energy;
     public Encounter currentEncounter;
+    public int currentDifficulty;
+    public EnumHolder.Faction playerFaction;
 
     // Start is called before the first frame update
     private void Start() {

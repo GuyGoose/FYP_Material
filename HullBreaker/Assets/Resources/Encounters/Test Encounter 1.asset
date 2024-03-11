@@ -20,5 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19077394d3dcf7f4b81f4e5c67fb1709, type: 2}
   - {fileID: 11400000, guid: 19077394d3dcf7f4b81f4e5c67fb1709, type: 2}
   ai: 0
-  baseHealth: 75
+  baseHealth: 60
   actionsPerTurn: 2
