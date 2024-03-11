@@ -22,4 +22,11 @@ public static class EnumHolder
         Balanced,
         Progressive
     }
+
+    public enum PlanetStatus
+    {
+        Hostile,
+        Neutral,
+        Friendly
+    }
 }

@@ -15,6 +15,7 @@ public class PointController : MonoBehaviour
     public bool isCompleted = false;
     public List<string> connectedPoints = new List<string>();
     public List<GameObject> ships = new List<GameObject>();
+    public EnumHolder.PlanetStatus planetStatus;
 
     // Animation variables
     [SerializeField]
@@ -264,5 +265,34 @@ public class PointController : MonoBehaviour
 
     public void AddShip(GameObject ship) {
         ships.Add(ship);
+
+        // Get the ship's faction and set the planet's status accordingly (> 25 = friendly, < -25 = hostile)
+        EnumHolder.Faction faction = ship.GetComponent<PointShip>().faction;
+        if (FactionInfo.factionRelations[faction] > 25) {
+            planetStatus = EnumHolder.PlanetStatus.Friendly;
+        } else if (FactionInfo.factionRelations[faction] < -25) {
+            planetStatus = EnumHolder.PlanetStatus.Hostile;
+        } else {
+            planetStatus = EnumHolder.PlanetStatus.Neutral;
+        }
+        SetStatusColor();
+    }
+
+    public void RemoveShip(GameObject ship) {
+        ships.Remove(ship);
+    }
+
+    public void SetStatusColor() {
+        switch (planetStatus) {
+            case EnumHolder.PlanetStatus.Friendly:
+                this.GetComponent<SpriteRenderer>().color = Color.green;
+                break;
+            case EnumHolder.PlanetStatus.Neutral:
+                this.GetComponent<SpriteRenderer>().color = Color.white;
+                break;
+            case EnumHolder.PlanetStatus.Hostile:
+                this.GetComponent<SpriteRenderer>().color = Color.red;
+                break;
+        }
     }
 }

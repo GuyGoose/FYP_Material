@@ -34,9 +34,7 @@ public class PointShip : MonoBehaviour
     }
 
     public void OnFirstLoad() {
-        //AdjustRelations(rand); // Causes error
-        SetPositionToCurrentPoint();
-
+    
         // For current difficulty, get a random encounter from the resource folder (resource/encounters)
         // Get the current difficulty from the player info and then search for all encounters with that difficulty and get a random one
         int currentDifficulty = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().currentDifficulty;
@@ -51,6 +49,9 @@ public class PointShip : MonoBehaviour
         encounter = possibleEncounters[randEncounter];
         encounterIndex = randEncounter;
         faction = encounter.encounterFaction;
+
+        //AdjustRelations(rand); // Causes error
+        SetPositionToCurrentPoint();
 
         // Set the ship's color to the faction's color
         SetupColor();
