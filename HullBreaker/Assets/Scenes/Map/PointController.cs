@@ -275,6 +275,7 @@ public class PointController : MonoBehaviour
         } else {
             planetStatus = EnumHolder.PlanetStatus.Neutral;
         }
+
         SetStatusColor();
     }
 

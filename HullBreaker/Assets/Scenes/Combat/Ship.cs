@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class Ship : ScriptableObject
 {
+    // The ship index
+    public int shipIndex;
+    
     // The name of the ship
     public string shipName;
 

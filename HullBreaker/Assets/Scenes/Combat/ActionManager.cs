@@ -66,11 +66,14 @@ public class ActionManager : MonoBehaviour
     }
 
     void Awake() {
+        // Load the player info
+        // playerInfo.GetComponent<PlayerInfo>().LoadPlayerInfo();
+
         // Setting up encounter
         encounter = playerInfo.GetComponent<PlayerInfo>().currentEncounter;
         
         // Player and Enemy HP Info
-        playerInfo.GetComponent<Health>().SetupHealth(playerInfo.GetComponent<PlayerInfo>().currentHealth, playerInfo.GetComponent<PlayerInfo>().currentHealth);
+        playerInfo.GetComponent<Health>().SetupHealth(playerInfo.GetComponent<PlayerInfo>().maxHealth, playerInfo.GetComponent<PlayerInfo>().currentHealth);
         enemyInfo.GetComponent<Health>().SetupHealth(encounter.baseHealth, encounter.baseHealth);
     
         // Get player info 

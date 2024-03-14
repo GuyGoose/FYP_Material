@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e1f3a2475be1b4a906cfac1572ddbe, type: 3}
   m_Name: Laser Drone
   m_EditorClassIdentifier: 
+  shipIndex: 2
   shipName: Laser Drone
   actions:
   - {fileID: 11400000, guid: a628e47b24469e1458f379bca4410145, type: 2}

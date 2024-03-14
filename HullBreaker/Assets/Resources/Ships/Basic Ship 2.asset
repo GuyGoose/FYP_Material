@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e1f3a2475be1b4a906cfac1572ddbe, type: 3}
   m_Name: Basic Ship 2
   m_EditorClassIdentifier: 
+  shipIndex: 1
   shipName: Basic Ship
   actions:
   - {fileID: 11400000, guid: 8b0f2f7ce246e0041b401ea0a2f83f57, type: 2}

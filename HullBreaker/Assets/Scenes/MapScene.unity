@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c603a2cf4572f9429823c2c2b92134e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Ant
+  playerName: Ant from Map
   currentPlanet: Somewhere
   ships:
   - {fileID: 11400000, guid: 2dbc3ee297304114abe86a653e36af82, type: 2}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // This is a scriptable object that contains information for enemy encounters
 
@@ -20,7 +21,6 @@ using UnityEngine;
 */
 
 [CreateAssetMenu(fileName = "New Encounter", menuName = "HullBreaker/Encounter")]
-
 public class Encounter : ScriptableObject
 {
     public int encounterIndex;

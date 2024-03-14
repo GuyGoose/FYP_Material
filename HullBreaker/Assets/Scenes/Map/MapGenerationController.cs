@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.PlasticSCM.Editor.WebApi;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MapGenerationController : MonoBehaviour
 {
@@ -202,11 +204,41 @@ public class MapGenerationController : MonoBehaviour
     }
 
     public void Land() {
-        //
+        // If the point is the empty space with no ships, mark as completed
+        switch (currentlySelectedPoint.type) {
+            case "Start":
+                MarkAsCompleted();
+                break;
+            case "Planet":
+                // If the point has a point ship that is hostile, go to encounter
+                if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
+                    if (currentPoint.GetComponent<PointController>().planetStatus == EnumHolder.PlanetStatus.Hostile) {
+                        GoToEncounter(currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().encounter);
+                    } else {
+                        MarkAsCompleted();
+                    }
+                } else {
+                    MarkAsCompleted();
+                }
+                break;
+            case "Oddity":
+                MarkAsCompleted();
+                break;
+            case "Merchant":
+                MarkAsCompleted();
+                break;
+            case "Boss":
+                MarkAsCompleted();
+                break;
+        }
 
     }
 
-    public void GoToEncounter() {
+    public void GoToEncounter(Encounter encounter) {
+        // Load the encounter scene
+        Debug.Log("Loading Encounter: " + encounter.encounterName);
+
+
         
     }
 
@@ -244,10 +276,21 @@ public class MapGenerationController : MonoBehaviour
         */
         //
 
+        // - OLD 
         // If the point has a point ship, display the faction name of the ship
+        // if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
+        //     string factionName = currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().faction.ToString();
+        //     DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Hostile\n\nOccupied by: " + factionName);
+        // } else {
+        //     DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Neutral\n\nOccupied by: None");
+        // }
+
+        // - NEW
+        // If the point has a point ship, display the faction name of the ship and the status of the planet
         if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
             string factionName = currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().faction.ToString();
-            DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Hostile\n\nOccupied by: " + factionName);
+            string status = currentPoint.GetComponent<PointController>().planetStatus.ToString();
+            DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: " + status + "\n\nOccupied by: " + factionName);
         } else {
             DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Neutral\n\nOccupied by: None");
         }
