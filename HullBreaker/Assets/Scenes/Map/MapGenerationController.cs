@@ -32,6 +32,8 @@ public class MapGenerationController : MonoBehaviour
     private Animator destinationMenuAnimator;
     public TextMeshProUGUI destinationName;
     public TextMeshProUGUI planetName;
+    public PlayerInfo playerInfo;
+    public DataManager dataManager;
     
     private PointController currentlySelectedPoint;
     public GameObject pointShipPrefab;
@@ -213,6 +215,7 @@ public class MapGenerationController : MonoBehaviour
                 // If the point has a point ship that is hostile, go to encounter
                 if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
                     if (currentPoint.GetComponent<PointController>().planetStatus == EnumHolder.PlanetStatus.Hostile) {
+                        MarkAsCompleted();
                         GoToEncounter(currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().encounter);
                     } else {
                         MarkAsCompleted();
@@ -238,8 +241,14 @@ public class MapGenerationController : MonoBehaviour
         // Load the encounter scene
         Debug.Log("Loading Encounter: " + encounter.encounterName);
 
+        // Set the current encounter in PlayerInfo
+        playerInfo.currentEncounter = encounter;
+        playerInfo.SavePlayerInfo();
 
-        
+        // Save the map state
+        dataManager.SaveMap();
+
+        SceneManager.LoadScene("CombatScene");
     }
 
     public void MarkAsCompleted() {

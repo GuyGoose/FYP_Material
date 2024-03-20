@@ -68,4 +68,11 @@ public class UiManager : MonoBehaviour
             DemoGameOverPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
         }
     }
+
+    public void DisplayCombatWin() {
+        // Fade in canvas group
+        while (DemoGameOverPanel.GetComponent<CanvasGroup>().alpha < 1) {
+            DemoGameOverPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
+        }
+    }
 }

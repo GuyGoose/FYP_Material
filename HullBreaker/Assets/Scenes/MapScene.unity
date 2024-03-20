@@ -1089,6 +1089,8 @@ MonoBehaviour:
   landButton: {fileID: 1760680705}
   destinationName: {fileID: 247465376}
   planetName: {fileID: 2026601114}
+  playerInfo: {fileID: 2997518459385166465}
+  dataManager: {fileID: 1561032245}
   pointShipPrefab: {fileID: 4841596070560706338, guid: ff04279a199965448b73fd5d93b9629b, type: 3}
   cameraController: {fileID: 1712079000}
   pointContainer: {fileID: 1096054565}
@@ -1502,7 +1504,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1561032244}
         m_TargetAssemblyTypeName: MapGenerationController, Assembly-CSharp
-        m_MethodName: MarkAsCompleted
+        m_MethodName: Land
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
