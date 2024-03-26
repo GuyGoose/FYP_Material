@@ -135,7 +135,7 @@ public class PointController : MonoBehaviour
     }
 
     public void ConnectToPoints() {
-        Debug.Log("Started Connecting Points");
+        //Debug.Log("Started Connecting Points");
         // Check for points within a radius of 20 units and connect to the nearest 3
         Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 20);
         int count = 0;
@@ -145,7 +145,7 @@ public class PointController : MonoBehaviour
                 // Get the 3 points with the shortest distance to this point
                 if (count < 3) {
                     connectedPoints.Add(collider.gameObject.GetComponent<PointController>().planetName);
-                    Debug.Log("Connected: " + collider.gameObject.GetComponent<PointController>().planetName);
+                    //Debug.Log("Connected: " + collider.gameObject.GetComponent<PointController>().planetName);
                     count++;
                 } else {
                     float maxDistance = 0;
@@ -201,7 +201,7 @@ public class PointController : MonoBehaviour
                 lineRenderer.material.mainTextureScale = new Vector2(1f / lineRenderer.endWidth, 1.0f);
             }
         }
-        Debug.Log("Links Drawn for: " + this.planetName);
+        //Debug.Log("Links Drawn for: " + this.planetNa-me);
     }
 
     public void CheckForCoLinks() {

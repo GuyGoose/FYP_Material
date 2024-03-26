@@ -10,7 +10,8 @@ public class UiManager : MonoBehaviour
     public ActionManager actionManager;
     public GameObject pointer;
     public GameObject[] enemyShips;
-    public GameObject DemoGameOverPanel;
+    public GameObject GameOverPanel;
+    public GameObject CombatWinPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -64,15 +65,23 @@ public class UiManager : MonoBehaviour
 
     public void DisplayGameOver() {
         // Fade in canvas group
-        while (DemoGameOverPanel.GetComponent<CanvasGroup>().alpha < 1) {
-            DemoGameOverPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
+        while (GameOverPanel.GetComponent<CanvasGroup>().alpha < 1) {
+            GameOverPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
+            // Turn on block raycast
+            GameOverPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
     }
 
     public void DisplayCombatWin() {
         // Fade in canvas group
-        while (DemoGameOverPanel.GetComponent<CanvasGroup>().alpha < 1) {
-            DemoGameOverPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
+        while (CombatWinPanel.GetComponent<CanvasGroup>().alpha < 1) {
+            CombatWinPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
+            // Turn on block raycast
+            CombatWinPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
+    }
+
+    public void DebugOnClick() {
+        Debug.Log("Debugging");
     }
 }

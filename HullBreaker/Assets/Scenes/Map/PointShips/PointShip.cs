@@ -31,6 +31,11 @@ public class PointShip : MonoBehaviour
 
         // Set relations to be the relations between the player and the faction
         relations = FactionInfo.factionRelations[faction];
+
+        // If encounterIndex is not null, set the encounter to the encounter at the index
+        if (encounterIndex != null) {
+            encounter = Resources.LoadAll<Encounter>("Encounters")[encounterIndex];
+        }
     }
 
     public void OnFirstLoad() {
@@ -60,6 +65,7 @@ public class PointShip : MonoBehaviour
     public IEnumerator OnReload() {
         yield return new WaitForNextFrameUnit();
         SetPositionToCurrentPoint();
+        SetupColor();
     }
 
     // Update is called once per frame

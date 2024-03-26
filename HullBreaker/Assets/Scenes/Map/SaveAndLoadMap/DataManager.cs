@@ -91,6 +91,8 @@ public class DataManager : MonoBehaviour
             // Deserialize MapGenerationController
             JsonUtility.FromJsonOverwrite(mapSaveData.mapGenerationControllerData, mapController);
 
+            Debug.Log(mapController);
+
             // Clear existing points and ships
             foreach (Transform point in mapController.pointContainer.transform)
             {

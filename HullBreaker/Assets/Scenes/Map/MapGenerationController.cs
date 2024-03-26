@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -51,69 +52,29 @@ public class MapGenerationController : MonoBehaviour
 
     private GameObject DialogueBox;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        points = PoissonDiscSampling.GeneratePoints(pointRadius, new Vector2(regionSize, regionSize), 30);
+    void Awake() {
+        // Check if mapSave.json is empty
+        if (File.Exists(Application.persistentDataPath + "/mapSave.json")) {
+            Debug.Log("Loading Map");
+            dataManager.LoadMap();
+            Debug.Log("Map Loaded");
+        } else {
+            Debug.Log("Generating Map");
+        }
+
         DialogueBox = GameObject.Find("DialogueBox");
         destinationMenuAnimator = destinationMenu.GetComponent<Animator>();
         CloseDestinationMenu();
+        
+    }
 
-        // Generate points 
-        // Rules for generation:
-        // 1. Start point is always the first point
-        // 2. Boss point is always the last point
-        // 3. The number of Merchants is random should be between minMerchants and maxMerchants
-
-        DestinationType lastType = DestinationType.Planet;
-        foreach (Vector2 point in points) {
-            GameObject pointObject = Instantiate(pointPrefab, point, Quaternion.identity);
-            pointObject.transform.parent = pointContainer.transform;
-            pointObject.GetComponent<PointController>().AssignName();
-            if (point == points[0]) {
-                pointObject.GetComponent<PointController>().type = DestinationType.Start.ToString();
-                // set start point as current
-                pointObject.GetComponent<PointController>().current = true;
-            } else if (point == points[points.Count - 1]) {
-                pointObject.GetComponent<PointController>().type = DestinationType.Boss.ToString();
-            } else {
-                float random = Random.value;
-                if (random < PlanetChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
-                    lastType = DestinationType.Planet;
-                } else if (random < PlanetChance + encounterChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
-                    // Create a ship at this point
-                    GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
-                    ship.GetComponent<PointShip>().currentPointName = pointObject.GetComponent<PointController>().planetName;
-                    ship.transform.parent = pointShipContainer.transform;
-                    ship.GetComponent<PointShip>().OnFirstLoad();
-                    lastType = DestinationType.Planet;
-                } else if (random < PlanetChance + encounterChance + OddityChance) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Oddity.ToString();
-                    lastType = DestinationType.Oddity;
-                    // Max of maxMerchants can be generated + cannot genrate two Merchants in a row
-                } else if (random < PlanetChance + encounterChance + OddityChance + MerchantChance && maxMerchants > 0 && lastType != DestinationType.Merchant) {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Merchant.ToString();
-                    maxMerchants--;
-                    lastType = DestinationType.Merchant;
-                } else {
-                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
-                    lastType = DestinationType.Planet;
-                }
-            }
-            StartCoroutine(pointObject.GetComponent<PointController>().OnReload());
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Check if the map has been generated
+        if (pointContainer.transform.childCount == 0) {
+            GenerateMap();
         }
-
-        // // Connect points
-        // foreach (Transform point in pointContainer.transform) {
-        //     Debug.Log("Connecting Points For: " + point.gameObject.name);
-        //     point.GetComponent<PointController>().ConnectToPoints();
-        // }
-        // // Check for unconnected points
-        // foreach (Transform point in pointContainer.transform) {
-        //     point.GetComponent<PointController>().CheckForCoLinks();
-        // }
 
     }
 
@@ -302,6 +263,56 @@ public class MapGenerationController : MonoBehaviour
             DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: " + status + "\n\nOccupied by: " + factionName);
         } else {
             DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Neutral\n\nOccupied by: None");
+        }
+    }
+
+    public void GenerateMap() {
+        points = PoissonDiscSampling.GeneratePoints(pointRadius, new Vector2(regionSize, regionSize), 30);
+
+        // Generate points 
+        // Rules for generation:
+        // 1. Start point is always the first point
+        // 2. Boss point is always the last point
+        // 3. The number of Merchants is random should be between minMerchants and maxMerchants
+
+        DestinationType lastType = DestinationType.Planet;
+        foreach (Vector2 point in points) {
+            GameObject pointObject = Instantiate(pointPrefab, point, Quaternion.identity);
+            pointObject.transform.parent = pointContainer.transform;
+            pointObject.GetComponent<PointController>().AssignName();
+            if (point == points[0]) {
+                pointObject.GetComponent<PointController>().type = DestinationType.Start.ToString();
+                // set start point as current
+                pointObject.GetComponent<PointController>().current = true;
+            } else if (point == points[points.Count - 1]) {
+                pointObject.GetComponent<PointController>().type = DestinationType.Boss.ToString();
+            } else {
+                float random = Random.value;
+                if (random < PlanetChance) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
+                    lastType = DestinationType.Planet;
+                } else if (random < PlanetChance + encounterChance) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
+                    // Create a ship at this point
+                    GameObject ship = Instantiate(pointShipPrefab, point, Quaternion.identity);
+                    ship.GetComponent<PointShip>().currentPointName = pointObject.GetComponent<PointController>().planetName;
+                    ship.transform.parent = pointShipContainer.transform;
+                    ship.GetComponent<PointShip>().OnFirstLoad();
+                    lastType = DestinationType.Planet;
+                } else if (random < PlanetChance + encounterChance + OddityChance) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Oddity.ToString();
+                    lastType = DestinationType.Oddity;
+                    // Max of maxMerchants can be generated + cannot genrate two Merchants in a row
+                } else if (random < PlanetChance + encounterChance + OddityChance + MerchantChance && maxMerchants > 0 && lastType != DestinationType.Merchant) {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Merchant.ToString();
+                    maxMerchants--;
+                    lastType = DestinationType.Merchant;
+                } else {
+                    pointObject.GetComponent<PointController>().type = DestinationType.Planet.ToString();
+                    lastType = DestinationType.Planet;
+                }
+            }
+            StartCoroutine(pointObject.GetComponent<PointController>().OnReload());
         }
     }
 }

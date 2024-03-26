@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class ActionManager : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class ActionManager : MonoBehaviour
 
     public GameObject Action1, Action2, Action3, Action4;
     public List<GameObject> PlayerShipAnimation, EnemyShipAnimation;
-    public GameObject PlayerValueText, EnemyValueText;
+    public GameObject PlayerValueText, EnemyValueText, FadeScreen;
     
     // Game States (PlayerTurn, EnemyTurn)
     public enum GameState {
@@ -167,13 +168,13 @@ public class ActionManager : MonoBehaviour
         // Check if the enemy is defeated
         if (target == enemyInfo && enemyInfo.GetComponent<Health>().currentHealth <= 0) {
             // End the game
-            StartCoroutine(EndGameForDemo());
+            StartCoroutine(EndCombat());
         }
 
         // Check if the player is defeated
         if (target == playerInfo && playerInfo.GetComponent<Health>().currentHealth <= 0) {
             // End the game
-            //StartCoroutine(EndGameForDemo());
+            StartCoroutine(GameOverCombat());
         }
     }
 
@@ -321,7 +322,20 @@ public class ActionManager : MonoBehaviour
         StartPlayerTurn();
     }
 
-    IEnumerator EndGameForDemo() {
+    IEnumerator GameOverCombat() {
+        playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
+        // Destroy Player Ships
+        for (int i = 0; i < playerShips.Count; i++) {
+            PlayerShipAnimation[i].SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+        }
+        //wait for a for 1 seconds
+        yield return new WaitForSeconds(1f);
+        // Display Game Over
+        uiManager.DisplayGameOver();
+    }
+
+    IEnumerator EndCombat() {
         playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
         // Destroy Enemy Ships
         for (int i = 0; i < enemyShips.Count; i++) {
@@ -331,6 +345,25 @@ public class ActionManager : MonoBehaviour
         //wait for a for 1 seconds
         yield return new WaitForSeconds(1f);
         // Display Game Over
-        uiManager.DisplayGameOver();
+        uiManager.DisplayCombatWin();
+    }
+
+    public void ReturnToMapButton() {
+        StartCoroutine(ReturnToMap());
+    }
+
+    public IEnumerator ReturnToMap() {
+        // Save the player's information
+        playerInfo.GetComponent<PlayerInfo>().SavePlayerInfo();
+        // Fade in the screen (CanvasGroup)
+        while (FadeScreen.GetComponent<CanvasGroup>().alpha < 1) {
+            FadeScreen.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
+            // Turn on block raycast
+            FadeScreen.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
+        //wait for a for 1 seconds
+        yield return new WaitForSeconds(1f);
+        // Return to the map
+        SceneManager.LoadScene("MapScene");
     }
 }
