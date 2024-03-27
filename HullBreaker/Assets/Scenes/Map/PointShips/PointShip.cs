@@ -33,7 +33,7 @@ public class PointShip : MonoBehaviour
         relations = FactionInfo.factionRelations[faction];
 
         // If encounterIndex is not null, set the encounter to the encounter at the index
-        if (encounterIndex != null) {
+        if (encounterIndex == 0) {
             encounter = Resources.LoadAll<Encounter>("Encounters")[encounterIndex];
         }
     }

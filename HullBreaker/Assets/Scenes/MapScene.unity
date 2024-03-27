@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 1561032244}
   - component: {fileID: 1561032245}
   m_Layer: 0
-  m_Name: PoissonGen
+  m_Name: MapGenerationController
   m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

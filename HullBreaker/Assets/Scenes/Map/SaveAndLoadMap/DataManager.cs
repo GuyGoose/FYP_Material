@@ -82,26 +82,32 @@ public class DataManager : MonoBehaviour
         string filePath = Application.persistentDataPath + "/mapSave.json";
         if (File.Exists(filePath))
         {
+            // Reassign mapController to the mapController in the scene
+            mapController = GameObject.Find("MapGenerationController").GetComponent<MapGenerationController>();
+            mapController.enabled = true;
+            mapController.GetComponent<MapGenerationController>().enabled = true;
+            Debug.Log(mapController);
+            //mapController.GetComponent<MapGenerationController>().Init();
+            // Enable
+
             // Read JSON from file
             string jsonData = File.ReadAllText(filePath);
 
-            // Deserialize JSON to mapSaveData
+            // Convert JSON to mapSaveData
             MapSaveData mapSaveData = JsonUtility.FromJson<MapSaveData>(jsonData);
 
             // Deserialize MapGenerationController
-            JsonUtility.FromJsonOverwrite(mapSaveData.mapGenerationControllerData, mapController);
-
-            Debug.Log(mapController);
+            //JsonUtility.FromJsonOverwrite(mapSaveData.mapGenerationControllerData, mapController);
 
             // Clear existing points and ships
-            foreach (Transform point in mapController.pointContainer.transform)
-            {
-                Destroy(point.gameObject);
-            }
-            foreach (Transform ship in mapController.pointShipContainer.transform)
-            {
-                Destroy(ship.gameObject);
-            }
+            // foreach (Transform point in mapController.pointContainer.transform)
+            // {
+            //     Destroy(point.gameObject);
+            // }
+            // foreach (Transform ship in mapController.pointShipContainer.transform)
+            // {
+            //     Destroy(ship.gameObject);
+            // }
 
             // Instantiate points and ships from saved data
             foreach (PointSaveData pointSaveData in mapSaveData.pointSaveDataList)

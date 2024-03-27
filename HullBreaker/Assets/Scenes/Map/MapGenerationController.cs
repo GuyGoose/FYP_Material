@@ -53,19 +53,22 @@ public class MapGenerationController : MonoBehaviour
     private GameObject DialogueBox;
 
     void Awake() {
+
+        pointContainer = GameObject.Find("Points");
+        pointShipContainer = GameObject.Find("PointShips");
+
         // Check if mapSave.json is empty
         if (File.Exists(Application.persistentDataPath + "/mapSave.json")) {
-            Debug.Log("Loading Map");
+            Debug.Log("Loading Map...");
             dataManager.LoadMap();
             Debug.Log("Map Loaded");
         } else {
-            Debug.Log("Generating Map");
+            Debug.Log("Generating Map...");
         }
 
         DialogueBox = GameObject.Find("DialogueBox");
         destinationMenuAnimator = destinationMenu.GetComponent<Animator>();
         CloseDestinationMenu();
-        
     }
 
     // Start is called before the first frame update
