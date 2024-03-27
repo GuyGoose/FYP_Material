@@ -64,6 +64,7 @@ public class DataManager : MonoBehaviour
             PointShipSaveData pointShipSaveData = new PointShipSaveData();
             pointShipSaveData.currentPointName = pointShip.currentPointName;
             pointShipSaveData.relations = pointShip.relations;
+            pointShipSaveData.encounterIndex = pointShip.encounterIndex;
             mapSaveData.pointShipSaveDataList.Add(pointShipSaveData);
         }
 
@@ -133,6 +134,7 @@ public class DataManager : MonoBehaviour
                 PointShip pointShip = newShip.GetComponent<PointShip>();
                 pointShip.currentPointName = pointShipSaveData.currentPointName;
                 pointShip.relations = pointShipSaveData.relations;
+                pointShip.encounterIndex = pointShipSaveData.encounterIndex;
                 StartCoroutine(pointShip.OnReload());
             }
 
@@ -177,5 +179,6 @@ public class DataManager : MonoBehaviour
     {
         public string currentPointName;
         public int relations;
+        public int encounterIndex;
     }
 }

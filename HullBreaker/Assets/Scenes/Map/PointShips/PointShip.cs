@@ -28,14 +28,6 @@ public class PointShip : MonoBehaviour
         animator = this.GetComponent<Animator>();
         spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         shipIcon = this.transform.GetChild(0).gameObject;
-
-        // Set relations to be the relations between the player and the faction
-        relations = FactionInfo.factionRelations[faction];
-
-        // If encounterIndex is not null, set the encounter to the encounter at the index
-        if (encounterIndex == 0) {
-            encounter = Resources.LoadAll<Encounter>("Encounters")[encounterIndex];
-        }
     }
 
     public void OnFirstLoad() {
@@ -64,6 +56,16 @@ public class PointShip : MonoBehaviour
 
     public IEnumerator OnReload() {
         yield return new WaitForNextFrameUnit();
+
+        // Get the encounter from the encounter index
+        encounter = ResourceLoader.GetEncounterByIndex(encounterIndex);
+        Debug.Log("Encounter: " + encounter.encounterName);
+
+        faction = encounter.encounterFaction;
+
+        // Set relations to be the relations between the player and the faction
+        relations = FactionInfo.factionRelations[faction];
+
         SetPositionToCurrentPoint();
         SetupColor();
     }

@@ -355,14 +355,10 @@ public class ActionManager : MonoBehaviour
     public IEnumerator ReturnToMap() {
         // Save the player's information
         playerInfo.GetComponent<PlayerInfo>().SavePlayerInfo();
-        // Fade in the screen (CanvasGroup)
-        while (FadeScreen.GetComponent<CanvasGroup>().alpha < 1) {
-            FadeScreen.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
-            // Turn on block raycast
-            FadeScreen.GetComponent<CanvasGroup>().blocksRaycasts = true;
-        }
-        //wait for a for 1 seconds
-        yield return new WaitForSeconds(1f);
+        // Fade in the screen (IEnumerator FadeOut)
+        FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        //wait for a for 2 seconds
+        yield return new WaitForSeconds(2f);
         // Return to the map
         SceneManager.LoadScene("MapScene");
     }

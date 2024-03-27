@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: Test Encounter 1
   m_EditorClassIdentifier: 
+  encounterIndex: 0
   encounterFaction: 0
-  encounterName: Swarm Drones
+  encounterName: Swarm Drones Enforcers
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 19077394d3dcf7f4b81f4e5c67fb1709, type: 2}

@@ -50,7 +50,7 @@ public class MapGenerationController : MonoBehaviour
     private List<Vector2> points;
     private GameObject currentPoint;
 
-    private GameObject DialogueBox;
+    private GameObject DialogueBox, FadeScreen;
 
     void Awake() {
 
@@ -78,6 +78,15 @@ public class MapGenerationController : MonoBehaviour
         if (pointContainer.transform.childCount == 0) {
             GenerateMap();
         }
+
+        // Tween to the current point
+        foreach (Transform point in pointContainer.transform) {
+            if (point.GetComponent<PointController>().current) {
+                cameraController.GetComponent<MapCamMovement>().TweenToPosition(new Vector3(point.transform.position.x, point.transform.position.y, cameraController.transform.position.z));
+            }
+        }
+
+        FadeScreen = GameObject.Find("Fade");
 
     }
 
@@ -179,8 +188,12 @@ public class MapGenerationController : MonoBehaviour
                 // If the point has a point ship that is hostile, go to encounter
                 if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
                     if (currentPoint.GetComponent<PointController>().planetStatus == EnumHolder.PlanetStatus.Hostile) {
+                        // Set the current encounter in PlayerInfo
+                        playerInfo.currentEncounter = currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().encounter;
+                        // Destroy the point ship
+                        Destroy(currentPoint.GetComponent<PointController>().ships[0]);
                         MarkAsCompleted();
-                        GoToEncounter(currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().encounter);
+                        StartCoroutine(GoToEncounter(playerInfo.currentEncounter));
                     } else {
                         MarkAsCompleted();
                     }
@@ -201,7 +214,7 @@ public class MapGenerationController : MonoBehaviour
 
     }
 
-    public void GoToEncounter(Encounter encounter) {
+    public IEnumerator GoToEncounter(Encounter encounter) {
         // Load the encounter scene
         Debug.Log("Loading Encounter: " + encounter.encounterName);
 
@@ -211,6 +224,10 @@ public class MapGenerationController : MonoBehaviour
 
         // Save the map state
         dataManager.SaveMap();
+
+        FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        //wait for a for 2 seconds
+        yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene("CombatScene");
     }
