@@ -33,6 +33,7 @@ public class MapGenerationController : MonoBehaviour
     private Animator destinationMenuAnimator;
     public TextMeshProUGUI destinationName;
     public TextMeshProUGUI planetName;
+    public TextMeshProUGUI PlayerName, HP, Credits;
     public PlayerInfo playerInfo;
     public DataManager dataManager;
     
@@ -87,6 +88,11 @@ public class MapGenerationController : MonoBehaviour
         }
 
         FadeScreen = GameObject.Find("Fade");
+
+        // Set the player's name, health and credits
+        PlayerName.text = playerInfo.playerName;
+        HP.text = "HP: " + playerInfo.currentHealth + "/" + playerInfo.maxHealth;
+        Credits.text = "Credits: " + playerInfo.credits + "c";
 
     }
 

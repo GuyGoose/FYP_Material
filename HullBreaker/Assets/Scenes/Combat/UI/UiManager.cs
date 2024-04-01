@@ -12,6 +12,8 @@ public class UiManager : MonoBehaviour
     public GameObject[] enemyShips;
     public GameObject GameOverPanel;
     public GameObject CombatWinPanel;
+    public TextMeshProUGUI ShipsDestroyedText;
+    public TextMeshProUGUI CreditsEarnedText;
 
     // Start is called before the first frame update
     void Start()
@@ -72,12 +74,24 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void DisplayCombatWin() {
+    public void DisplayCombatWin(List<Ship> shipsDestroyed, int encounterDifficulty) {
         // Fade in canvas group
         while (CombatWinPanel.GetComponent<CanvasGroup>().alpha < 1) {
             CombatWinPanel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * 1;
             // Turn on block raycast
             CombatWinPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+            // Set the ships destroyed text (The name of the ships destroyed line by line)
+            ShipsDestroyedText.text = "";
+            foreach (Ship ship in shipsDestroyed) {
+                ShipsDestroyedText.text += ship.shipName + "\n";
+            }
+
+            // Set the credits earned text (For each level of difficulty, the player earns between 75-125 credits)
+            int creditsEarned = Random.Range(75, 125) * encounterDifficulty;
+            actionManager.AddCredits(creditsEarned);
+            CreditsEarnedText.text = "Credits Earned: " + creditsEarned.ToString() + "c";
+            
         }
     }
 

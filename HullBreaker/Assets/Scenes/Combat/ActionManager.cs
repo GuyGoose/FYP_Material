@@ -59,6 +59,7 @@ public class ActionManager : MonoBehaviour
     public GameObject Action1, Action2, Action3, Action4;
     public List<GameObject> PlayerShipAnimation, EnemyShipAnimation;
     public GameObject PlayerValueText, EnemyValueText, FadeScreen;
+    public GameObject SelectedShip;
     
     // Game States (PlayerTurn, EnemyTurn)
     public enum GameState {
@@ -120,6 +121,7 @@ public class ActionManager : MonoBehaviour
             case ActionType.Damage:
                 // Get the value of the action
                 int value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
+                ApplyBonusDamage(value, target, action.classType);
                 Debug.Log("Value: " + value);
                 // Deal damage to the target
                 target.GetComponent<Health>().TakeDamage(value);
@@ -186,6 +188,7 @@ public class ActionManager : MonoBehaviour
         }
         // TODO: Add the value to the roll
         //value += int.Parse(valueToAdd);
+
         return value;
     }
 
@@ -344,8 +347,8 @@ public class ActionManager : MonoBehaviour
         }
         //wait for a for 1 seconds
         yield return new WaitForSeconds(1f);
-        // Display Game Over
-        uiManager.DisplayCombatWin();
+        // Display Game Over (Passing in each ship destroyed)
+        uiManager.DisplayCombatWin(enemyShips, encounter.difficulty);
     }
 
     public void ReturnToMapButton() {
@@ -362,4 +365,17 @@ public class ActionManager : MonoBehaviour
         // Return to the map
         SceneManager.LoadScene("MapScene");
     }
+
+    public void ApplyBonusDamage(int value, GameObject target, ClassInfo.ClassType classType) {
+        
+    }
+
+    public void SelectShip(GameObject ship) {
+        SelectedShip = ship;
+    }
+
+    public void AddCredits(int credits) {
+        playerInfo.GetComponent<PlayerInfo>().credits += credits;
+    }
+
 }

@@ -20,3 +20,4 @@ MonoBehaviour:
   numberOfDice: 1
   numberOfSides: 4
   valueToAdd: 
+  classType: 4

@@ -19,7 +19,12 @@ public class MainMenuController : MonoBehaviour
 
     public void GoToCharacterSelect() {
         // Load the character select scene
-        SceneManager.LoadScene("CharacterSelect");
+        SceneManager.LoadScene("CharacterSelectScene");
+    }
+
+    public void GoToMap() {
+        // Load the map scene
+        SceneManager.LoadScene("MapScene");
     }
 
 }

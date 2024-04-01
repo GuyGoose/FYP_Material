@@ -19,5 +19,6 @@ public class Ship : ScriptableObject
 
     // The image of the ship
     public Sprite shipImage;
+    public ClassInfo.ClassType classType;
 }
 

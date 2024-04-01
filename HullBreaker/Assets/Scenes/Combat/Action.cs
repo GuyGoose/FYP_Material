@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 // An action is a scriptable object that contains the following: 
@@ -44,6 +45,7 @@ public class Action : ScriptableObject
     public int numberOfDice;
     public int numberOfSides;
     public string valueToAdd;
+    public ClassInfo.ClassType classType;
 
 }
 

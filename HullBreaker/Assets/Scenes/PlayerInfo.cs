@@ -23,6 +23,7 @@ public class PlayerInfo : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public int energy;
+    public int credits;
     public Encounter currentEncounter;
     public int currentDifficulty;
     public EnumHolder.Faction playerFaction;
@@ -48,6 +49,7 @@ public class PlayerInfo : MonoBehaviour
         maxHealth = data.maxHealth;
         currentHealth = data.currentHealth;
         energy = data.energy;
+        credits = data.credits;
         currentEncounter = ResourceLoader.GetEncounterByIndex(data.encounterIndex);
         currentDifficulty = data.currentDifficulty;
         playerFaction = data.playerFaction;
@@ -74,6 +76,18 @@ public class PlayerInfo : MonoBehaviour
     public void ChangeScene() {
         SavePlayerInfo();
         UnityEngine.SceneManagement.SceneManager.LoadScene("CombatScene");
+    }
+
+    public void SetPlayerPilot(Pilot pilot) {
+        playerName = pilot.pilotName;
+        maxHealth = pilot.startingHealth;
+        currentHealth = pilot.startingHealth;
+        energy = pilot.startingEnergy;
+        ships = new List<Ship>();
+        ships.Add(pilot.startingShip);
+
+        // Save
+        SavePlayerInfo();
     }
 
 }

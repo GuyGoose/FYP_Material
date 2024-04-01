@@ -59,6 +59,7 @@ public static class SaveSystem
         data.maxHealth = player.maxHealth;
         data.currentHealth = player.currentHealth;
         data.energy = player.energy;
+        data.credits = player.credits;
         data.encounterIndex = player.currentEncounter.encounterIndex;
         data.currentDifficulty = player.currentDifficulty;
         data.playerFaction = player.playerFaction;
@@ -95,6 +96,19 @@ public static class SaveSystem
         }
     }
     
+    public static void DeletePlayer()
+    {
+        string path = Application.persistentDataPath + "/player.fun";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log("Player info deleted from: " + path);
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path);
+        }
+    }
 
     
 }
@@ -108,6 +122,7 @@ public class PlayerData
     public int maxHealth;
     public int currentHealth;
     public int energy;
+    public int credits;
     public int encounterIndex;
     public int currentDifficulty;
     public EnumHolder.Faction playerFaction;

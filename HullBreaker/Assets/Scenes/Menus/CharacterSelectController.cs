@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class CharacterSelectController : MonoBehaviour
 {
+    public CharacterButton startingCharacter;
+    public GameObject playerInfo;
     // TextObjects
     public TextMeshProUGUI pilotName;
     public TextMeshProUGUI pilotInfo;
@@ -15,10 +18,11 @@ public class CharacterSelectController : MonoBehaviour
     public TextMeshProUGUI pilotEnergy;
     public TextMeshProUGUI pilotCredits;
     public Image shipImage;
+    public Pilot currentPilot;
     // Start is called before the first frame update
     void Start()
     {
-        
+        DisplayPilotInfo(startingCharacter.pilot);
     }
 
     // Update is called once per frame
@@ -42,5 +46,30 @@ public class CharacterSelectController : MonoBehaviour
         shipName.text = pilot.startingShip.shipName;
         // Set the pilot's ship image
         shipImage.sprite = pilot.startingShip.shipImage;
+
+        currentPilot = pilot;
+    }
+
+    public void GoToGame() {
+        // Delete the previos player and map info (Application.persistentDataPath + "/mapSave.json")
+        SaveSystem.DeletePlayer();
+        string path = Application.persistentDataPath + "/mapSave.json";
+        if (File.Exists(path)) {
+            File.Delete(path);
+            Debug.Log("Deleted mapSave.json");
+        } else {
+            Debug.Log("No Previous mapSave.json found.");
+        }
+
+
+
+        // Save the selected pilot to playerinfo
+        playerInfo.GetComponent<PlayerInfo>().SetPlayerPilot(currentPilot);
+        // Load the game scene
+        SceneManager.LoadScene("MapScene");
+    }
+    public void GoToMainMenu() {
+        // Load the main menu scene
+        SceneManager.LoadScene("MainMenuScene");
     }
 }

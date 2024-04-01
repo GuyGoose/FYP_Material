@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e1f3a2475be1b4a906cfac1572ddbe, type: 3}
   m_Name: Basic Ship
   m_EditorClassIdentifier: 
+  shipIndex: 0
   shipName: Basic Ship
   actions:
   - {fileID: 11400000, guid: e82a502b03fb0ee4f91edb4632057aca, type: 2}
   - {fileID: 11400000, guid: 3ddd38dfb753c1a4f9f458d931309b2d, type: 2}
   - {fileID: 11400000, guid: 48c1d3d4ec419a34eb3459ac9058f6b0, type: 2}
   - {fileID: 11400000, guid: 988b360738d04b343bcec7e5dc52612a, type: 2}
-  shipImage: {fileID: 21300000, guid: 1a2c3759f81cf7449a4279c62d9494f0, type: 3}
+  shipImage: {fileID: 1484486346, guid: cccb4712cbe038543bd5b87ee8706e00, type: 3}
+  classType: 2
