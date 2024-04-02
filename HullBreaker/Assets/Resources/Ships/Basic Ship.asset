@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipIndex: 0
   shipName: Basic Ship
+  basePrice: 350
   actions:
   - {fileID: 11400000, guid: e82a502b03fb0ee4f91edb4632057aca, type: 2}
   - {fileID: 11400000, guid: 3ddd38dfb753c1a4f9f458d931309b2d, type: 2}

@@ -212,12 +212,32 @@ public class MapGenerationController : MonoBehaviour
                 break;
             case "Merchant":
                 MarkAsCompleted();
+                StartCoroutine(GoToMerchant());
                 break;
             case "Boss":
                 MarkAsCompleted();
+                StartCoroutine(GoToBossEncounter());
                 break;
         }
 
+    }
+
+    public IEnumerator GoToBossEncounter() {
+        // Load the encounter scene
+        Debug.Log("Loading Boss Encounter");
+
+        // Set the current encounter in PlayerInfo -- (1 for now, will match area difficulty later)
+        playerInfo.currentEncounter = ResourceLoader.GetRandomBossEncounterByDifficulty(1);
+
+        // Save the map state and player info
+        playerInfo.SavePlayerInfo();
+        dataManager.SaveMap();
+
+        FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        //wait for a for 2 seconds
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("BossCombatScene");
     }
 
     public IEnumerator GoToEncounter(Encounter encounter) {
@@ -236,6 +256,21 @@ public class MapGenerationController : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene("CombatScene");
+    }
+
+    public IEnumerator GoToMerchant() {
+        // Load the encounter scene
+        Debug.Log("Loading Merchant Encounter");
+
+        // Save the map state and player info
+        playerInfo.SavePlayerInfo();
+        dataManager.SaveMap();
+
+        FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        //wait for a for 2 seconds
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("ShopScene");
     }
 
     public void MarkAsCompleted() {

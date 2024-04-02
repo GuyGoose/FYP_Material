@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e1f3a2475be1b4a906cfac1572ddbe, type: 3}
+  m_Name: Johnni Main Ship
+  m_EditorClassIdentifier: 
+  shipIndex: 0
+  shipName: 'The Exterminator '
+  basePrice: 500
+  actions:
+  - {fileID: 11400000, guid: 3f7818a91dafae14998bf7e13b1f1702, type: 2}
+  - {fileID: 11400000, guid: 3f9c8e770a1f63f44b30382685c40199, type: 2}
+  - {fileID: 11400000, guid: f9996ca809c59804da05a004fdc21276, type: 2}
+  shipImage: {fileID: -1155921419, guid: 7affe1ba49ed78e4e886da05d1bb0b93, type: 3}
+  classType: 2

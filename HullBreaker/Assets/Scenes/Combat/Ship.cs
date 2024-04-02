@@ -14,6 +14,9 @@ public class Ship : ScriptableObject
     // The name of the ship
     public string shipName;
 
+    // The ships base price (used for selling)
+    public int basePrice;
+
     // A List of (up to 4) actions that the ship can perform
     public List<Action> actions = new List<Action>();
 
