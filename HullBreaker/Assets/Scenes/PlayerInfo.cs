@@ -83,6 +83,7 @@ public class PlayerInfo : MonoBehaviour
         maxHealth = pilot.startingHealth;
         currentHealth = pilot.startingHealth;
         energy = pilot.startingEnergy;
+        credits = pilot.startingCredits;
         ships = new List<Ship>();
         ships.Add(pilot.startingShip);
 
