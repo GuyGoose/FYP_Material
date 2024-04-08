@@ -24,6 +24,7 @@ public class PlayerInfo : MonoBehaviour
     public int currentHealth;
     public int energy;
     public int credits;
+    public bool isBossFight;
     public Encounter currentEncounter;
     public int currentDifficulty;
     public EnumHolder.Faction playerFaction;
@@ -50,7 +51,8 @@ public class PlayerInfo : MonoBehaviour
         currentHealth = data.currentHealth;
         energy = data.energy;
         credits = data.credits;
-        currentEncounter = ResourceLoader.GetEncounterByIndex(data.encounterIndex);
+        isBossFight = data.isBossFight;
+        IsEncounterBoss(data);
         currentDifficulty = data.currentDifficulty;
         playerFaction = data.playerFaction;
 
@@ -58,6 +60,14 @@ public class PlayerInfo : MonoBehaviour
         ships = new List<Ship>();
         foreach (int i in data.shipIndexes) {
             ships.Add(ResourceLoader.GetShipByIndex(i));
+        }
+    }
+
+    private void IsEncounterBoss(PlayerData data) {
+        if (isBossFight) {
+            currentEncounter = ResourceLoader.GetBossEncounterByIndex(0);
+        } else {
+            currentEncounter = ResourceLoader.GetEncounterByIndex(data.encounterIndex);
         }
     }
 
@@ -84,6 +94,7 @@ public class PlayerInfo : MonoBehaviour
         currentHealth = pilot.startingHealth;
         energy = pilot.startingEnergy;
         credits = pilot.startingCredits;
+        isBossFight = false;
         ships = new List<Ship>();
         ships.Add(pilot.startingShip);
 

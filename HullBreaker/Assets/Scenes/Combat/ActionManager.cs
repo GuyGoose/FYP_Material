@@ -69,7 +69,7 @@ public class ActionManager : MonoBehaviour
 
     void Awake() {
         // Load the player info
-        // playerInfo.GetComponent<PlayerInfo>().LoadPlayerInfo();
+        playerInfo.GetComponent<PlayerInfo>().LoadPlayerInfo();
 
         // Setting up encounter
         encounter = playerInfo.GetComponent<PlayerInfo>().currentEncounter;
@@ -348,7 +348,7 @@ public class ActionManager : MonoBehaviour
         //wait for a for 1 seconds
         yield return new WaitForSeconds(1f);
         // Display Game Over (Passing in each ship destroyed)
-        uiManager.DisplayCombatWin(enemyShips, encounter.difficulty);
+        uiManager.DisplayCombatWin(enemyShips, encounter.difficulty, playerInfo.GetComponent<PlayerInfo>().isBossFight);
     }
 
     public void ReturnToMapButton() {

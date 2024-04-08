@@ -192,6 +192,7 @@ public class MapGenerationController : MonoBehaviour
                 break;
             case "Planet":
                 // If the point has a point ship that is hostile, go to encounter
+                playerInfo.isBossFight = false;
                 if (currentPoint.GetComponent<PointController>().ships.Count > 0) {
                     if (currentPoint.GetComponent<PointController>().planetStatus == EnumHolder.PlanetStatus.Hostile) {
                         // Set the current encounter in PlayerInfo
@@ -215,22 +216,24 @@ public class MapGenerationController : MonoBehaviour
                 StartCoroutine(GoToMerchant());
                 break;
             case "Boss":
+                playerInfo.isBossFight = true;
+                playerInfo.currentEncounter = ResourceLoader.GetRandomBossEncounterByDifficulty(1);
                 MarkAsCompleted();
-                StartCoroutine(GoToBossEncounter());
+                StartCoroutine(GoToBossEncounter(playerInfo.currentEncounter));
                 break;
         }
 
     }
 
-    public IEnumerator GoToBossEncounter() {
+    public IEnumerator GoToBossEncounter(Encounter encounter) {
         // Load the encounter scene
         Debug.Log("Loading Boss Encounter");
 
-        // Set the current encounter in PlayerInfo -- (1 for now, will match area difficulty later)
-        playerInfo.currentEncounter = ResourceLoader.GetRandomBossEncounterByDifficulty(1);
-
-        // Save the map state and player info
+        // Set the current encounter in PlayerInfo
+        playerInfo.currentEncounter = encounter;
         playerInfo.SavePlayerInfo();
+
+        // Save the map state
         dataManager.SaveMap();
 
         FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");

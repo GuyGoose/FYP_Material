@@ -60,6 +60,7 @@ public static class SaveSystem
         data.currentHealth = player.currentHealth;
         data.energy = player.energy;
         data.credits = player.credits;
+        data.isBossFight = player.isBossFight;
         data.encounterIndex = player.currentEncounter.encounterIndex;
         data.currentDifficulty = player.currentDifficulty;
         data.playerFaction = player.playerFaction;
@@ -123,6 +124,7 @@ public class PlayerData
     public int currentHealth;
     public int energy;
     public int credits;
+    public bool isBossFight;
     public int encounterIndex;
     public int currentDifficulty;
     public EnumHolder.Faction playerFaction;

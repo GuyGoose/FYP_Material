@@ -100,10 +100,12 @@ public class PointController : MonoBehaviour
                     break;
                 case "Oddity":
                     this.GetComponent<SpriteRenderer>().color = Color.yellow;
+                    planetStatus = EnumHolder.PlanetStatus.Neutral;
                     SetVisuals();
                     break;
                 case "Merchant":
                     this.GetComponent<SpriteRenderer>().color = Color.blue;
+                    planetStatus = EnumHolder.PlanetStatus.Friendly;
                     SetVisuals();
                     break;
                 case "Boss":
@@ -264,16 +266,25 @@ public class PointController : MonoBehaviour
     }
 
     public void AddShip(GameObject ship) {
-        ships.Add(ship);
-
-        // Get the ship's faction and set the planet's status accordingly (> 25 = friendly, < -25 = hostile)
-        EnumHolder.Faction faction = ship.GetComponent<PointShip>().faction;
-        if (FactionInfo.factionRelations[faction] > 25) {
-            planetStatus = EnumHolder.PlanetStatus.Friendly;
-        } else if (FactionInfo.factionRelations[faction] < -25) {
-            planetStatus = EnumHolder.PlanetStatus.Hostile;
-        } else {
+    
+        // Check if point is completed
+        if (isCompleted) {
+            // Destroy the ship
+            Destroy(ship);
             planetStatus = EnumHolder.PlanetStatus.Neutral;
+        } else {
+
+            ships.Add(ship);
+
+            // Get the ship's faction and set the planet's status accordingly (> 25 = friendly, < -25 = hostile)
+            EnumHolder.Faction faction = ship.GetComponent<PointShip>().faction;
+            if (FactionInfo.factionRelations[faction] > 25) {
+                planetStatus = EnumHolder.PlanetStatus.Friendly;
+            } else if (FactionInfo.factionRelations[faction] < -25) {
+                planetStatus = EnumHolder.PlanetStatus.Hostile;
+            } else {
+                planetStatus = EnumHolder.PlanetStatus.Neutral;
+            }
         }
 
         SetStatusColor();
