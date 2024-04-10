@@ -20,3 +20,6 @@ MonoBehaviour:
   numberOfDice: 2
   numberOfSides: 4
   valueToAdd: 
+  classType: 0
+  statusEffect: 0
+  statusAmount: 0

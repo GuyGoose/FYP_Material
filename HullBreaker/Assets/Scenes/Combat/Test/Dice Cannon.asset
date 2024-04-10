@@ -21,3 +21,5 @@ MonoBehaviour:
   numberOfSides: 20
   valueToAdd: 
   classType: 2
+  statusEffect: 2
+  statusAmount: 5

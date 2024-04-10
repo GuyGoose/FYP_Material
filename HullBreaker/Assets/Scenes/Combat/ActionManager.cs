@@ -120,11 +120,16 @@ public class ActionManager : MonoBehaviour
         switch (action.actionType) {
             case ActionType.Damage:
                 // Get the value of the action
-                int value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
+                int value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd, target, action);
                 ApplyBonusDamage(value, target, action.classType);
                 Debug.Log("Value: " + value);
                 // Deal damage to the target
                 target.GetComponent<Health>().TakeDamage(value);
+                // Apply status effect
+                if (action.statusEffect != EnumHolder.StatusEffect.None) {
+                    // Apply the status effect
+                    target.GetComponent<StatusEffect>().ApplyStatusEffect(action.statusEffect, action.statusAmount);
+                }
 
                 if (target == playerInfo) { 
                     // Display the value of the action
@@ -136,9 +141,14 @@ public class ActionManager : MonoBehaviour
                 break;
             case ActionType.Heal:
                 // Get the value of the action
-                value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
+                value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd, target, action);
                 // Heal the target
                 target.GetComponent<Health>().Heal(value);
+                // Apply status effect
+                if (action.statusEffect != EnumHolder.StatusEffect.None) {
+                    // Apply the status effect
+                    target.GetComponent<StatusEffect>().ApplyStatusEffect(action.statusEffect, action.statusAmount);
+                }
 
                 if (target == playerInfo) { 
                     // Display the value of the action
@@ -150,9 +160,14 @@ public class ActionManager : MonoBehaviour
                 break;
             case ActionType.Shield:
                 // Get the value of the action
-                value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd);
+                value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd, target, action);
                 // Shield the target
                 target.GetComponent<Health>().currentShield += value;
+                // Apply status effect
+                if (action.statusEffect != EnumHolder.StatusEffect.None) {
+                    // Apply the status effect
+                    target.GetComponent<StatusEffect>().ApplyStatusEffect(action.statusEffect, action.statusAmount);
+                }
 
                 if (target == playerInfo) { 
                     // Display the value of the action
@@ -161,6 +176,10 @@ public class ActionManager : MonoBehaviour
                     // Display the value of the action
                     DisplayActionValue(ActionTargets.Enemy, "+" + value.ToString());
                 }
+                break;
+            case ActionType.StatusEffect:
+                // Apply the status effect
+                target.GetComponent<StatusEffect>().ApplyStatusEffect(action.statusEffect, action.statusAmount);
                 break;
             default:
                 Debug.Log("Invalid action type");
@@ -181,13 +200,65 @@ public class ActionManager : MonoBehaviour
     }
 
     // RollDice rolls the dice and returns the value
-    public int RollDice(int numberOfDice, int numberOfSides, string valueToAdd) {
+    public int RollDice(int numberOfDice, int numberOfSides, string valueToAdd, GameObject target, Action action) {
+
+        // If target is player, check for enemy Improved or Accuracy status effects
+        if (target == playerInfo && action.actionType == ActionType.Damage) {
+            // Check enemy Improved status effect
+            int improved = enemyInfo.GetComponent<StatusEffect>().CheckImproved();
+            // If improved is greater than 0, add it to the number of dice
+            if (improved > 0) {
+                numberOfDice += improved;
+            }
+            // Check enemy Accuracy status effect
+            int accuracy = enemyInfo.GetComponent<StatusEffect>().CheckAccuracy();
+            // If accuracy is greater than 0, add it to the number of dice
+            if (accuracy > 0) {
+                numberOfSides += accuracy;
+            }
+        } else if (target == enemyInfo && action.actionType == ActionType.Damage) {
+            // Check player Improved status effect
+            int improved = playerInfo.GetComponent<StatusEffect>().CheckImproved();
+            // If improved is greater than 0, add it to the number of dice
+            if (improved > 0) {
+                numberOfDice += improved;
+            }
+            // Check player Accuracy status effect
+            int accuracy = playerInfo.GetComponent<StatusEffect>().CheckAccuracy();
+            // If accuracy is greater than 0, add it to the number of dice
+            if (accuracy > 0) {
+                numberOfSides += accuracy;
+            }
+        }
+
         int value = 0;
         for (int i = 0; i < numberOfDice; i++) {
             value += Random.Range(1, numberOfSides + 1);
         }
         // TODO: Add the value to the roll
         //value += int.Parse(valueToAdd);
+
+        // Check if the target is waterlogged if so, multiply the value by 1.25
+        if (target.GetComponent<StatusEffect>().Waterlogged_nb > 0 && action.actionType == ActionType.Damage) {
+            // Round the value to the nearest whole number
+            value = Mathf.RoundToInt(value * 1.25f);
+        }
+
+        // Check if the user is Virus if so, divide the value by 1.5
+        // If target is player, check for enemy Virus status effects
+        if (target == playerInfo && action.actionType == ActionType.Damage) {
+            // Check enemy isVirus 
+            if (enemyInfo.GetComponent<StatusEffect>().Virus_nb > 0) {
+                // Round the value to the nearest whole number
+                value = Mathf.RoundToInt(value / 1.5f);
+            }
+        } else if (target == enemyInfo && action.actionType == ActionType.Damage) {
+            // Check player isVirus 
+            if (playerInfo.GetComponent<StatusEffect>().Virus_nb > 0) {
+                // Round the value to the nearest whole number
+                value = Mathf.RoundToInt(value / 1.5f);
+            }
+        }
 
         return value;
     }
@@ -311,6 +382,10 @@ public class ActionManager : MonoBehaviour
     }
 
     IEnumerator EnemyTurn() {
+        // For player and enemy ships, status effects are adjusted at the end of the turn
+        playerInfo.GetComponent<StatusEffect>().AdjustAtEndOfTurn(playerInfo.GetComponent<Health>());
+        enemyInfo.GetComponent<StatusEffect>().AdjustAtEndOfTurn(enemyInfo.GetComponent<Health>());
+        
         // For each enemy ship, perform an action
         for (int i = 0; i < enemyShips.Count; i++) {
             // Get the enemy ship's actions

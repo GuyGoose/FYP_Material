@@ -47,6 +47,10 @@ public class Action : ScriptableObject
     public string valueToAdd;
     public ClassInfo.ClassType classType;
 
+    [Header("Status Effect")]
+    public EnumHolder.StatusEffect statusEffect;
+    public int statusAmount;
+
 }
 
 // Enums for the action types
@@ -54,7 +58,8 @@ public class Action : ScriptableObject
 public enum ActionType {
     Damage,
     Heal,
-    Shield
+    Shield,
+    StatusEffect
 }
 
 // Enums for the action targets

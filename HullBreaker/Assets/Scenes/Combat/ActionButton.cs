@@ -56,12 +56,12 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         actionEnergyCost = action.actionEnergyCost;
         actionImage.sprite = action.actionImage;
         actionEnergyCostText.text = actionEnergyCost.ToString();
-        CreateDesriptionText(action.numberOfDice, action.numberOfSides, action.valueToAdd, action.actionType);
-
         currentAction = action;
+
+        CreateDesriptionText(action.numberOfDice, action.numberOfSides, action.valueToAdd, action.actionType, action.statusAmount);
     }
 
-    private void CreateDesriptionText(int numberOfDice, int numberOfSides, string valueToAdd, ActionType actionType) {
+    private void CreateDesriptionText(int numberOfDice, int numberOfSides, string valueToAdd, ActionType actionType, int statusAmount) {
         // Create the description text for the action
         // Check if valueToAdd is empty or null
         switch (actionType.ToString()) {
@@ -90,6 +90,38 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 Debug.Log("Invalid action type");
                 break;
         }
+
+        // If the action has a status effect, add it to the description
+        // Effects: Waterlogged, Burning, Regeneration, Virus, Reinforced, Improved, Accuracy
+        switch (currentAction.statusEffect.ToString()) {
+            case "None":
+                break;
+            case "Waterlogged":
+                actionDescription += " and inflict " + statusAmount + " Waterlogged";
+                break;
+            case "Burning":
+                actionDescription += " and inflict " + statusAmount + " Burning";
+                break;
+            case "Regeneration":
+                actionDescription += " and gain " + statusAmount + " Regeneration";
+                break;
+            case "Virus":
+                actionDescription += " and inflict " + statusAmount + " Virus";
+                break;
+            case "Reinforced":
+                actionDescription += " and gain " + statusAmount + " Reinforced";
+                break;
+            case "Improved":
+                actionDescription += " and gain " + statusAmount + " Improved";
+                break;
+            case "Accuracy":
+                actionDescription += " and gain " + statusAmount + " Accuracy";
+                break;
+            default:
+                Debug.Log("Invalid status effect");
+                break;
+        }
+
     }
 
     private void Update() {

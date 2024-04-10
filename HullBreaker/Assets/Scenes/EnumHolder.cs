@@ -29,4 +29,16 @@ public static class EnumHolder
         Neutral,
         Friendly
     }
+
+    public enum StatusEffect
+    {
+        None,
+        Waterlogged,
+        Burning,
+        Regeneration,
+        Virus,
+        Reinforced,
+        Improved,
+        Accuracy
+    }
 }

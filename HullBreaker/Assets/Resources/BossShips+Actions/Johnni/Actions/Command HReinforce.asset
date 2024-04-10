@@ -15,9 +15,11 @@ MonoBehaviour:
   actionName: 'Command : Heavy Reinforce'
   actionType: 2
   actionEnergyCost: 2
-  actionTargets: 1
+  actionTargets: 0
   actionImage: {fileID: 0}
   numberOfDice: 2
   numberOfSides: 8
   valueToAdd: 
   classType: 2
+  statusEffect: 0
+  statusAmount: 0
