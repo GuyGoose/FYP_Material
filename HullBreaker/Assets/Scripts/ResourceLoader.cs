@@ -54,10 +54,10 @@ public static class ResourceLoader
         
     }
 
-    // public static GameObject GetRandomReward() {
-    //     // 30% chance of getting an ship, 70% chance of getting an item
-    //     if (Random.Range(0, 10) < 3) {
-    //         return GetRandomShip().shipImage.gameObject;
+    public static UpgradeItem GetRandomItem() {
+
+        UpgradeItem[] items = Resources.LoadAll<UpgradeItem>("Items");
+        return items[Random.Range(0, items.Length)];
         
-    // }
+    }
 }

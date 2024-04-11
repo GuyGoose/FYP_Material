@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,22 +15,8 @@ public class DisplayItemManager : MonoBehaviour
     void Start()
     {
         playerInfo = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>();
-        foreach (UpgradeItem item in playerInfo.items) {
-            // Create a new display item for each item in the player's inventory, If the item is a duplicate, increment the item count
-            bool isDuplicate = false;
-            foreach (GameObject displayItem in displayItems) {
-                if (displayItem.GetComponent<DisplayItem>().item.itemName == item.itemName) {
-                    displayItem.GetComponent<DisplayItem>().itemNb++;
-                    displayItem.GetComponent<DisplayItem>().itemNbText.text = "x" + displayItem.GetComponent<DisplayItem>().itemNb.ToString();
-                    isDuplicate = true;
-                }
-            }
-            if (!isDuplicate) {
-                GameObject displayItem = Instantiate(displayItemPrefab, displayItemParent.transform);
-                displayItem.GetComponent<DisplayItem>().UpdateItemDisplay(item);
-                displayItems.Add(displayItem);
-            }  
-        }
+        // Get each unique item in the player's inventory and display it in the item display
+        UpdateItemDisplay();
 
         HideItemDisplay();
     }
@@ -63,21 +50,26 @@ public class DisplayItemManager : MonoBehaviour
             Destroy(displayItem);
         }
         displayItems.Clear();
+        List<String> uniqueItems = new List<String>();
+        uniqueItems.Clear();
         foreach (UpgradeItem item in playerInfo.items) {
-            // Create a new display item for each item in the player's inventory, If the item is a duplicate, increment the item count
-            bool isDuplicate = false;
-            foreach (GameObject displayItem in displayItems) {
-                if (displayItem.GetComponent<DisplayItem>().item.itemName == item.itemName) {
-                    displayItem.GetComponent<DisplayItem>().itemNb++;
-                    displayItem.GetComponent<DisplayItem>().itemNbText.text = "x" + displayItem.GetComponent<DisplayItem>().itemNb.ToString();
-                    isDuplicate = true;
+            // If the item is not already in the list of unique items, add it
+            if (!uniqueItems.Contains(item.itemName)) {
+                uniqueItems.Add(item.itemName);
+                // Create a new display item for the item
+                GameObject newDisplayItem = Instantiate(displayItemPrefab, displayItemParent.transform);
+                newDisplayItem.GetComponent<DisplayItem>().UpdateItemDisplay(item);
+                displayItems.Add(newDisplayItem);
+            }
+            // If the item is already in the list of unique items, find its display item and increment the count
+            else {
+                foreach (GameObject displayItem in displayItems) {
+                    if (displayItem.GetComponent<DisplayItem>().itemName == item.itemName) {
+                        displayItem.GetComponent<DisplayItem>().itemNb++;
+                        displayItem.GetComponent<DisplayItem>().itemNbText.text = "x" + displayItem.GetComponent<DisplayItem>().itemNb.ToString();
+                    }
                 }
             }
-            if (!isDuplicate) {
-                GameObject displayItem = Instantiate(displayItemPrefab, displayItemParent.transform);
-                displayItem.GetComponent<DisplayItem>().UpdateItemDisplay(item);
-                displayItems.Add(displayItem);
-            }  
         }
     }
 }

@@ -213,6 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f463129a9eeb9914c841020af01ff952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewardShip: {fileID: 0}
+  rewardItem: {fileID: 0}
   rewardName: 
   rewardDescription: 
   rewardImage: {fileID: 1694662324}
@@ -553,7 +555,7 @@ RectTransform:
   m_Children:
   - {fileID: 1072900942}
   m_Father: {fileID: 1170952928}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1724,7 +1726,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 830691344}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1561032244}
+        m_TargetAssemblyTypeName: MapGenerationController, Assembly-CSharp
+        m_MethodName: ClaimReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &830691344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2816,7 +2830,7 @@ RectTransform:
   - {fileID: 737112694}
   - {fileID: 1304430606}
   m_Father: {fileID: 1170952928}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3001,9 +3015,9 @@ RectTransform:
   - {fileID: 275272936}
   - {fileID: 1800541632}
   - {fileID: 957766439}
-  - {fileID: 210304473}
   - {fileID: 1075589964}
   - {fileID: 1247496025}
+  - {fileID: 210304473}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3172,7 +3186,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1233693777}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1561032244}
+        m_TargetAssemblyTypeName: MapGenerationController, Assembly-CSharp
+        m_MethodName: SalvageReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1233693777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3247,7 +3273,7 @@ RectTransform:
   - {fileID: 830691342}
   - {fileID: 73737261}
   m_Father: {fileID: 1170952928}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3975,7 +4001,7 @@ MonoBehaviour:
   maxMerchants: 5
   rewardSalvage: 0
   rewardData: {fileID: 73737264}
-  reward: {fileID: 0}
+  rewardStorageObject: {fileID: 0}
 --- !u!114 &1561032245
 MonoBehaviour:
   m_ObjectHideFlags: 0

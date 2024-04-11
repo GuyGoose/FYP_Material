@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class Reward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    GameObject reward;
+    public Ship rewardShip;
+    public UpgradeItem rewardItem;
     public string rewardName;
     public string rewardDescription;
     public Image rewardImage;
@@ -29,16 +30,15 @@ public class Reward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     void Update()
     {
         // Check if the reward is a Ship or a UpgradeItem
-        if (reward.GetComponent<Ship>() != null) {
-            rewardName = reward.GetComponent<Ship>().shipName;
-            //rewardDescription = reward.GetComponent<Ship>().shipDescription;
-            rewardImage.sprite = reward.GetComponent<Ship>().shipImage;
-        } else if (reward.GetComponent<UpgradeItem>() != null) {
-            rewardName = reward.GetComponent<UpgradeItem>().itemName;
-            rewardDescription = ProcessItemsInCombat.CreateItemDescription(reward.GetComponent<UpgradeItem>());
-            rewardImage.sprite = reward.GetComponent<UpgradeItem>().itemImage;
+        if (rewardShip != null) {
+            rewardImage.sprite = rewardShip.shipImage;
+            rewardName = rewardShip.shipName;
+            //rewardDescription = rewardShip.shipDescription;
+        } else if (rewardItem != null) {
+            rewardImage.sprite = rewardItem.itemImage;
+            rewardName = rewardItem.itemName;
+            rewardDescription = ProcessItemsInCombat.CreateItemDescription(rewardItem);
         }
-
 
         if (hasMouse && timer < toolTipDelay) {
             timer += Time.deltaTime;
@@ -58,7 +58,16 @@ public class Reward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         toolTipMessenger.Hide();
     }
 
-    public void UpdateReward(GameObject reward) {
-        this.reward = reward;
+    public void UpdateReward() {
+        // Clear rewardShip and rewardItem
+        rewardShip = null;
+        rewardItem = null;
+        // 30% chance to get a ship, 70% chance to get an upgrade item
+        if (Random.Range(0, 100) < 30) {
+            rewardShip = ResourceLoader.GetRandomShip();
+        } else {
+            rewardItem = ResourceLoader.GetRandomItem();
+        }
+        
     }
 }
