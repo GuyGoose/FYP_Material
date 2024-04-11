@@ -20,9 +20,11 @@ public class PlayerInfo : MonoBehaviour
     public string playerName;
     public string currentPlanet;
     public List<Ship> ships = new List<Ship>();
+    public List<UpgradeItem> items = new List<UpgradeItem>();
     public int maxHealth;
     public int currentHealth;
     public int energy;
+    public int bonusEnergy;
     public int credits;
     public bool isBossFight;
     public Encounter currentEncounter;
@@ -60,6 +62,16 @@ public class PlayerInfo : MonoBehaviour
         ships = new List<Ship>();
         foreach (int i in data.shipIndexes) {
             ships.Add(ResourceLoader.GetShipByIndex(i));
+        }
+
+        // Load the player's items
+        items = new List<UpgradeItem>();
+        // Check if the player has any items
+        if (data.itemIndexes == null) {
+            return;
+        }
+        foreach (int i in data.itemIndexes) {
+            items.Add(ResourceLoader.GetItemByIndex(i));
         }
     }
 

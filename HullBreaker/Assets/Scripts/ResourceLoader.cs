@@ -46,4 +46,11 @@ public static class ResourceLoader
         return bossEncounters[Random.Range(0, bossEncounters.Count)];
         
     }
+
+    public static UpgradeItem GetItemByIndex(int index) {
+
+        UpgradeItem[] items = Resources.LoadAll<UpgradeItem>("Items");
+        return items[index];
+        
+    }
 }

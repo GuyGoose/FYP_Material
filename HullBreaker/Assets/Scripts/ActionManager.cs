@@ -96,6 +96,9 @@ public class ActionManager : MonoBehaviour
         }
         uiManager.SetupEnemyShipsImages(enemySprites);
 
+        // Apply the passive effects of the player's items
+        ProcessItemsInCombat.ProcessPassiveItems(playerInfo.GetComponent<PlayerInfo>(), enemyInfo, playerInfo);
+
         // Start the player's turn
         StartPlayerTurn();
     }
@@ -305,7 +308,11 @@ public class ActionManager : MonoBehaviour
     public void StartPlayerTurn() {
         playerInfo.GetComponent<Health>().currentShield = 0;
         playerTurnMenu.GetComponent<Animator>().SetBool("isActive", true);
+        // Reset the player's energy
         playerEnergy = playerMaxEnergy;
+        playerEnergy += playerInfo.GetComponent<PlayerInfo>().bonusEnergy;
+        // Reset the bonus energy
+        playerInfo.GetComponent<PlayerInfo>().bonusEnergy = 0;
         currentGameState = GameState.PlayerTurn;
     }
 
@@ -396,6 +403,8 @@ public class ActionManager : MonoBehaviour
             //wait for a for 1 seconds
             yield return new WaitForSeconds(1f);
         }
+        // Apply the Start of Player Turn items
+        ProcessItemsInCombat.ProcessStartOfPlayerTurnItems(playerInfo.GetComponent<PlayerInfo>(), enemyInfo, playerInfo);
         // Start the player's turn
         StartPlayerTurn();
     }

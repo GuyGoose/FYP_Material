@@ -36,8 +36,8 @@ public class ToolTipMessenger : MonoBehaviour
         Vector2 movePos;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, Input.mousePosition, parentCanvas.worldCamera, out movePos);
-
-        ToolTipTransform.position = parentCanvas.transform.TransformPoint(movePos);
+        // Changed to fix issue with positioning in world map
+        ToolTipTransform.position = Input.mousePosition;
         
     }
 

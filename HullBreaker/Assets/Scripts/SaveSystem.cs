@@ -70,6 +70,11 @@ public static class SaveSystem
             data.shipIndexes.Add(s.shipIndex);
         }
 
+        data.itemIndexes.Clear();
+        foreach (UpgradeItem i in player.items) {
+            data.itemIndexes.Add(i.itemIndex);
+        }
+
         formatter.Serialize(stream, data);
         stream.Close();
 
@@ -120,6 +125,7 @@ public class PlayerData
     public string playerName;
     public string currentPlanet;
     public List<int> shipIndexes = new List<int>();
+    public List<int> itemIndexes = new List<int>();
     public int maxHealth;
     public int currentHealth;
     public int energy;
