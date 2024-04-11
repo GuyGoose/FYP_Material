@@ -19,3 +19,5 @@ MonoBehaviour:
   startingHealth: 50
   startingEnergy: 4
   startingCredits: 50
+  startingInventory:
+  - {fileID: 11400000, guid: 62c29328cb5f74347ba9c3b5f735a721, type: 2}

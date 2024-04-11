@@ -109,6 +109,7 @@ public class PlayerInfo : MonoBehaviour
         isBossFight = false;
         ships = new List<Ship>();
         ships.Add(pilot.startingShip);
+        items = pilot.startingInventory;
 
         // Save
         SavePlayerInfo();

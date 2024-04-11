@@ -55,6 +55,7 @@ public class ActionManager : MonoBehaviour
     private Ship currentlySelectedShip;
     public UiManager uiManager;
     public GameObject playerTurnMenu;
+    public Reward rewardData;
 
     public GameObject Action1, Action2, Action3, Action4;
     public List<GameObject> PlayerShipAnimation, EnemyShipAnimation;
@@ -318,6 +319,8 @@ public class ActionManager : MonoBehaviour
 
     public void StartEnemyTurn() {
         enemyInfo.GetComponent<Health>().currentShield = 0;
+        // Apply the Start of Player Turn items
+        ProcessItemsInCombat.ProcessStartOfPlayerTurnItems(playerInfo.GetComponent<PlayerInfo>(), enemyInfo, playerInfo);
         playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
         currentGameState = GameState.EnemyTurn;
         StartCoroutine(EnemyTurn());
@@ -391,7 +394,6 @@ public class ActionManager : MonoBehaviour
     IEnumerator EnemyTurn() {
         // For player and enemy ships, status effects are adjusted at the end of the turn
         playerInfo.GetComponent<StatusEffect>().AdjustAtEndOfTurn(playerInfo.GetComponent<Health>());
-        enemyInfo.GetComponent<StatusEffect>().AdjustAtEndOfTurn(enemyInfo.GetComponent<Health>());
         
         // For each enemy ship, perform an action
         for (int i = 0; i < enemyShips.Count; i++) {
@@ -403,10 +405,10 @@ public class ActionManager : MonoBehaviour
             //wait for a for 1 seconds
             yield return new WaitForSeconds(1f);
         }
-        // Apply the Start of Player Turn items
-        ProcessItemsInCombat.ProcessStartOfPlayerTurnItems(playerInfo.GetComponent<PlayerInfo>(), enemyInfo, playerInfo);
         // Start the player's turn
         StartPlayerTurn();
+
+        enemyInfo.GetComponent<StatusEffect>().AdjustAtEndOfTurn(enemyInfo.GetComponent<Health>());
     }
 
     IEnumerator GameOverCombat() {

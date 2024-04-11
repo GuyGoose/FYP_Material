@@ -27,4 +27,5 @@ public class Pilot : ScriptableObject
     public int startingHealth;
     public int startingEnergy;
     public int startingCredits;
+    public List<UpgradeItem> startingInventory = new List<UpgradeItem>();
 }

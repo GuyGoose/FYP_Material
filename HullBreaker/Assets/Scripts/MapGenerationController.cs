@@ -7,6 +7,7 @@ using TMPro;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class MapGenerationController : MonoBehaviour
 {
@@ -28,7 +29,8 @@ public class MapGenerationController : MonoBehaviour
     public float OddityChance = 0.2f;
     public float MerchantChance = 0.1f;
 
-    public GameObject destinationMenu;
+    public GameObject destinationMenu, pausePanel, rewardPanel;
+    public TextMeshProUGUI rewardSalvageValue;
     public GameObject landButton;
     private Animator destinationMenuAnimator;
     public TextMeshProUGUI destinationName;
@@ -52,6 +54,12 @@ public class MapGenerationController : MonoBehaviour
     private GameObject currentPoint;
 
     private GameObject DialogueBox, FadeScreen;
+
+    // --- Reward Points ---
+    public int rewardSalvage = 0;
+    public Reward rewardData;
+    public GameObject reward;
+    public GameObject rewardStorageObject;
 
     void Awake() {
 
@@ -99,6 +107,13 @@ public class MapGenerationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If "ESC" is pressed, toggle pause
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            TogglePause();
+            pausePanel.SetActive(!pausePanel.activeSelf);
+            pausePanel.GetComponent<CanvasGroup>().blocksRaycasts = !pausePanel.GetComponent<CanvasGroup>().blocksRaycasts;
+        }
+
         // If a point is clicked, set it as the current point and un-current the previous point
         if (Input.GetMouseButtonDown(0)) {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -209,7 +224,9 @@ public class MapGenerationController : MonoBehaviour
                 }
                 break;
             case "Oddity":
+                // Display the reward panel
                 MarkAsCompleted();
+                DisplayReward();
                 break;
             case "Merchant":
                 MarkAsCompleted();
@@ -377,6 +394,67 @@ public class MapGenerationController : MonoBehaviour
                 }
             }
             StartCoroutine(pointObject.GetComponent<PointController>().OnReload());
+        }
+    }
+
+    public void DisplayReward() {
+        // Get a random reward    
+
+        // Set the salvage value
+        if (reward.GetComponent<Ship>() != null) {
+            rewardSalvage = Mathf.FloorToInt(reward.GetComponent<Ship>().basePrice * 0.30f);
+        } else if (reward.GetComponent<UpgradeItem>() != null) {
+            rewardSalvage = Mathf.FloorToInt(reward.GetComponent<UpgradeItem>().basePrice * 0.30f);
+        } else {
+            Debug.Log("Invalid Reward");
+        }
+        rewardSalvageValue.text = "+" + rewardSalvage.ToString() + "c";
+        // Set the reward data
+        rewardData.GetComponent<Reward>().UpdateReward(reward);
+        rewardPanel.SetActive(true);
+    }
+
+    public void ClaimReward() {
+        // If reward is a ship, add to player's ships list (If player has less than 3 ships)
+        if (reward.GetComponent<Ship>() != null) {
+            if (playerInfo.ships.Count < 3) {
+                playerInfo.ships.Add(reward.GetComponent<Ship>());
+            } else {
+                Debug.Log("Player has max ships");
+            }
+        } else if (reward.GetComponent<UpgradeItem>() != null) {
+            // If reward is an item, add to player's items list
+            playerInfo.items.Add(reward.GetComponent<UpgradeItem>());
+        } else {
+            Debug.Log("Invalid Reward");
+        }
+
+        CloseRewardPanel();
+    }
+
+    public void SalvageReward() {
+        // Add 0.30 of the sell value to the player's credits (Rounded down)
+        // Check if ship or item
+        if (reward.GetComponent<Ship>() != null) {
+            playerInfo.credits += rewardSalvage;
+        } else if (reward.GetComponent<UpgradeItem>() != null) {
+            playerInfo.credits += rewardSalvage;
+        } else {
+            Debug.Log("Invalid Reward");
+        }
+
+        CloseRewardPanel();
+    }
+
+    public void CloseRewardPanel() {
+        rewardPanel.SetActive(false);
+    }
+
+    public void TogglePause() {
+        if (Time.timeScale == 0) {
+            Time.timeScale = 1;
+        } else {
+            Time.timeScale = 0;
         }
     }
 }
