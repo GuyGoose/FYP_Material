@@ -20,15 +20,13 @@ public class Reward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     bool hasMouse;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         toolTipMessenger = GameObject.Find("ToolTip").GetComponent<ToolTipMessenger>();
         hasMouse = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // Check if the reward is a Ship or a UpgradeItem
         if (rewardShip != null) {
             rewardImage.sprite = rewardShip.shipImage;
@@ -68,6 +66,6 @@ public class Reward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         } else {
             rewardItem = ResourceLoader.GetRandomItem();
         }
-        
     }
+
 }

@@ -12,8 +12,7 @@ public class DisplayItemManager : MonoBehaviour
     public List<GameObject> displayItems;
     private PlayerInfo playerInfo;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         playerInfo = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>();
         // Get each unique item in the player's inventory and display it in the item display
         UpdateItemDisplay();
@@ -22,8 +21,7 @@ public class DisplayItemManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // If TAB is held down, show the item display
         if (Input.GetKey(KeyCode.Tab)) {
             ShowItemDisplay();
