@@ -35,6 +35,7 @@ public class ShipButton : MonoBehaviour
         shopController.playerInfo.ships.Remove(ship);
         // Add the price of the ship to the player's credits
         shopController.playerInfo.credits += ship.basePrice/2;
+        shopController.playerInfo.score += ship.basePrice/2/4;
         // Save the player's info
         shopController.playerInfo.SavePlayerInfo();
 

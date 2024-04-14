@@ -9541,6 +9541,7 @@ MonoBehaviour:
   playerEnergyText: {fileID: 1650671628}
   uiManager: {fileID: 732345974}
   playerTurnMenu: {fileID: 144829747}
+  rewardData: {fileID: 0}
   Action1: {fileID: 1802416001}
   Action2: {fileID: 779095543}
   Action3: {fileID: 1345709054}

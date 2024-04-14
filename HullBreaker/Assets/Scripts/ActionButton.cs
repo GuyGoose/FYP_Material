@@ -166,7 +166,5 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // Execute the action
         actionManager.IsValidAction(currentAction);
     }
-
-    
     
 }

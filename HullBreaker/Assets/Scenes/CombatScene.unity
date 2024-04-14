@@ -4422,6 +4422,7 @@ GameObject:
   - component: {fileID: 582998464}
   - component: {fileID: 582998463}
   - component: {fileID: 582998462}
+  - component: {fileID: 582998465}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4495,6 +4496,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &582998465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582998461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &679436839
 GameObject:
   m_ObjectHideFlags: 0
@@ -7567,6 +7584,7 @@ GameObject:
   - component: {fileID: 1004316792}
   - component: {fileID: 1004316793}
   - component: {fileID: 1004316794}
+  - component: {fileID: 1004316795}
   m_Layer: 0
   m_Name: Ship_1
   m_TagString: PlayerDisplayShips
@@ -7675,6 +7693,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1004316795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004316790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3b331c8287ba04cbe023c705327aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipMessenger: {fileID: 0}
+  toolTipDelay: 0.5
+  ship: {fileID: 11400000, guid: 2dbc3ee297304114abe86a653e36af82, type: 2}
 --- !u!1 &1007725726
 GameObject:
   m_ObjectHideFlags: 0
@@ -9883,6 +9916,7 @@ MonoBehaviour:
   playerEnergyText: {fileID: 1650671628}
   uiManager: {fileID: 732345974}
   playerTurnMenu: {fileID: 144829747}
+  rewardData: {fileID: 0}
   Action1: {fileID: 1802416001}
   Action2: {fileID: 779095543}
   Action3: {fileID: 1345709054}
@@ -11938,7 +11972,7 @@ GameObject:
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1386716056
 RectTransform:
   m_ObjectHideFlags: 0

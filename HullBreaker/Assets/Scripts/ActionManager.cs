@@ -77,7 +77,9 @@ public class ActionManager : MonoBehaviour
         
         // Player and Enemy HP Info
         playerInfo.GetComponent<Health>().SetupHealth(playerInfo.GetComponent<PlayerInfo>().maxHealth, playerInfo.GetComponent<PlayerInfo>().currentHealth);
-        enemyInfo.GetComponent<Health>().SetupHealth(encounter.baseHealth, encounter.baseHealth);
+
+        int scoreAdjustedEnemyHealth = ResourceLoader.DynamicDifficultyCalculateScoreBonus(playerInfo.GetComponent<PlayerInfo>().score, encounter.baseHealth);
+        enemyInfo.GetComponent<Health>().SetupHealth(scoreAdjustedEnemyHealth, scoreAdjustedEnemyHealth);
     
         // Get player info 
         // -- This also contains the player's energy and the player's ships
@@ -462,6 +464,7 @@ public class ActionManager : MonoBehaviour
 
     public void AddCredits(int credits) {
         playerInfo.GetComponent<PlayerInfo>().credits += credits;
+        playerInfo.GetComponent<PlayerInfo>().score += credits / 4;
     }
 
 }

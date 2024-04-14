@@ -428,6 +428,7 @@ public class MapGenerationController : MonoBehaviour
     public void SalvageReward() {
         // Add 0.30 of the sell value to the player's credits (Rounded down)
         playerInfo.credits += rewardSalvage;
+        playerInfo.score += rewardSalvage/4;
         UpdatePlayerInfo();
         CloseRewardPanel();
     }

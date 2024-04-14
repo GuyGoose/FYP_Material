@@ -63,6 +63,7 @@ public static class SaveSystem
         data.isBossFight = player.isBossFight;
         data.encounterIndex = player.currentEncounter.encounterIndex;
         data.currentDifficulty = player.currentDifficulty;
+        data.score = player.score;
         data.playerFaction = player.playerFaction;
 
         data.shipIndexes.Clear();
@@ -133,6 +134,7 @@ public class PlayerData
     public bool isBossFight;
     public int encounterIndex;
     public int currentDifficulty;
+    public int score;
     public EnumHolder.Faction playerFaction;
 }
 
