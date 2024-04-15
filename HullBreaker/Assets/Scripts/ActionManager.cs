@@ -445,11 +445,18 @@ public class ActionManager : MonoBehaviour
             playerInfo.GetComponent<PlayerInfo>().isBossFight = false;
             DeleteMapAfterBoss();
             playerInfo.GetComponent<PlayerInfo>().currentDifficulty++;
-            playerInfo.GetComponent<PlayerInfo>().energy += 2;
             playerInfo.GetComponent<PlayerInfo>().bossesDefeated++;
             playerInfo.GetComponent<PlayerInfo>().score += 1000;
 
-            if (playerInfo.GetComponent<PlayerInfo>().currentDifficulty >= 3) {
+            if (playerInfo.GetComponent<PlayerInfo>().currentDifficulty < 3) {
+                playerInfo.GetComponent<PlayerInfo>().energy += 2;
+                playerInfo.GetComponent<PlayerInfo>().maxHealth += 25;
+            }
+
+            playerInfo.GetComponent<PlayerInfo>().currentHealth = playerInfo.GetComponent<PlayerInfo>().maxHealth;
+
+
+            if (playerInfo.GetComponent<PlayerInfo>().currentDifficulty > 3) {
                 StartCoroutine(GoToWinScreen());
             } else {
                 StartCoroutine(ReturnToMap());

@@ -15,7 +15,7 @@ MonoBehaviour:
   pilotName: Joe Aveg
   pilotInfo: The Third
   pilotImage: {fileID: 21300000, guid: f0afd375d80dda94c95ee9d9be0f5959, type: 3}
-  startingShip: {fileID: 11400000, guid: 19077394d3dcf7f4b81f4e5c67fb1709, type: 2}
+  startingShip: {fileID: 11400000, guid: 1824f0c7353a4f34db1a100580e1c20a, type: 2}
   startingHealth: 50
   startingEnergy: 4
   startingCredits: 50
