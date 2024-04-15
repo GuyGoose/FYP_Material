@@ -144,9 +144,20 @@ public class DataManager : MonoBehaviour
         {
             Debug.LogWarning("No saved map found.");
         }
+    }
 
-        
-
+    public void DeleteMap()
+    {
+        string filePath = Application.persistentDataPath + "/mapSave.json";
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("Map deleted.");
+        }
+        else
+        {
+            Debug.LogWarning("No saved map found.");
+        }
     }
 
     // Data structure to hold map save data

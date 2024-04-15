@@ -37,9 +37,16 @@ public class PointShip : MonoBehaviour
         int currentDifficulty = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().currentDifficulty;
         Encounter[] encounters = Resources.LoadAll<Encounter>("Encounters");
         List<Encounter> possibleEncounters = new List<Encounter>();
-        foreach (Encounter e in encounters) {
-            if (e.difficulty == currentDifficulty) {
+        if (currentDifficulty > 3) {
+            // Load all encounters - For Endless Mode
+            foreach (Encounter e in encounters) {
                 possibleEncounters.Add(e);
+            }
+        } else {
+            foreach (Encounter e in encounters) {
+                if (e.difficulty == currentDifficulty) {
+                    possibleEncounters.Add(e);
+                }
             }
         }
         int randEncounter = UnityEngine.Random.Range(0, possibleEncounters.Count);
@@ -47,7 +54,6 @@ public class PointShip : MonoBehaviour
         encounterIndex = randEncounter;
         faction = encounter.encounterFaction;
 
-        //AdjustRelations(rand); // Causes error
         SetPositionToCurrentPoint();
 
         // Set the ship's color to the faction's color

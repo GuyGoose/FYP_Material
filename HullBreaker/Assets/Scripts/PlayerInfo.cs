@@ -30,6 +30,7 @@ public class PlayerInfo : MonoBehaviour
     public Encounter currentEncounter;
     public int currentDifficulty;
     public int score;
+    public int bossesDefeated;
     public EnumHolder.Faction playerFaction;
 
     private void Awake() {
@@ -58,6 +59,7 @@ public class PlayerInfo : MonoBehaviour
         IsEncounterBoss(data);
         currentDifficulty = data.currentDifficulty;
         score = data.score;
+        bossesDefeated = data.bossesDefeated;
         playerFaction = data.playerFaction;
 
         // Load the player's ships
@@ -114,6 +116,7 @@ public class PlayerInfo : MonoBehaviour
         items = pilot.startingInventory;
         currentDifficulty = 1;
         score = 0;
+        bossesDefeated = 0;
 
         // Save
         SavePlayerInfo();

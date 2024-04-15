@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public static class ResourceLoader
@@ -145,6 +146,19 @@ public static class ResourceLoader
 
         // Return the value multiplied by the score multiplier rounded to the nearest integer
         return (int)Mathf.Round(value * scoreMult);
+        
+    }
+
+    public static Sprite LoadPilotSprite(string pilotName) {
+
+        Pilot[] pilots = Resources.LoadAll<Pilot>("Pilots");
+        foreach (Pilot pilot in pilots) {
+            if (pilot.pilotName == pilotName) {
+                return pilot.pilotImage;
+            }
+        }
+
+        return null;
         
     }
 }

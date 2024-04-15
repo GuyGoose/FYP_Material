@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class ActionManager : MonoBehaviour
 {
@@ -440,7 +441,22 @@ public class ActionManager : MonoBehaviour
     }
 
     public void ReturnToMapButton() {
-        StartCoroutine(ReturnToMap());
+        if (playerInfo.GetComponent<PlayerInfo>().isBossFight) {
+            playerInfo.GetComponent<PlayerInfo>().isBossFight = false;
+            DeleteMapAfterBoss();
+            playerInfo.GetComponent<PlayerInfo>().currentDifficulty++;
+            playerInfo.GetComponent<PlayerInfo>().energy += 2;
+            playerInfo.GetComponent<PlayerInfo>().bossesDefeated++;
+            playerInfo.GetComponent<PlayerInfo>().score += 1000;
+
+            if (playerInfo.GetComponent<PlayerInfo>().currentDifficulty >= 3) {
+                StartCoroutine(GoToWinScreen());
+            } else {
+                StartCoroutine(ReturnToMap());
+            }
+        } else {
+            StartCoroutine(ReturnToMap());
+        }
     }
 
     public IEnumerator ReturnToMap() {
@@ -465,6 +481,31 @@ public class ActionManager : MonoBehaviour
     public void AddCredits(int credits) {
         playerInfo.GetComponent<PlayerInfo>().credits += credits;
         playerInfo.GetComponent<PlayerInfo>().score += credits / 4;
+    }
+
+    public void DeleteMapAfterBoss()
+    {
+        string filePath = Application.persistentDataPath + "/mapSave.json";
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("Map deleted.");
+        }
+        else
+        {
+            Debug.LogWarning("No saved map found.");
+        }
+    }
+
+    public IEnumerator GoToWinScreen() {
+        // Save the player's information
+        playerInfo.GetComponent<PlayerInfo>().SavePlayerInfo();
+        // Fade in the screen (IEnumerator FadeOut)
+        FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        //wait for a for 2 seconds
+        yield return new WaitForSeconds(2f);
+        // Return to the map
+        SceneManager.LoadScene("WinScene");
     }
 
 }

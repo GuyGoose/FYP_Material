@@ -212,6 +212,7 @@ public class MapGenerationController : MonoBehaviour
                     if (currentPoint.GetComponent<PointController>().planetStatus == EnumHolder.PlanetStatus.Hostile) {
                         // Set the current encounter in PlayerInfo
                         playerInfo.currentEncounter = currentPoint.GetComponent<PointController>().ships[0].GetComponent<PointShip>().encounter;
+                        Debug.Log("Current Encounter: " + playerInfo.currentEncounter.encounterName);
                         // Destroy the point ship
                         Destroy(currentPoint.GetComponent<PointController>().ships[0]);
                         MarkAsCompleted();
@@ -265,7 +266,7 @@ public class MapGenerationController : MonoBehaviour
         Debug.Log("Loading Encounter: " + encounter.encounterName);
 
         // Set the current encounter in PlayerInfo
-        playerInfo.currentEncounter = encounter;
+        //playerInfo.currentEncounter = encounter;
         playerInfo.SavePlayerInfo();
 
         // Save the map state

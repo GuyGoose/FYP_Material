@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BossCombatScene.unity
     guid: b828f208e59b9a649ac18b209201b75b
+  - enabled: 1
+    path: Assets/Scenes/Menus/WinScene.unity
+    guid: 36588f9d66d989946a14bc89662de0eb
   m_configObjects: {}

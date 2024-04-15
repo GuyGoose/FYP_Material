@@ -64,6 +64,7 @@ public static class SaveSystem
         data.encounterIndex = player.currentEncounter.encounterIndex;
         data.currentDifficulty = player.currentDifficulty;
         data.score = player.score;
+        data.bossesDefeated = player.bossesDefeated;
         data.playerFaction = player.playerFaction;
 
         data.shipIndexes.Clear();
@@ -135,6 +136,7 @@ public class PlayerData
     public int encounterIndex;
     public int currentDifficulty;
     public int score;
+    public int bossesDefeated;
     public EnumHolder.Faction playerFaction;
 }
 

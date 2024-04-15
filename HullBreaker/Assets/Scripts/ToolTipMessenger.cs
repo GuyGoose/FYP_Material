@@ -42,6 +42,9 @@ public class ToolTipMessenger : MonoBehaviour
     }
 
     public void Show(string title, string description) {
+        // Clear the tooltip
+        Title.text = "";
+        Description.text = "";
         canvasGroup.alpha = 0;
         Title.text = title;
         Description.text = description;
