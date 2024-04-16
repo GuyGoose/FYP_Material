@@ -103,6 +103,13 @@ public class ActionManager : MonoBehaviour
         // Apply the passive effects of the player's items
         ProcessItemsInCombat.ProcessPassiveItems(playerInfo.GetComponent<PlayerInfo>(), enemyInfo, playerInfo);
 
+        // Check if isBoss and play the correct music
+        if (playerInfo.GetComponent<PlayerInfo>().isBossFight) {
+            SoundManager.Instance.PlayMusic("Boss");
+        } else {
+            SoundManager.Instance.PlayMusic("Combat");
+        }
+
         // Start the player's turn
         StartPlayerTurn();
     }

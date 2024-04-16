@@ -102,6 +102,9 @@ public class MapGenerationController : MonoBehaviour
         HP.text = "HP: " + playerInfo.currentHealth + "/" + playerInfo.maxHealth;
         Credits.text = "Credits: " + playerInfo.credits + "c";
 
+        // Play the music
+        SoundManager.Instance.PlayMusic("Map");
+
     }
 
     // Update is called once per frame
@@ -150,6 +153,7 @@ public class MapGenerationController : MonoBehaviour
                     // Calls the tween to position function in the camera controller with the points x and y position but keeps the z position the same
                     cameraController.GetComponent<MapCamMovement>().TweenToPosition(new Vector3(hit.collider.gameObject.transform.position.x, hit.collider.gameObject.transform.position.y, cameraController.transform.position.z));
                     //hit.collider.gameObject.GetComponent<PointController>().DrawLinks();
+                    SoundManager.Instance.PlaySFX("Select");
                 }
             } else {
                 Debug.Log("Clicked Nothing");
@@ -311,6 +315,7 @@ public class MapGenerationController : MonoBehaviour
         // foreach (PointShip ship in currentlySelectedPoint.ships) {
         //     ship.MoveToConnectedPointRandom();
         // }
+        SoundManager.Instance.PlaySFX("Land");
         CloseDestinationMenu();
     }
 
@@ -411,6 +416,8 @@ public class MapGenerationController : MonoBehaviour
         rewardSalvageValue.text = "+" + rewardSalvage.ToString() + "c";
         
         rewardPanel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        SoundManager.Instance.PlaySFX("Oddity");
    
         rewardPanel.SetActive(true);
     }
@@ -435,6 +442,7 @@ public class MapGenerationController : MonoBehaviour
     }
 
     public void CloseRewardPanel() {
+        SoundManager.Instance.PlaySFX("Upgrade");
         rewardPanel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         rewardPanel.SetActive(false);
     }
@@ -442,8 +450,10 @@ public class MapGenerationController : MonoBehaviour
     public void TogglePause() {
         if (Time.timeScale == 0) {
             Time.timeScale = 1;
+            SoundManager.Instance.PlaySFX("UI_Out");
         } else {
             Time.timeScale = 0;
+            SoundManager.Instance.PlaySFX("UI_In");
         }
     }
 

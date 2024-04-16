@@ -35,6 +35,9 @@ public class ShopController : MonoBehaviour
             Ship thisShip = ResourceLoader.GetRandomShip();
             shopItem.SetShip(thisShip);
         }
+
+        // Play music
+        SoundManager.Instance.PlayMusic("Shop");
     }
 
     // Update is called once per frame
@@ -58,14 +61,18 @@ public class ShopController : MonoBehaviour
         }
 
         sellMenu.SetActive(true);
+
+        SoundManager.Instance.PlaySFX("UI_In");
     }
 
     public void HideSellMenu() {
         sellMenu.SetActive(false);
+        SoundManager.Instance.PlaySFX("UI_Out");
     }
 
     public void ReturnToMap() {
         playerInfo.SavePlayerInfo();
+        SoundManager.Instance.PlaySFX("UI_Out");
         SceneManager.LoadScene("MapScene");
     }
     

@@ -31,6 +31,11 @@ public class ShipButton : MonoBehaviour
     }
 
     public void SellShip() {
+        if (shopController.playerInfo.ships.Count <= 1) {
+            Debug.Log("You can't sell your last ship!");
+            SoundManager.Instance.PlaySFX("Error");
+            return;
+        }
         // Remove the ship from the player's list of ships
         shopController.playerInfo.ships.Remove(ship);
         // Add the price of the ship to the player's credits
@@ -38,6 +43,8 @@ public class ShipButton : MonoBehaviour
         shopController.playerInfo.score += ship.basePrice/2/4;
         // Save the player's info
         shopController.playerInfo.SavePlayerInfo();
+
+        SoundManager.Instance.PlaySFX("Sell");
 
         // Destroy the shop item
         Destroy(gameObject);

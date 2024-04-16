@@ -66,6 +66,9 @@ public class Reward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         } else {
             rewardItem = ResourceLoader.GetRandomItem();
         }
+        rewardName = "";
+        rewardDescription = "";
+        
     }
 
 }

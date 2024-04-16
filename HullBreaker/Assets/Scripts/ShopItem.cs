@@ -47,12 +47,15 @@ public class ShopItem : MonoBehaviour
             // Save the player's info
             playerInfo.SavePlayerInfo();
 
+            SoundManager.Instance.PlaySFX("Buy");
+
             // Destroy the shop item
             Destroy(gameObject);
     
             Debug.Log("Bought ship: " + ship.shipName);
         } else {
             Debug.Log("Not enough credits to buy this ship!");
+            SoundManager.Instance.PlaySFX("Error");
         }
     }
 }
