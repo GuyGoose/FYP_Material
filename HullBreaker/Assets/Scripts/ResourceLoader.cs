@@ -20,8 +20,9 @@ public static class ResourceLoader
     }
 
     public static Ship GetShipByIndex(int index) {
-
+        Debug.Log("Provided index: " + index );
         Ship[] ships = Resources.LoadAll<Ship>("Ships");
+        Debug.Log(ships[index] + " " + index);
         return ships[index];
         
     }

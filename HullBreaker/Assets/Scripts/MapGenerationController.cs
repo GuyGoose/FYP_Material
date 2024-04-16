@@ -309,6 +309,11 @@ public class MapGenerationController : MonoBehaviour
                 point.GetComponent<PointController>().isSelected = false;
             }
         }
+
+        // Save the map state and player info
+        playerInfo.SavePlayerInfo();
+        dataManager.SaveMap();
+
         currentlySelectedPoint.current = true;
         // TODO - See PointShip.cs
         // All point ships move to a random connected point
