@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 2
   shipName: Arboretum
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: cc278ffbe0ce70f48a833ee467f23399, type: 2}
+  - {fileID: 11400000, guid: 988b360738d04b343bcec7e5dc52612a, type: 2}
+  - {fileID: 11400000, guid: c2755ada3fdad194c86fcfa62344daa8, type: 2}
+  - {fileID: 11400000, guid: e82a502b03fb0ee4f91edb4632057aca, type: 2}
   shipImage: {fileID: 62348026, guid: cccb4712cbe038543bd5b87ee8706e00, type: 3}
   classType: 1

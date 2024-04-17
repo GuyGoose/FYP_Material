@@ -15,7 +15,7 @@ MonoBehaviour:
   pilotName: Joe Aveg
   pilotInfo: Joe 2
   pilotImage: {fileID: 21300000, guid: ea5547bcdee4e4a8cb4705499aabe76d, type: 3}
-  startingShip: {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
+  startingShip: {fileID: 11400000, guid: f99801f24b731e743bfa6c0d0c28f9ef, type: 2}
   startingHealth: 50
   startingEnergy: 4
   startingCredits: 50
