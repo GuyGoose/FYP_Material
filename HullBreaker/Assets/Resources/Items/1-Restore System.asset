@@ -15,7 +15,7 @@ MonoBehaviour:
   itemIndex: 1
   itemName: Restore System
   basePrice: 150
-  itemImage: {fileID: 21300000, guid: cc4d24c10deda874e9f3470976b7d396, type: 3}
+  itemImage: {fileID: 21300000, guid: 7b08a4df5cfbd76449986cfa1f053d6c, type: 3}
   trigger: 1
   effect: 0
   target: 0
