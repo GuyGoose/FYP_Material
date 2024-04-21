@@ -65,6 +65,7 @@ public class PlayerInfo : MonoBehaviour
         // Load the player's ships
         ships = new List<Ship>();
         foreach (int i in data.shipIndexes) {
+            Debug.Log("Ship index Got by Resource Loader: " + i);
             ships.Add(ResourceLoader.GetShipByIndex(i));
         }
 

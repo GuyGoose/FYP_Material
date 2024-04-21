@@ -17,20 +17,20 @@ public static class ClassInfo
 
     -- Class Matchups --
     Thermal :
-        - 1.5x : Bio, Chemical
-        - 0.5x : Hydro
+        - + 10% : Bio, Chemical
+        - - 10% : Hydro
     Bio :
-        - 1.5x : Mechanical, Hydro
-        - 0.5x : Thermal
+        - + 10% : Mechanical, Hydro
+        - - 10% : Thermal
     Mechanical :
-        - 1.5x : Chemical, Thermal
-        - 0.5x : Bio
+        - + 10% : Chemical, Thermal
+        - - 10% : Bio
     Chemical :
-        - 1.5x : Hydro, Bio
-        - 0.5x : Mechanical
+        - + 10% : Hydro, Bio
+        - - 10% : Mechanical
     Hydro :
-        - 1.5x : Thermal, Mechanical
-        - 0.5x : Chemical
+        - + 10% : Thermal, Mechanical
+        - - 10% : Chemical
     */
 
     public enum ClassType
@@ -42,64 +42,83 @@ public static class ClassInfo
         Hydro
     }
 
-    public static float GetDamageMultiplier(ClassType attacker, ClassType defender)
+    public static int GetDamageMultiplier(int valueBeforeMult, ClassType actionType, List<Ship> ships)
     {
+        // Get the type of each ship and apply the damage multiplier to the value depending on the type
+        foreach (Ship ship in ships)
+        {
+            bool isMatchup = CompareTypeMatchup(actionType, ship.classType);
+            if (isMatchup)
+            {
+                valueBeforeMult = (int)(valueBeforeMult * 1.1f);
+            }
+            else
+            {
+                valueBeforeMult = (int)(valueBeforeMult * 0.9f);
+            }
+        }
+
+        return valueBeforeMult;
+    }
+
+    public static bool CompareTypeMatchup(ClassType attacker, ClassType defender)
+    {
+        // Compare the attacker and defender types to see if the attacker has an advantage
         if (attacker == ClassType.Thermal)
         {
             if (defender == ClassType.Bio || defender == ClassType.Chemical)
             {
-                return 1.5f;
+                return true;
             }
             else if (defender == ClassType.Hydro)
             {
-                return 0.5f;
+                return false;
             }
         }
         else if (attacker == ClassType.Bio)
         {
             if (defender == ClassType.Mechanical || defender == ClassType.Hydro)
             {
-                return 1.5f;
+                return true;
             }
             else if (defender == ClassType.Thermal)
             {
-                return 0.5f;
+                return false;
             }
         }
         else if (attacker == ClassType.Mechanical)
         {
             if (defender == ClassType.Chemical || defender == ClassType.Thermal)
             {
-                return 1.5f;
+                return true;
             }
             else if (defender == ClassType.Bio)
             {
-                return 0.5f;
+                return false;
             }
         }
         else if (attacker == ClassType.Chemical)
         {
             if (defender == ClassType.Hydro || defender == ClassType.Bio)
             {
-                return 1.5f;
+                return true;
             }
             else if (defender == ClassType.Mechanical)
             {
-                return 0.5f;
+                return false;
             }
         }
         else if (attacker == ClassType.Hydro)
         {
             if (defender == ClassType.Thermal || defender == ClassType.Mechanical)
             {
-                return 1.5f;
+                return true;
             }
             else if (defender == ClassType.Chemical)
             {
-                return 0.5f;
+                return false;
             }
         }
-
-        return 1f;
+        return false;
     }
 }

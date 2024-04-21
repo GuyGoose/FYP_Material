@@ -356,6 +356,16 @@ public class MapGenerationController : MonoBehaviour
         } else {
             DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Neutral\n\nOccupied by: None");
         }
+
+        // If the point is a merchant, display the merchant's name
+        if (currentPoint.GetComponent<PointController>().type == DestinationType.Merchant.ToString()) {
+            DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: Neutral\n\nOccupied by: Merchant");
+        }
+
+        // If the point is a boss, display the boss name
+        if (currentPoint.GetComponent<PointController>().type == DestinationType.Boss.ToString()) {
+            DialogueBox.GetComponent<DialogueBox>().DisplayDialogue(currentlySelectedPoint.planetName + "\n\nStatus: VERY Hostile\n\nOccupied by: HullBreakers Boss");
+        }
     }
 
     public void GenerateMap() {

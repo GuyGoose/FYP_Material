@@ -58,7 +58,8 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         actionEnergyCostText.text = actionEnergyCost.ToString();
         currentAction = action;
 
-        CreateDesriptionText(action.numberOfDice, action.numberOfSides, action.valueToAdd, action.actionType, action.statusAmount);
+        //CreateDesriptionText(action.numberOfDice, action.numberOfSides, action.valueToAdd, action.actionType, action.statusAmount);
+        actionDescription = ResourceLoader.CreateDescriptionOfAction(action);
     }
 
     private void CreateDesriptionText(int numberOfDice, int numberOfSides, string valueToAdd, ActionType actionType, int statusAmount) {

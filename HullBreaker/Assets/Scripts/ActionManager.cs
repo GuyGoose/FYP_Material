@@ -135,7 +135,13 @@ public class ActionManager : MonoBehaviour
             case ActionType.Damage:
                 // Get the value of the action
                 int value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd, target, action);
-                ApplyBonusDamage(value, target, action.classType);
+                
+                if (target == playerInfo) { 
+                    value = ClassInfo.GetDamageMultiplier(value, action.classType, playerShips);
+                } else {
+                    value = ClassInfo.GetDamageMultiplier(value, action.classType, enemyShips);
+                }
+
                 Debug.Log("Value: " + value);
                 // Deal damage to the target
                 target.GetComponent<Health>().TakeDamage(value);
@@ -341,6 +347,15 @@ public class ActionManager : MonoBehaviour
     {
         // Player Energy Text (currentEnergy / maxEnergy)
         playerEnergyText.text = playerEnergy + " / " + playerMaxEnergy;
+
+        // Check if the player or enemy is defeated
+        if (playerInfo.GetComponent<Health>().currentHealth <= 0) {
+            // End the game
+            StartCoroutine(GameOverCombat());
+        } else if (enemyInfo.GetComponent<Health>().currentHealth <= 0) {
+            // End the game
+            StartCoroutine(EndCombat());
+        }
     }
 
     void AdjustPlayerEnergy(int energy) {
@@ -378,6 +393,10 @@ public class ActionManager : MonoBehaviour
                 break;
             case ActionType.Shield:
                 // Animate the ship being shielded
+                ship.GetComponent<Animator>().SetTrigger("Healed");
+                break;
+            case ActionType.StatusEffect:
+                // Animate the ship being affected by a status effect
                 ship.GetComponent<Animator>().SetTrigger("Healed");
                 break;
         }
@@ -484,10 +503,6 @@ public class ActionManager : MonoBehaviour
         SceneManager.LoadScene("MapScene");
     }
 
-    public void ApplyBonusDamage(int value, GameObject target, ClassInfo.ClassType classType) {
-        
-    }
-
     public void SelectShip(GameObject ship) {
         SelectedShip = ship;
     }
@@ -520,6 +535,33 @@ public class ActionManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         // Return to the map
         SceneManager.LoadScene("WinScene");
+    }
+
+    public void ReturnToMainMenu() {
+        // Delete the map save file and player save file
+        string filePath = Application.persistentDataPath + "/playerSave.json";
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("Player save deleted.");
+        }
+        else
+        {
+            Debug.LogWarning("No saved player found.");
+        }
+        // Map save file
+        filePath = Application.persistentDataPath + "/mapSave.json";
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("Map save deleted.");
+        }
+        else
+        {
+            Debug.LogWarning("No saved map found.");
+        }
+        // Return to the main menu
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

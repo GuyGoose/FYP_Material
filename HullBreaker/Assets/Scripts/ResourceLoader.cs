@@ -8,6 +8,8 @@ public static class ResourceLoader
     public static Encounter GetEncounterByIndex(int index) {
 
         Encounter[] encounters = Resources.LoadAll<Encounter>("Encounters");
+        // Sort the encounters by their index
+        System.Array.Sort(encounters, (x, y) => x.encounterIndex.CompareTo(y.encounterIndex));
         return encounters[index];
         
     }
@@ -22,6 +24,8 @@ public static class ResourceLoader
     public static Ship GetShipByIndex(int index) {
         Debug.Log("Provided index: " + index );
         Ship[] ships = Resources.LoadAll<Ship>("Ships");
+        // Sort the ships by their index
+        System.Array.Sort(ships, (x, y) => x.shipIndex.CompareTo(y.shipIndex));
         Debug.Log(ships[index] + " " + index);
         return ships[index];
         
@@ -52,6 +56,8 @@ public static class ResourceLoader
     public static UpgradeItem GetItemByIndex(int index) {
 
         UpgradeItem[] items = Resources.LoadAll<UpgradeItem>("Items");
+        // Sort the items by their index
+        System.Array.Sort(items, (x, y) => x.itemIndex.CompareTo(y.itemIndex));
         return items[index];
         
     }
@@ -101,6 +107,9 @@ public static class ResourceLoader
                     description = "Shield " + action.numberOfDice + "d" + action.numberOfSides + " + " + action.valueToAdd + " health";
                 }
                 break;
+            case "StatusEffect":
+                description = "Inflict " + action.statusAmount + " " + action.statusEffect.ToString();
+                return description;
             default:
                 Debug.Log("Invalid action type");
                 break;
