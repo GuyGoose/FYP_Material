@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 2
   shipName: Fire Koi
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: f0bf9bba3265f8f42a55d368d8ee42c9, type: 2}
+  - {fileID: 11400000, guid: c6fbd8f372c49394bad2de9e5a796475, type: 2}
+  - {fileID: 11400000, guid: 8405e28101899e2428b78c5bfa50b0f4, type: 2}
+  - {fileID: 11400000, guid: 384ac431e70d15243bf041ff9ebb2876, type: 2}
   shipImage: {fileID: -525849521, guid: cccb4712cbe038543bd5b87ee8706e00, type: 3}
   classType: 0

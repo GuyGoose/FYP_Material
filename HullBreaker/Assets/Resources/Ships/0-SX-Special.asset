@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 0
   shipName: SX-Special
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: 5b80513a9ee98784fb31e1c8705f2a03, type: 2}
+  - {fileID: 11400000, guid: e1fb8abc9f2f2e8498f77560a698402f, type: 2}
+  - {fileID: 11400000, guid: 991e4db95a4d41c4bb688d19076cb1b6, type: 2}
+  - {fileID: 11400000, guid: f664f9876cdf52348954ed323eb21c5e, type: 2}
   shipImage: {fileID: 1484486346, guid: cccb4712cbe038543bd5b87ee8706e00, type: 3}
   classType: 2

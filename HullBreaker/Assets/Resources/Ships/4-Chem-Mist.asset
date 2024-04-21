@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 4
   shipName: Chem-Mist
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: 54b2eb634567f0d42b5d89a2bcefa7ea, type: 2}
+  - {fileID: 11400000, guid: 5f6d3e88887f152479e89f0a6aca43d7, type: 2}
+  - {fileID: 11400000, guid: 09fa8d93026476048a2fc1e4002a16fe, type: 2}
+  - {fileID: 11400000, guid: 11473df1946cd1c41b0a428d33e70962, type: 2}
   shipImage: {fileID: 1321745202, guid: cccb4712cbe038543bd5b87ee8706e00, type: 3}
   classType: 3

@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 11
   shipName: Vine Hydra
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shipImage: {fileID: 1602024807, guid: 1815e3998cccc264ba14865dad08d148, type: 3}
   classType: 1

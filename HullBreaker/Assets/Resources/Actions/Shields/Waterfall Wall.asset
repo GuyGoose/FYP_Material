@@ -22,4 +22,4 @@ MonoBehaviour:
   valueToAdd: 
   classType: 4
   statusEffect: 1
-  statusAmount: 0
+  statusAmount: 1

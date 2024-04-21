@@ -57,6 +57,7 @@ public class ActionManager : MonoBehaviour
     public UiManager uiManager;
     public GameObject playerTurnMenu;
     public Reward rewardData;
+    public bool combatOver = false;
 
     public GameObject Action1, Action2, Action3, Action4;
     public List<GameObject> PlayerShipAnimation, EnemyShipAnimation;
@@ -135,12 +136,14 @@ public class ActionManager : MonoBehaviour
             case ActionType.Damage:
                 // Get the value of the action
                 int value = RollDice(action.numberOfDice, action.numberOfSides, action.valueToAdd, target, action);
+                Debug.Log("Value Before Mult: " + value);
                 
                 if (target == playerInfo) { 
                     value = ClassInfo.GetDamageMultiplier(value, action.classType, playerShips);
                 } else {
                     value = ClassInfo.GetDamageMultiplier(value, action.classType, enemyShips);
                 }
+                Debug.Log("Value After Mult: " + value);
 
                 Debug.Log("Value: " + value);
                 // Deal damage to the target
@@ -206,17 +209,17 @@ public class ActionManager : MonoBehaviour
                 break;
         }
 
-        // Check if the enemy is defeated
-        if (target == enemyInfo && enemyInfo.GetComponent<Health>().currentHealth <= 0) {
-            // End the game
-            StartCoroutine(EndCombat());
-        }
+        // // Check if the enemy is defeated
+        // if (target == enemyInfo && enemyInfo.GetComponent<Health>().currentHealth <= 0) {
+        //     // End the game
+        //     StartCoroutine(EndCombat());
+        // }
 
-        // Check if the player is defeated
-        if (target == playerInfo && playerInfo.GetComponent<Health>().currentHealth <= 0) {
-            // End the game
-            StartCoroutine(GameOverCombat());
-        }
+        // // Check if the player is defeated
+        // if (target == playerInfo && playerInfo.GetComponent<Health>().currentHealth <= 0) {
+        //     // End the game
+        //     StartCoroutine(GameOverCombat());
+        // }
     }
 
     // RollDice rolls the dice and returns the value
@@ -348,13 +351,17 @@ public class ActionManager : MonoBehaviour
         // Player Energy Text (currentEnergy / maxEnergy)
         playerEnergyText.text = playerEnergy + " / " + playerMaxEnergy;
 
-        // Check if the player or enemy is defeated
-        if (playerInfo.GetComponent<Health>().currentHealth <= 0) {
-            // End the game
-            StartCoroutine(GameOverCombat());
-        } else if (enemyInfo.GetComponent<Health>().currentHealth <= 0) {
-            // End the game
-            StartCoroutine(EndCombat());
+        if (!combatOver) {
+            // Check if the player or enemy is defeated
+            if (playerInfo.GetComponent<Health>().currentHealth <= 0) {
+                // End the game
+                StartCoroutine(GameOverCombat());
+                combatOver = true;
+            } else if (enemyInfo.GetComponent<Health>().currentHealth <= 0) {
+                // End the game
+                StartCoroutine(EndCombat());
+                combatOver = true;
+            }
         }
     }
 
@@ -463,7 +470,7 @@ public class ActionManager : MonoBehaviour
         //wait for a for 1 seconds
         yield return new WaitForSeconds(1f);
         // Display Game Over (Passing in each ship destroyed)
-        uiManager.DisplayCombatWin(enemyShips, encounter.difficulty, playerInfo.GetComponent<PlayerInfo>().isBossFight);
+        uiManager.DisplayCombatWin(enemyShips, playerInfo.GetComponent<PlayerInfo>().currentDifficulty, playerInfo.GetComponent<PlayerInfo>().isBossFight);
     }
 
     public void ReturnToMapButton() {
@@ -493,6 +500,9 @@ public class ActionManager : MonoBehaviour
     }
 
     public IEnumerator ReturnToMap() {
+        // Set the players health to equal there health in the health script
+        playerInfo.GetComponent<PlayerInfo>().currentHealth = playerInfo.GetComponent<Health>().currentHealth;
+
         // Save the player's information
         playerInfo.GetComponent<PlayerInfo>().SavePlayerInfo();
         // Fade in the screen (IEnumerator FadeOut)

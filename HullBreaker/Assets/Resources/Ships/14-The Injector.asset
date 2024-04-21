@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 14
   shipName: The Injector
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shipImage: {fileID: 828612090, guid: 1815e3998cccc264ba14865dad08d148, type: 3}
   classType: 3

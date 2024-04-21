@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 5
   shipName: Vermin
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shipImage: {fileID: -1739907229, guid: 3b20021d29ece4141b35180425832e6e, type: 3}
   classType: 2

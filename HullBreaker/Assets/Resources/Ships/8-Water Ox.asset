@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 8
   shipName: Water Ox
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shipImage: {fileID: -497213367, guid: 3b20021d29ece4141b35180425832e6e, type: 3}
   classType: 4

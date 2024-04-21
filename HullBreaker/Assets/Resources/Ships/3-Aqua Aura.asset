@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 3
   shipName: Aqua Aura
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: 80a00f2513b272441baeeac8b140cbe9, type: 2}
+  - {fileID: 11400000, guid: 52f4221e87073cb4e986b608239be90e, type: 2}
+  - {fileID: 11400000, guid: b1eed60514e7e7943bb7cc1cb3a5a235, type: 2}
+  - {fileID: 11400000, guid: f664f9876cdf52348954ed323eb21c5e, type: 2}
   shipImage: {fileID: 610332604, guid: cccb4712cbe038543bd5b87ee8706e00, type: 3}
   classType: 4

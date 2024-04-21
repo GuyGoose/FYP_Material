@@ -55,6 +55,7 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         actionName = action.actionName;
         actionEnergyCost = action.actionEnergyCost;
         actionImage.sprite = action.actionImage;
+        ChangeImageColor(action);
         actionEnergyCostText.text = actionEnergyCost.ToString();
         currentAction = action;
 
@@ -166,6 +167,31 @@ public class ActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         // }
         // Execute the action
         actionManager.IsValidAction(currentAction);
+    }
+    public void ChangeImageColor(Action action) {
+        // Change the color of the action image based on the class type
+        switch (action.classType) {
+            case ClassInfo.ClassType.Mechanical:
+            // White
+            actionImage.color = new Color(1, 1, 1, 1);
+            break;
+            case ClassInfo.ClassType.Thermal:
+            // Red
+            actionImage.color = new Color(1, 0, 0, 1);
+            break;
+            case ClassInfo.ClassType.Bio:
+            // Green
+            actionImage.color = new Color(0, 1, 0, 1);
+            break;
+            case ClassInfo.ClassType.Chemical:
+            // Pink
+            actionImage.color = new Color(1, 0, 1, 1);
+            break;
+            case ClassInfo.ClassType.Hydro:
+            // Blue
+            actionImage.color = new Color(0, 0, 1, 1);
+            break;
+        }
     }
     
 }

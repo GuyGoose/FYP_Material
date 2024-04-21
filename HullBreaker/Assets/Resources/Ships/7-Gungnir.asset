@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 7
   shipName: Gungnir
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shipImage: {fileID: -859809923, guid: 3b20021d29ece4141b35180425832e6e, type: 3}
   classType: 0

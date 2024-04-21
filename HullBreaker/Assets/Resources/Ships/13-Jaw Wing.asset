@@ -15,6 +15,10 @@ MonoBehaviour:
   shipIndex: 13
   shipName: Jaw Wing
   basePrice: 200
-  actions: []
+  actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shipImage: {fileID: 1449691055, guid: 1815e3998cccc264ba14865dad08d148, type: 3}
   classType: 4
