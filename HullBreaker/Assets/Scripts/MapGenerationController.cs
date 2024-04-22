@@ -239,7 +239,7 @@ public class MapGenerationController : MonoBehaviour
                 break;
             case "Boss":
                 playerInfo.isBossFight = true;
-                playerInfo.currentEncounter = ResourceLoader.GetRandomBossEncounterByDifficulty(1);
+                playerInfo.currentEncounter = ResourceLoader.GetRandomBossEncounterByDifficulty(playerInfo.currentDifficulty);
                 MarkAsCompleted();
                 StartCoroutine(GoToBossEncounter(playerInfo.currentEncounter));
                 break;
@@ -252,7 +252,7 @@ public class MapGenerationController : MonoBehaviour
         Debug.Log("Loading Boss Encounter");
 
         // Set the current encounter in PlayerInfo
-        playerInfo.currentEncounter = encounter;
+        // playerInfo.currentEncounter = encounter;
         playerInfo.SavePlayerInfo();
 
         // Save the map state
@@ -445,6 +445,7 @@ public class MapGenerationController : MonoBehaviour
             playerInfo.items.Add(rewardData.rewardItem);
         }
 
+        UpdatePlayerInfo();
         CloseRewardPanel();
     }
 
@@ -476,5 +477,9 @@ public class MapGenerationController : MonoBehaviour
         PlayerName.text = playerInfo.playerName;
         HP.text = "HP: " + playerInfo.currentHealth + "/" + playerInfo.maxHealth;
         Credits.text = "Credits: " + playerInfo.credits + "c";
+        // Update the DisplayItemManager (Find the object and call the UpdateItemDisplay function)
+        GameObject.FindObjectOfType<DisplayItemManager>().UpdateItemDisplay();
+
+        playerInfo.SavePlayerInfo();
     }
 }

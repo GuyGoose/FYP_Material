@@ -52,7 +52,7 @@ public class ActionManager : MonoBehaviour
     public GameObject playerInfo;
     public int playerMaxEnergy;
     public int playerEnergy;
-    public TextMeshProUGUI playerEnergyText;
+    public TextMeshProUGUI playerEnergyText, playerNameText, EnemyNameText;
     private Ship currentlySelectedShip;
     public UiManager uiManager;
     public GameObject playerTurnMenu;
@@ -92,6 +92,9 @@ public class ActionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set the player's name
+        playerNameText.text = playerInfo.GetComponent<PlayerInfo>().playerName;
+        EnemyNameText.text = encounter.encounterName;
         uiManager.SetupShipButtons(playerShips);
         enemyShips = encounter.enemyShips;
         // Setup enemy ships sprites
@@ -119,6 +122,7 @@ public class ActionManager : MonoBehaviour
     public bool IsValidAction(Action action) {
         // Does the action cost more energy than the player has?
         if (action.actionEnergyCost > playerEnergy) {
+            SoundManager.Instance.PlaySFX("Error");
             return false;
         }
         AdjustPlayerEnergy(-action.actionEnergyCost);
@@ -161,6 +165,7 @@ public class ActionManager : MonoBehaviour
                     // Display the value of the action
                     DisplayActionValue(ActionTargets.Enemy, "-" + value.ToString());
                 }
+                SoundManager.Instance.PlaySFX("Attack");
                 break;
             case ActionType.Heal:
                 // Get the value of the action
@@ -180,6 +185,7 @@ public class ActionManager : MonoBehaviour
                     // Display the value of the action
                     DisplayActionValue(ActionTargets.Enemy, "+" + value.ToString());
                 }
+                SoundManager.Instance.PlaySFX("Enforce");
                 break;
             case ActionType.Shield:
                 // Get the value of the action
@@ -199,10 +205,12 @@ public class ActionManager : MonoBehaviour
                     // Display the value of the action
                     DisplayActionValue(ActionTargets.Enemy, "+" + value.ToString());
                 }
+                SoundManager.Instance.PlaySFX("Enforce");
                 break;
             case ActionType.StatusEffect:
                 // Apply the status effect
                 target.GetComponent<StatusEffect>().ApplyStatusEffect(action.statusEffect, action.statusAmount);
+                SoundManager.Instance.PlaySFX("Status");
                 break;
             default:
                 Debug.Log("Invalid action type");
@@ -334,6 +342,7 @@ public class ActionManager : MonoBehaviour
         // Reset the bonus energy
         playerInfo.GetComponent<PlayerInfo>().bonusEnergy = 0;
         currentGameState = GameState.PlayerTurn;
+        SoundManager.Instance.PlaySFX("UI_In");
     }
 
     public void StartEnemyTurn() {
@@ -342,6 +351,7 @@ public class ActionManager : MonoBehaviour
         ProcessItemsInCombat.ProcessStartOfPlayerTurnItems(playerInfo.GetComponent<PlayerInfo>(), enemyInfo, playerInfo);
         playerTurnMenu.GetComponent<Animator>().SetBool("isActive", false);
         currentGameState = GameState.EnemyTurn;
+        SoundManager.Instance.PlaySFX("UI_Out");
         StartCoroutine(EnemyTurn());
     }
 
@@ -454,6 +464,7 @@ public class ActionManager : MonoBehaviour
             PlayerShipAnimation[i].SetActive(false);
             yield return new WaitForSeconds(0.2f);
         }
+        SoundManager.Instance.PlaySFX("PlayerDead");
         //wait for a for 1 seconds
         yield return new WaitForSeconds(1f);
         // Display Game Over
@@ -466,6 +477,11 @@ public class ActionManager : MonoBehaviour
         for (int i = 0; i < enemyShips.Count; i++) {
             EnemyShipAnimation[i].SetActive(false);
             yield return new WaitForSeconds(0.2f);
+        }
+        if (playerInfo.GetComponent<PlayerInfo>().isBossFight) {
+            SoundManager.Instance.PlaySFX("BossDead");
+        } else {
+            SoundManager.Instance.PlaySFX("EnemyDead");
         }
         //wait for a for 1 seconds
         yield return new WaitForSeconds(1f);
@@ -507,6 +523,7 @@ public class ActionManager : MonoBehaviour
         playerInfo.GetComponent<PlayerInfo>().SavePlayerInfo();
         // Fade in the screen (IEnumerator FadeOut)
         FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        SoundManager.Instance.PlaySFX("UI_In");
         //wait for a for 2 seconds
         yield return new WaitForSeconds(2f);
         // Return to the map
@@ -514,6 +531,7 @@ public class ActionManager : MonoBehaviour
     }
 
     public void SelectShip(GameObject ship) {
+        SoundManager.Instance.PlaySFX("UI_In");
         SelectedShip = ship;
     }
 
@@ -541,6 +559,7 @@ public class ActionManager : MonoBehaviour
         playerInfo.GetComponent<PlayerInfo>().SavePlayerInfo();
         // Fade in the screen (IEnumerator FadeOut)
         FadeScreen.GetComponent<FadeScreenController>().StartCoroutine("FadeOut");
+        SoundManager.Instance.PlaySFX("UI_In");
         //wait for a for 2 seconds
         yield return new WaitForSeconds(2f);
         // Return to the map
@@ -570,8 +589,9 @@ public class ActionManager : MonoBehaviour
         {
             Debug.LogWarning("No saved map found.");
         }
+        SoundManager.Instance.PlaySFX("UI_Out");
         // Return to the main menu
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenuScene");
     }
 
 }

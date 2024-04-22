@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4e1f3a2475be1b4a906cfac1572ddbe, type: 3}
-  m_Name: 6-Overgrowth
+  m_Name: Sunn
   m_EditorClassIdentifier: 
-  shipIndex: 6
-  shipName: Overgrowth
+  shipIndex: 0
+  shipName: Sunn
   basePrice: 200
   actions:
-  - {fileID: 11400000, guid: 3d54b93db98814e49a8e3d485d724d4c, type: 2}
-  - {fileID: 11400000, guid: f7f584969086f754fb014aadc7908982, type: 2}
+  - {fileID: 11400000, guid: 51c739f60afce994dbb30665fadc482b, type: 2}
+  - {fileID: 11400000, guid: 51c739f60afce994dbb30665fadc482b, type: 2}
+  - {fileID: 11400000, guid: 51c739f60afce994dbb30665fadc482b, type: 2}
   - {fileID: 11400000, guid: f3ca81cae92b47d49be95e160b17d6f9, type: 2}
-  - {fileID: 11400000, guid: 65ab8623784ba404c808aaf83fb21545, type: 2}
-  shipImage: {fileID: 1738478639, guid: 3b20021d29ece4141b35180425832e6e, type: 3}
-  classType: 1
+  shipImage: {fileID: 914757951, guid: 54666c98a3ecd644183c747a66987ed7, type: 3}
+  classType: 0

@@ -16,9 +16,9 @@ MonoBehaviour:
   shipName: Jaw Wing
   basePrice: 200
   actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 52f4221e87073cb4e986b608239be90e, type: 2}
+  - {fileID: 11400000, guid: 80a00f2513b272441baeeac8b140cbe9, type: 2}
+  - {fileID: 11400000, guid: b1eed60514e7e7943bb7cc1cb3a5a235, type: 2}
+  - {fileID: 11400000, guid: 06032e5ef398b8142bbed0ec75f4a318, type: 2}
   shipImage: {fileID: 1449691055, guid: 1815e3998cccc264ba14865dad08d148, type: 3}
   classType: 4

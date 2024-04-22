@@ -50,7 +50,7 @@ public static class SaveSystem
     public static void SavePlayer(PlayerInfo player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.fun";
+        string path = Application.persistentDataPath + "/player.info";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData();
@@ -85,7 +85,7 @@ public static class SaveSystem
 
     public static PlayerData LoadPlayer()
     {
-        string path = Application.persistentDataPath + "/player.fun";
+        string path = Application.persistentDataPath + "/player.info";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -106,7 +106,7 @@ public static class SaveSystem
     
     public static void DeletePlayer()
     {
-        string path = Application.persistentDataPath + "/player.fun";
+        string path = Application.persistentDataPath + "/player.info";
         if (File.Exists(path))
         {
             File.Delete(path);

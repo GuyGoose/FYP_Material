@@ -16,9 +16,9 @@ MonoBehaviour:
   shipName: Vermin
   basePrice: 200
   actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 54b2eb634567f0d42b5d89a2bcefa7ea, type: 2}
+  - {fileID: 11400000, guid: 5b80513a9ee98784fb31e1c8705f2a03, type: 2}
+  - {fileID: 11400000, guid: a541b574c03ed2848b0ec782faf4be83, type: 2}
+  - {fileID: 11400000, guid: 991e4db95a4d41c4bb688d19076cb1b6, type: 2}
   shipImage: {fileID: -1739907229, guid: 3b20021d29ece4141b35180425832e6e, type: 3}
   classType: 2

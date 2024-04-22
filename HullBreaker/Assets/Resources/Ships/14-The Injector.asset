@@ -16,9 +16,9 @@ MonoBehaviour:
   shipName: The Injector
   basePrice: 200
   actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 77e55708f8a47054ea1bdd92b5270a0c, type: 2}
+  - {fileID: 11400000, guid: 09fa8d93026476048a2fc1e4002a16fe, type: 2}
+  - {fileID: 11400000, guid: cd20f85f4199067498f3ffdca2b344ba, type: 2}
+  - {fileID: 11400000, guid: 91de0151b781afb41acbf8084b812bd1, type: 2}
   shipImage: {fileID: 828612090, guid: 1815e3998cccc264ba14865dad08d148, type: 3}
   classType: 3

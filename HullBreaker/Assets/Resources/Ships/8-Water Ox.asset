@@ -16,9 +16,9 @@ MonoBehaviour:
   shipName: Water Ox
   basePrice: 200
   actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 80a00f2513b272441baeeac8b140cbe9, type: 2}
+  - {fileID: 11400000, guid: b1f236f432c2ffa4bb9c2b73353ccd42, type: 2}
+  - {fileID: 11400000, guid: d2c2d4dfbb54f8a4e89e527fc9ef7ee3, type: 2}
+  - {fileID: 11400000, guid: 693fd7c91ee118b4fb9cde6ad7db442b, type: 2}
   shipImage: {fileID: -497213367, guid: 3b20021d29ece4141b35180425832e6e, type: 3}
   classType: 4

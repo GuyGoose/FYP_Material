@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Solar Charge
   actionType: 3
-  actionEnergyCost: 4
+  actionEnergyCost: 3
   actionTargets: 0
   actionImage: {fileID: -1095089916, guid: 54666c98a3ecd644183c747a66987ed7, type: 3}
   numberOfDice: 0

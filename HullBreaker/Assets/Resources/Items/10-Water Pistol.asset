@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 565c468e2cdbc8848add621308edc7a8, type: 3}
-  m_Name: 5-Code Interceptor
+  m_Name: 10-Water Pistol
   m_EditorClassIdentifier: 
-  itemIndex: 5
-  itemName: Code Interceptor
-  basePrice: 300
+  itemIndex: 10
+  itemName: Water Pistol
+  basePrice: 350
   itemImage: {fileID: 21300000, guid: 7b08a4df5cfbd76449986cfa1f053d6c, type: 3}
   trigger: 1
   effect: 4
   target: 1
-  statusEffect: 4
+  statusEffect: 1
   value: 1

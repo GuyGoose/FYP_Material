@@ -9,17 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb09da04b17dd7408f0e78f7bfbf7b4, type: 3}
-  m_Name: Toxic Blast
+  m_Script: {fileID: 11500000, guid: 565c468e2cdbc8848add621308edc7a8, type: 3}
+  m_Name: 5-Code Interceptor 1
   m_EditorClassIdentifier: 
-  actionName: Toxic Blast
-  actionType: 0
-  actionEnergyCost: 1
-  actionTargets: 1
-  actionImage: {fileID: 0}
-  numberOfDice: 2
-  numberOfSides: 6
-  valueToAdd: 
-  classType: 3
+  itemIndex: 5
+  itemName: Code Interceptor
+  basePrice: 300
+  itemImage: {fileID: 21300000, guid: 7b08a4df5cfbd76449986cfa1f053d6c, type: 3}
+  trigger: 1
+  effect: 4
+  target: 1
   statusEffect: 4
-  statusAmount: 1
+  value: 1

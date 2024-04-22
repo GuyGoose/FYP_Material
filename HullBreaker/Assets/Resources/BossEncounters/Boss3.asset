@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
-  m_Name: Johnni Ratts
+  m_Name: Boss3
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 3
   encounterFaction: 5
   encounterName: Johnni Rats
-  difficulty: 1
+  difficulty: 3
   enemyShips:
   - {fileID: 11400000, guid: b115243b03cade94ea467c036ebf6848, type: 2}
-  - {fileID: 11400000, guid: 8e4065b5477ec354ba63baddba8000f7, type: 2}
-  - {fileID: 11400000, guid: 8e4065b5477ec354ba63baddba8000f7, type: 2}
   ai: 0
-  baseHealth: 200
-  actionsPerTurn: 1
+  baseHealth: 250
+  actionsPerTurn: 4

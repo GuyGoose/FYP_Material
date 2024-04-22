@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cec3339a43d02a04ba8be6fbe774e1f2, type: 3}
-  m_Name: Joe Aveg
+  m_Name: XB-W1RE-M4N
   m_EditorClassIdentifier: 
-  pilotName: Joe Aveg
-  pilotInfo: An Average Worker, Seeks Revenge on Previous Employers.
+  pilotName: XB-W1RE-M4N
+  pilotInfo: A worker drone given autonomy. They have... disagreements... regarding
+    working conditions.
   pilotImage: {fileID: 21300000, guid: f0afd375d80dda94c95ee9d9be0f5959, type: 3}
-  startingShip: {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
-  startingHealth: 60
+  startingShip: {fileID: 11400000, guid: 8c4e1023bd8646442b0e5f1f8fb56748, type: 2}
+  startingHealth: 45
   startingEnergy: 4
-  startingCredits: 75
+  startingCredits: 20
   startingInventory:
-  - {fileID: 11400000, guid: 62c29328cb5f74347ba9c3b5f735a721, type: 2}
+  - {fileID: 11400000, guid: ca7a6d269f09fca4f9ec9e37742b6d1d, type: 2}

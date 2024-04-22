@@ -16,9 +16,9 @@ MonoBehaviour:
   shipName: Magna Racer
   basePrice: 200
   actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e1fb8abc9f2f2e8498f77560a698402f, type: 2}
+  - {fileID: 11400000, guid: a541b574c03ed2848b0ec782faf4be83, type: 2}
+  - {fileID: 11400000, guid: 8405e28101899e2428b78c5bfa50b0f4, type: 2}
+  - {fileID: 11400000, guid: 13ee93d0c9e267f4ba1e92ec56790780, type: 2}
   shipImage: {fileID: -1558586382, guid: 1815e3998cccc264ba14865dad08d148, type: 3}
   classType: 2

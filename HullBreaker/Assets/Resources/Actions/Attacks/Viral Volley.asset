@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Viral Volley
   actionType: 0
-  actionEnergyCost: 1
+  actionEnergyCost: 2
   actionTargets: 1
   actionImage: {fileID: 914757951, guid: 54666c98a3ecd644183c747a66987ed7, type: 3}
   numberOfDice: 2

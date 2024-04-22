@@ -47,6 +47,8 @@ public class CharacterSelectController : MonoBehaviour
         // Set the pilot's ship image
         shipImage.sprite = pilot.startingShip.shipImage;
 
+        SoundManager.Instance.PlaySFX("UI_In");
+
         currentPilot = pilot;
     }
 
@@ -65,11 +67,13 @@ public class CharacterSelectController : MonoBehaviour
 
         // Save the selected pilot to playerinfo
         playerInfo.GetComponent<PlayerInfo>().SetPlayerPilot(currentPilot);
+        SoundManager.Instance.PlaySFX("UI_In");
         // Load the game scene
         SceneManager.LoadScene("MapScene");
     }
     public void GoToMainMenu() {
         // Load the main menu scene
+        SoundManager.Instance.PlaySFX("UI_Out");
         SceneManager.LoadScene("MainMenuScene");
     }
 }

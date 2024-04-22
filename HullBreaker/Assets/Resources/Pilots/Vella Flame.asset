@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cec3339a43d02a04ba8be6fbe774e1f2, type: 3}
-  m_Name: Joe Aveg 2
+  m_Name: Vella Flame
   m_EditorClassIdentifier: 
-  pilotName: Joe Aveg
-  pilotInfo: The Third
-  pilotImage: {fileID: 21300000, guid: f0afd375d80dda94c95ee9d9be0f5959, type: 3}
-  startingShip: {fileID: 11400000, guid: 1824f0c7353a4f34db1a100580e1c20a, type: 2}
+  pilotName: Vella Flame
+  pilotInfo: An arsonist gone wild in the chaos of the war.
+  pilotImage: {fileID: 21300000, guid: ea5547bcdee4e4a8cb4705499aabe76d, type: 3}
+  startingShip: {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
   startingHealth: 50
   startingEnergy: 4
   startingCredits: 50
   startingInventory:
-  - {fileID: 11400000, guid: ca7a6d269f09fca4f9ec9e37742b6d1d, type: 2}
+  - {fileID: 11400000, guid: ace98b24578ef6b4d9e766404be27ca6, type: 2}

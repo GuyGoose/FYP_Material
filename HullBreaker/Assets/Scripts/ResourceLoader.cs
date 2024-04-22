@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class ResourceLoader
@@ -48,6 +49,10 @@ public static class ResourceLoader
                 bossEncounters.Add(encounter);
             }
         }
+
+        // foreach (Encounter encounter in bossEncounters) {
+        //     Debug.Log(encounter.encounterName);
+        // }
 
         return bossEncounters[Random.Range(0, bossEncounters.Count)];
         

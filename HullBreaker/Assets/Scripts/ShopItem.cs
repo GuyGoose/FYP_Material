@@ -13,11 +13,15 @@ public class ShopItem : MonoBehaviour
     private PlayerInfo playerInfo;
     private ShopController shopController;
 
+    void Awake() {
+         playerInfo = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>();
+        shopController = GameObject.FindObjectOfType<ShopController>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        playerInfo = GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>();
-        shopController = GameObject.FindObjectOfType<ShopController>();
+
     }
 
     // Update is called once per frame
@@ -29,12 +33,14 @@ public class ShopItem : MonoBehaviour
     public void SetShip(Ship ship) {
         this.ship = ship;
         shipImage.sprite = ship.shipImage;
-        shipPrice.text = ship.basePrice + "c";
+        int multNum = playerInfo.currentDifficulty;
+        price = ship.basePrice + Random.Range(0, multNum * 50);
+        shipPrice.text = price + "c";
     }
 
     public void BuyShip() {
         // Check if the player has enough credits
-        if (playerInfo.credits >= ship.basePrice) {
+        if (playerInfo.credits >= price) {
             if (playerInfo.ships.Count >= 4) {
                 Debug.Log("You already have 4 ships! Sell a ship to make room for this one.");
                 shopController.DisplaySellMenu();
@@ -43,7 +49,7 @@ public class ShopItem : MonoBehaviour
             // Add the ship to the player's list of ships
             playerInfo.ships.Add(ship);
             // Subtract the price of the ship from the player's credits
-            playerInfo.credits -= ship.basePrice;
+            playerInfo.credits -= price;
             // Save the player's info
             playerInfo.SavePlayerInfo();
 

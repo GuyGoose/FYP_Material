@@ -56,8 +56,8 @@ public class PlayerInfo : MonoBehaviour
         energy = data.energy;
         credits = data.credits;
         isBossFight = data.isBossFight;
-        IsEncounterBoss(data);
         currentDifficulty = data.currentDifficulty;
+        IsEncounterBoss(data);
         score = data.score;
         bossesDefeated = data.bossesDefeated;
         playerFaction = data.playerFaction;
@@ -82,7 +82,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void IsEncounterBoss(PlayerData data) {
         if (isBossFight) {
-            currentEncounter = ResourceLoader.GetBossEncounterByIndex(0);
+            currentEncounter = ResourceLoader.GetRandomBossEncounterByDifficulty(data.currentDifficulty);
         } else {
             currentEncounter = ResourceLoader.GetEncounterByIndex(data.encounterIndex);
         }
