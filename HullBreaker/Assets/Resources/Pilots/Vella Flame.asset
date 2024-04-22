@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pilotName: Vella Flame
   pilotInfo: An arsonist gone wild in the chaos of the war.
-  pilotImage: {fileID: 21300000, guid: ea5547bcdee4e4a8cb4705499aabe76d, type: 3}
+  pilotImage: {fileID: 21300000, guid: f0afd375d80dda94c95ee9d9be0f5959, type: 3}
   startingShip: {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
   startingHealth: 50
   startingEnergy: 4

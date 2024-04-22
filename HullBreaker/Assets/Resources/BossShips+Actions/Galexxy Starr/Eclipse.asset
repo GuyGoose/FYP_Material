@@ -20,5 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21145928b96f55949a05b19cfe2525d1, type: 2}
   - {fileID: 11400000, guid: 8405e28101899e2428b78c5bfa50b0f4, type: 2}
   - {fileID: 11400000, guid: f0bf9bba3265f8f42a55d368d8ee42c9, type: 2}
-  shipImage: {fileID: 914757951, guid: 54666c98a3ecd644183c747a66987ed7, type: 3}
+  shipImage: {fileID: -1376454260, guid: 930650da5fc53f048906849c0564e291, type: 3}
   classType: 2

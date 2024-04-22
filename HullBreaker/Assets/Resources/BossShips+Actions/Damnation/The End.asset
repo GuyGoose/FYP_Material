@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e1f3a2475be1b4a906cfac1572ddbe, type: 3}
+  m_Name: The End
+  m_EditorClassIdentifier: 
+  shipIndex: 0
+  shipName: The End
+  basePrice: 1000
+  actions:
+  - {fileID: 11400000, guid: acfb0c326a0408144afa1d9a37f5ed00, type: 2}
+  - {fileID: 11400000, guid: 733583c4ec8e45a4892b508285132e81, type: 2}
+  - {fileID: 11400000, guid: fc8d69d85ee7cf347a1fcc18b15d3810, type: 2}
+  - {fileID: 11400000, guid: 0064139505da09448b66858238713ab7, type: 2}
+  shipImage: {fileID: 429874136, guid: 930650da5fc53f048906849c0564e291, type: 3}
+  classType: 3

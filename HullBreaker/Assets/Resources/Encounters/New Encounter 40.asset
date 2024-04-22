@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
-  m_Name: Test Encounter 3
+  m_Name: New Encounter 40
   m_EditorClassIdentifier: 
-  encounterIndex: 2
+  encounterIndex: 0
   encounterFaction: 2
-  encounterName: Swarm Drones Outlaw
+  encounterName: 
   difficulty: 2
   enemyShips:
-  - {fileID: 11400000, guid: 19077394d3dcf7f4b81f4e5c67fb1709, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   ai: 0
-  baseHealth: 60
-  actionsPerTurn: 2
+  baseHealth: 80
+  actionsPerTurn: 1

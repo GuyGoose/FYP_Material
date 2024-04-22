@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
+  m_Name: New Encounter 5
+  m_EditorClassIdentifier: 
+  encounterIndex: 0
+  encounterFaction: 2
+  encounterName: 
+  difficulty: 1
+  enemyShips:
+  - {fileID: 11400000, guid: 974e7444cbcf9234c82bb852ec87a266, type: 2}
+  - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
+  - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
+  - {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
+  ai: 0
+  baseHealth: 30
+  actionsPerTurn: 1
