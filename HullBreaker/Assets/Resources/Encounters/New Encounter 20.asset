@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 20
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 19
   encounterFaction: 2
-  encounterName: 
+  encounterName: The Rat Racers
   difficulty: 2
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4237d54d1033a1d4d8882a3c715bfd3a, type: 2}
+  - {fileID: 11400000, guid: 072ac80111bda8c4d84d4a749ab5fb40, type: 2}
+  - {fileID: 11400000, guid: 64e3bbc3353b3ff4eaccdd8b9a5f4e8c, type: 2}
+  - {fileID: 11400000, guid: 4237d54d1033a1d4d8882a3c715bfd3a, type: 2}
   ai: 0
-  baseHealth: 80
+  baseHealth: 35
   actionsPerTurn: 1

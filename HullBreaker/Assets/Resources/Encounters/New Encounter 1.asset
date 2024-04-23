@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterIndex: 0
   encounterFaction: 3
-  encounterName: 
+  encounterName: Traveling Cultists
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
   - {fileID: 11400000, guid: 8c4e1023bd8646442b0e5f1f8fb56748, type: 2}
   ai: 0
-  baseHealth: 60
+  baseHealth: 35
   actionsPerTurn: 1

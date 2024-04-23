@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 21
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 20
   encounterFaction: 3
-  encounterName: 
+  encounterName: Punk Cultist
   difficulty: 3
   enemyShips:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 1824f0c7353a4f34db1a100580e1c20a, type: 2}
   ai: 0
-  baseHealth: 70
+  baseHealth: 47
   actionsPerTurn: 1

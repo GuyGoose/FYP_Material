@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 33
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 32
   encounterFaction: 3
-  encounterName: 
+  encounterName: The Doctor
   difficulty: 1
   enemyShips:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 64e3bbc3353b3ff4eaccdd8b9a5f4e8c, type: 2}
   ai: 0
   baseHealth: 60
   actionsPerTurn: 1

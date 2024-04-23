@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 8
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 7
   encounterFaction: 2
-  encounterName: 
+  encounterName: Odin
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: ca7d45bef5fe93b4e91b23b0d3d166cc, type: 2}
   ai: 0
-  baseHealth: 70
+  baseHealth: 35
   actionsPerTurn: 1

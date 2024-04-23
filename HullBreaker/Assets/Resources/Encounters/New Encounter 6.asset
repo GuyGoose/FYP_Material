@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 6
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 5
   encounterFaction: 3
-  encounterName: 
+  encounterName: Nature Cultists
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: f99801f24b731e743bfa6c0d0c28f9ef, type: 2}

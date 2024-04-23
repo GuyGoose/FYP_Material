@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 19
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 18
   encounterFaction: 2
-  encounterName: 
+  encounterName: Fish In The Water
   difficulty: 2
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0a8a9e66790351e469fd3a36e4c9cd89, type: 2}
+  - {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
+  - {fileID: 11400000, guid: 4237d54d1033a1d4d8882a3c715bfd3a, type: 2}
   ai: 0
-  baseHealth: 80
+  baseHealth: 35
   actionsPerTurn: 1

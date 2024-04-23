@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 7
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 6
   encounterFaction: 0
-  encounterName: 
+  encounterName: The Beach Boys
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 7f7811795b3aa214da96be3cd693ed26, type: 2}

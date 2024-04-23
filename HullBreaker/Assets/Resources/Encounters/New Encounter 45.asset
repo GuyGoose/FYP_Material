@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 45
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 44
   encounterFaction: 3
-  encounterName: 
+  encounterName: Odd Ones Out
   difficulty: 1
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 974e7444cbcf9234c82bb852ec87a266, type: 2}
+  - {fileID: 11400000, guid: ca7d45bef5fe93b4e91b23b0d3d166cc, type: 2}
+  - {fileID: 11400000, guid: 072ac80111bda8c4d84d4a749ab5fb40, type: 2}
+  - {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
   ai: 0
-  baseHealth: 60
+  baseHealth: 25
   actionsPerTurn: 1

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 39
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 38
   encounterFaction: 3
-  encounterName: 
+  encounterName: Rock Junglers
   difficulty: 1
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 1824f0c7353a4f34db1a100580e1c20a, type: 2}
+  - {fileID: 11400000, guid: 7f7811795b3aa214da96be3cd693ed26, type: 2}
+  - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
   ai: 0
-  baseHealth: 60
+  baseHealth: 35
   actionsPerTurn: 1

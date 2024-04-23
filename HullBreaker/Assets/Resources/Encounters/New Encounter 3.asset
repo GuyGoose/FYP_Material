@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 3
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 2
   encounterFaction: 2
-  encounterName: 
+  encounterName: Safari Outlaws
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 8c4e1023bd8646442b0e5f1f8fb56748, type: 2}
   - {fileID: 11400000, guid: 1824f0c7353a4f34db1a100580e1c20a, type: 2}
   ai: 0
-  baseHealth: 60
+  baseHealth: 35
   actionsPerTurn: 1

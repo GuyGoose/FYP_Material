@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 22
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 21
   encounterFaction: 0
-  encounterName: 
+  encounterName: Rat In The Woods
   difficulty: 3
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4237d54d1033a1d4d8882a3c715bfd3a, type: 2}
+  - {fileID: 11400000, guid: f99801f24b731e743bfa6c0d0c28f9ef, type: 2}
+  - {fileID: 11400000, guid: f99801f24b731e743bfa6c0d0c28f9ef, type: 2}
   ai: 0
-  baseHealth: 70
+  baseHealth: 47
   actionsPerTurn: 1

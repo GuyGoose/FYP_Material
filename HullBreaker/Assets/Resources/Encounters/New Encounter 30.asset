@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 30
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 29
   encounterFaction: 3
-  encounterName: 
+  encounterName: Quick Cult
   difficulty: 3
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 8c4e1023bd8646442b0e5f1f8fb56748, type: 2}
+  - {fileID: 11400000, guid: 072ac80111bda8c4d84d4a749ab5fb40, type: 2}
+  - {fileID: 11400000, guid: 0a8a9e66790351e469fd3a36e4c9cd89, type: 2}
   ai: 0
-  baseHealth: 70
+  baseHealth: 47
   actionsPerTurn: 1

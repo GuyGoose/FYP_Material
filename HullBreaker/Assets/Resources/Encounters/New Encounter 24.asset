@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 24
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 23
   encounterFaction: 0
-  encounterName: 
+  encounterName: Garden Enforcers
   difficulty: 3
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
+  - {fileID: 11400000, guid: 8c4e1023bd8646442b0e5f1f8fb56748, type: 2}
+  - {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
+  - {fileID: 11400000, guid: 974e7444cbcf9234c82bb852ec87a266, type: 2}
   ai: 0
-  baseHealth: 70
+  baseHealth: 47
   actionsPerTurn: 1

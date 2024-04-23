@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 2
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 1
   encounterFaction: 2
-  encounterName: 
+  encounterName: The Melt-Grass Clan
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 072ac80111bda8c4d84d4a749ab5fb40, type: 2}
   - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
   - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
   ai: 0
-  baseHealth: 50
+  baseHealth: 35
   actionsPerTurn: 1

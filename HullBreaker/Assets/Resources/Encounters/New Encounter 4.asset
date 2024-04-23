@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 4
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 3
   encounterFaction: 3
-  encounterName: 
+  encounterName: Wild Cultists
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 4237d54d1033a1d4d8882a3c715bfd3a, type: 2}
   - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
   - {fileID: 11400000, guid: 64e3bbc3353b3ff4eaccdd8b9a5f4e8c, type: 2}
   ai: 0
-  baseHealth: 40
+  baseHealth: 35
   actionsPerTurn: 1

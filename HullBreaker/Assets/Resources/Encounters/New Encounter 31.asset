@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 31
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 30
   encounterFaction: 2
-  encounterName: 
+  encounterName: Sun Baskers
   difficulty: 1
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0a8a9e66790351e469fd3a36e4c9cd89, type: 2}
+  - {fileID: 11400000, guid: 9bfe8a32c415c2548b409dfa0b698e57, type: 2}
+  - {fileID: 11400000, guid: 0a8a9e66790351e469fd3a36e4c9cd89, type: 2}
   ai: 0
-  baseHealth: 60
+  baseHealth: 35
   actionsPerTurn: 1

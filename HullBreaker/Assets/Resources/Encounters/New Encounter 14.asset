@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 14
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 13
   encounterFaction: 0
-  encounterName: 
+  encounterName: Fishy Enforcers
   difficulty: 2
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0a8a9e66790351e469fd3a36e4c9cd89, type: 2}
+  - {fileID: 11400000, guid: 974e7444cbcf9234c82bb852ec87a266, type: 2}
   ai: 0
-  baseHealth: 80
+  baseHealth: 35
   actionsPerTurn: 1

@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 37
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 36
   encounterFaction: 2
-  encounterName: 
+  encounterName: Rag Tags
   difficulty: 2
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
+  - {fileID: 11400000, guid: 64e3bbc3353b3ff4eaccdd8b9a5f4e8c, type: 2}
+  - {fileID: 11400000, guid: ca7d45bef5fe93b4e91b23b0d3d166cc, type: 2}
+  - {fileID: 11400000, guid: be5d3ab3fe124a946bdc3a03c6bfaf1d, type: 2}
   ai: 0
   baseHealth: 80
   actionsPerTurn: 1

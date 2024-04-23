@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 25
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 24
   encounterFaction: 2
-  encounterName: 
+  encounterName: Jungle Guys
   difficulty: 3
   enemyShips:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a6f560ec1670eca45972d49ff27471b0, type: 2}
+  - {fileID: 11400000, guid: 397967b13332f5f4fa6866c1e73e9436, type: 2}
   ai: 0
-  baseHealth: 70
+  baseHealth: 47
   actionsPerTurn: 1

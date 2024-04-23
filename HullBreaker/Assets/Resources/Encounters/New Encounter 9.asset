@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438bafa1c61649e4289e9e000ce4c225, type: 3}
   m_Name: New Encounter 9
   m_EditorClassIdentifier: 
-  encounterIndex: 0
+  encounterIndex: 8
   encounterFaction: 2
-  encounterName: 
+  encounterName: The Four Guys
   difficulty: 1
   enemyShips:
   - {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
@@ -22,5 +22,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
   - {fileID: 11400000, guid: 31ad0c2d07d17e84dbb97d80e9a8943d, type: 2}
   ai: 0
-  baseHealth: 40
+  baseHealth: 35
   actionsPerTurn: 1
