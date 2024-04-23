@@ -54,7 +54,10 @@ public class CharacterSelectController : MonoBehaviour
 
     public void GoToGame() {
         // Delete the previos player and map info (Application.persistentDataPath + "/mapSave.json")
-        SaveSystem.DeletePlayer();
+        // Check if the player has a save file
+        if (SaveSystem.SaveFileExists()) {
+            SaveSystem.DeletePlayer();
+        }
         string path = Application.persistentDataPath + "/mapSave.json";
         if (File.Exists(path)) {
             File.Delete(path);

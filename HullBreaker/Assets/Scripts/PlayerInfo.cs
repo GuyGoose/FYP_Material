@@ -34,7 +34,10 @@ public class PlayerInfo : MonoBehaviour
     public EnumHolder.Faction playerFaction;
 
     private void Awake() {
-        LoadPlayerInfo();
+        // Check if the player has a save file
+        if (SaveSystem.SaveFileExists()){
+            LoadPlayerInfo();
+        } 
     }
 
     // Start is called before the first frame update

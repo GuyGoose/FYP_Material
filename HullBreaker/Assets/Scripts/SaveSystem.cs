@@ -61,7 +61,7 @@ public static class SaveSystem
         data.energy = player.energy;
         data.credits = player.credits;
         data.isBossFight = player.isBossFight;
-        data.encounterIndex = player.currentEncounter.encounterIndex;
+        data.encounterIndex = player.currentEncounter != null ? player.currentEncounter.encounterIndex : 0;
         data.currentDifficulty = player.currentDifficulty;
         data.score = player.score;
         data.bossesDefeated = player.bossesDefeated;
@@ -116,6 +116,12 @@ public static class SaveSystem
         {
             Debug.LogError("Save file not found in " + path);
         }
+    }
+
+    public static bool SaveFileExists()
+    {
+        string path = Application.persistentDataPath + "/player.info";
+        return File.Exists(path);
     }
 
     
