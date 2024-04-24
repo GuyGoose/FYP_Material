@@ -11,6 +11,7 @@ public class PointShip : MonoBehaviour
     public int relations = 0;
     private Animator animator;
     private SpriteRenderer spriteColor;
+    public GameObject Trail;
 
     private GameObject currentPoint;
     private GameObject shipIcon;
@@ -28,6 +29,9 @@ public class PointShip : MonoBehaviour
         animator = this.GetComponent<Animator>();
         spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         shipIcon = this.transform.GetChild(0).gameObject;
+        Trail.SetActive(false);
+
+        StartCoroutine(WaitToTurnOnTrail());
     }
 
     public void OnFirstLoad() {
@@ -124,6 +128,11 @@ public class PointShip : MonoBehaviour
                 spriteColor.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 break;
         }
+    }
+
+    IEnumerator WaitToTurnOnTrail() {
+        yield return new WaitForSeconds(0.5f);
+        Trail.SetActive(true);
     }
 
 }

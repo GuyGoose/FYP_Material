@@ -273,6 +273,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPointName: 
   relations: 0
+  Trail: {fileID: 3423367601989066674}
+  encounter: {fileID: 0}
+  encounterIndex: 0
+  faction: 0
 --- !u!95 &2778236746773673829
 Animator:
   serializedVersion: 5

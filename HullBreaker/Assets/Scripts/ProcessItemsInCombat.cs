@@ -23,7 +23,7 @@ public static class ProcessItemsInCombat
                         playerInfoHealth.GetComponent<Health>().Shield(item.value);
                         break;
                     case Effect.Energy:
-                        playerInfo.energy += item.value;
+                        playerInfo.bonusEnergy += item.value;
                         break;
                     case Effect.StatusEffect:
                         // Get the target of the status effect

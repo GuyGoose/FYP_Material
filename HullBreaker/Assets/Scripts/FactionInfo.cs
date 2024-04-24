@@ -14,10 +14,10 @@ public static class FactionInfo
     // Relations 
     public static Dictionary<EnumHolder.Faction, int> factionRelations = new Dictionary<EnumHolder.Faction, int> {
         {EnumHolder.Faction.Enforcers, -100},
-        {EnumHolder.Faction.Merchants, 50},
-        {EnumHolder.Faction.Outlaws, -50},
-        {EnumHolder.Faction.Cultists, 0},
-        {EnumHolder.Faction.ExEmployees, 100},	
+        {EnumHolder.Faction.Merchants, -100},
+        {EnumHolder.Faction.Outlaws, -100},
+        {EnumHolder.Faction.Cultists, -100},
+        {EnumHolder.Faction.ExEmployees, -100},	
         {EnumHolder.Faction.HullBreakers, -100}
     };
 }
