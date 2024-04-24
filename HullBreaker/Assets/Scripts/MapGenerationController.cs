@@ -4,10 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class MapGenerationController : MonoBehaviour
 {
