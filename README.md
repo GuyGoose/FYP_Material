@@ -1,4 +1,4 @@
-# FYP_Material
+# Final Year Project - Hullbreaker
  Various files for final year project
 
 # HULLBREAKER
